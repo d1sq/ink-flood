@@ -38,6 +38,7 @@ jobs:
           cp dist/* .release/ink-flood/dist/
           cp -r lang .release/ink-flood/lang
           cp -r packs .release/ink-flood/packs
+          [ -d assets ] && cp -r assets .release/ink-flood/assets
           cp module.json .release/ink-flood/module.json
           cd .release && zip -r ../ink-flood-${{ github.ref_name }}.zip ink-flood
 
