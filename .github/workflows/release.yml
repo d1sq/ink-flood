@@ -37,6 +37,7 @@ jobs:
           mkdir -p .release/ink-flood/dist
           cp dist/* .release/ink-flood/dist/
           cp -r lang .release/ink-flood/lang
+          cp -r packs .release/ink-flood/packs
           cp module.json .release/ink-flood/module.json
           cd .release && zip -r ../ink-flood-${{ github.ref_name }}.zip ink-flood
 

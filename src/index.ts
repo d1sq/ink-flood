@@ -7,6 +7,7 @@ import { getGlitchForCycle, getInkTraceTier, getWatcherMarkTier } from './engine
 import { syncFromSettings } from './stores';
 import { DashboardShell } from './apps/shells/DashboardShell.svelte';
 import { ClockShell } from './apps/shells/ClockShell.svelte';
+import { registerChatCommands } from './chat/chat-commands';
 import type { CycleState } from './types';
 
 let dashboardApp: InstanceType<typeof DashboardShell> | null = null;
@@ -44,6 +45,9 @@ Hooks.once('ready', () => {
 
   (game as any).modules.get(MODULE_ID).api = api;
   (globalThis as any).InkFlood = api;
+
+  // Chat commands
+  registerChatCommands();
 
   // Socket listener
   game.socket!.on(`module.${MODULE_ID}`, () => {
