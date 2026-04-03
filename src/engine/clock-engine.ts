@@ -1,8 +1,9 @@
 import type { CycleState, FloodPhaseNumber, EventId } from '../types';
 import { MODULE_ID, DAY_END } from '../constants';
-import { FLOOD_PHASES, FLOOD_CLOSING_TEXT } from '../data/flood-phases';
+import { FLOOD_PHASES } from '../data/flood-phases';
 import { getGlitchForCycle } from '../data/glitch-tables';
 import { getEvent, formatTime } from '../data/events';
+import { getFloodChatHTML } from '../chat/flood-messages';
 
 export { formatTime };
 
@@ -52,14 +53,7 @@ export async function advanceTime(minutes: number): Promise<{
 
   // Post flood message if needed
   if (newFloodPhase !== null) {
-    const phase = FLOOD_PHASES[newFloodPhase - 1];
-    const isLast = newFloodPhase === 5;
-    const content = `<div class="ink-flood-chat flood-phase flood-phase-${newFloodPhase}">
-      <h3>Потоп — Фаза ${newFloodPhase}</h3>
-      <p class="flood-description">${phase.description}</p>
-      <p class="flood-effects"><em>${phase.effects}</em></p>
-      ${isLast ? `<hr><p class="flood-closing">${FLOOD_CLOSING_TEXT.replace('\n', '<br>')}</p>` : ''}
-    </div>`;
+    const content = getFloodChatHTML(newFloodPhase);
     await ChatMessage.create({ content });
   }
 

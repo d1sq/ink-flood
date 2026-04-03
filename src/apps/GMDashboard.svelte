@@ -1,18 +1,39 @@
 <script lang="ts">
-  import { cycleState, formattedTime, minutesUntilFlood, activeGlitch, syncFromSettings } from '../stores';
+  import { cycleState, formattedTime, minutesUntilFlood, activeGlitch, discoveryState, syncFromSettings } from '../stores';
   import { advanceTime, completeEvent } from '../engine/clock-engine';
   import { startNewCycle, initializeFirstCycle } from '../engine/cycle-engine';
+  import { earnToken, spendTokens, getTokens, getSpentThisCycle } from '../engine/insight-engine';
+  import { getInkTraceTier, getWatcherMarkTier, INK_TRACE_EFFECTS, WATCHER_MARK_EFFECTS } from '../engine/glitch-engine';
   import { getEvent, formatTime } from '../data/events';
-  import { MAX_CYCLES } from '../constants';
-  import type { EventId } from '../types';
+  import { MODULE_ID, MAX_CYCLES, MAX_INSIGHT_PER_CYCLE } from '../constants';
+  import type { EventId, DiscoveryState } from '../types';
 
   let activeTab = 'overview';
   let customMinutes = 30;
+
+  // Insight tokens state
+  let playerTokens: { name: string; actor: any; tokens: number; spent: number }[] = [];
+
+  function refreshPlayerTokens() {
+    const actors = (game as any).actors?.filter((a: any) => a.hasPlayerOwner) ?? [];
+    playerTokens = actors.map((a: any) => ({
+      name: a.name,
+      actor: a,
+      tokens: getTokens(a),
+      spent: getSpentThisCycle(a),
+    }));
+  }
+
+  // Discovery state binding
+  let discoveryNotes = '';
+  discoveryState.subscribe(d => { discoveryNotes = d.notes; });
 
   const tabs = [
     { id: 'overview', label: 'Обзор' },
     { id: 'events', label: 'События' },
     { id: 'keys', label: 'Ключи' },
+    { id: 'tokens', label: 'Токены' },
+    { id: 'discoveries', label: 'Открытия' },
     { id: 'glitches', label: 'Глитчи' },
   ];
 
@@ -55,8 +76,39 @@
     return map[status] ?? status;
   }
 
+  async function handleEarnToken(actor: any) {
+    await earnToken(actor);
+    refreshPlayerTokens();
+  }
+
+  async function handleSpendToken(actor: any, cost: number) {
+    const ok = await spendTokens(actor, cost);
+    if (!ok) {
+      ui.notifications?.warn('Недостаточно токенов или лимит за цикл');
+    }
+    refreshPlayerTokens();
+  }
+
+  async function handleToggleDiscovery(key: string, field: 'towerSlots' | 'knownKeys' | 'npcTrust') {
+    const state = (game as any).settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
+    if (field === 'towerSlots') {
+      (state.towerSlots as any)[key] = !(state.towerSlots as any)[key];
+    }
+    await (game as any).settings.set(MODULE_ID, 'discoveryState', state);
+    syncFromSettings();
+  }
+
+  async function handleSaveNotes() {
+    const state = (game as any).settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
+    state.notes = discoveryNotes;
+    await (game as any).settings.set(MODULE_ID, 'discoveryState', state);
+  }
+
   $: availableEvents = $cycleState.events.filter(e => e.status !== 'unavailable');
   $: collectedCount = [$cycleState.keys.matter, $cycleState.keys.word, $cycleState.keys.vision].filter(Boolean).length;
+  $: inkTier = getInkTraceTier($cycleState.cycle);
+  $: watcherTier = getWatcherMarkTier($cycleState.cycle);
+  $: if (activeTab === 'tokens') refreshPlayerTokens();
 </script>
 
 <div class="ink-flood-dashboard">
@@ -155,6 +207,60 @@
         {/each}
       </section>
 
+    {:else if activeTab === 'tokens'}
+      <section class="tab-tokens">
+        <h3>Инсайт-токены (макс {MAX_INSIGHT_PER_CYCLE}/цикл)</h3>
+        {#each playerTokens as p}
+          <div class="token-row">
+            <span class="token-name">{p.name}</span>
+            <span class="token-balance">{p.tokens}</span>
+            <span class="token-spent">({p.spent}/{MAX_INSIGHT_PER_CYCLE})</span>
+            <button class="btn-token earn" on:click={() => handleEarnToken(p.actor)}>+1</button>
+            <button class="btn-token spend" on:click={() => handleSpendToken(p.actor, 1)} title="Преимущество или DC-2">Потратить</button>
+            <button class="btn-token spend2" on:click={() => handleSpendToken(p.actor, 2)} title="Вопрос ГМу да/нет">×2</button>
+          </div>
+        {/each}
+        {#if playerTokens.length === 0}
+          <p class="empty-hint">Нет персонажей игроков в мире</p>
+        {/if}
+        <div class="token-legend">
+          <p><strong>1 токен:</strong> преимущество на проверку / DC −2</p>
+          <p><strong>2 токена:</strong> вопрос ГМу «да/нет» про тайминг</p>
+        </div>
+      </section>
+
+    {:else if activeTab === 'discoveries'}
+      <section class="tab-discoveries">
+        <h3>Открытия (кросс-цикл)</h3>
+
+        <div class="discovery-group">
+          <h4>Слоты башни</h4>
+          {#each ['matter', 'word', 'vision'] as slot}
+            <label class="discovery-check">
+              <input type="checkbox" checked={$discoveryState.towerSlots[slot]}
+                on:change={() => handleToggleDiscovery(slot, 'towerSlots')} />
+              {SLOT_LABELS[slot]}
+            </label>
+          {/each}
+        </div>
+
+        <div class="discovery-group">
+          <h4>Чернильный след (Оззи) — уровень {inkTier}</h4>
+          <p class="mark-effect">{INK_TRACE_EFFECTS[inkTier]}</p>
+        </div>
+
+        <div class="discovery-group">
+          <h4>Метка Наблюдателя (Игрит) — уровень {watcherTier}</h4>
+          <p class="mark-effect">{WATCHER_MARK_EFFECTS[watcherTier]}</p>
+        </div>
+
+        <div class="discovery-group">
+          <h4>Заметки ГМ</h4>
+          <textarea bind:value={discoveryNotes} on:blur={handleSaveNotes}
+            placeholder="Что партия узнала, кому доверяют, планы..." rows="5"></textarea>
+        </div>
+      </section>
+
     {:else if activeTab === 'glitches'}
       <section class="tab-glitches">
         <h3>Глитчи</h3>
@@ -177,7 +283,7 @@
 </div>
 
 <style>
-  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; }
+  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; font-size: 15px; font-weight: 500; }
   .dashboard-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #1a1a2e; border-bottom: 1px solid #333; }
   .cycle-info { display: flex; gap: 16px; align-items: center; }
   .cycle-number { font-weight: bold; font-size: 1.1em; }
@@ -226,4 +332,25 @@
   .key-empty { color: #666; font-style: italic; }
   .tab-glitches ul { padding-left: 20px; }
   .tab-glitches li { margin-bottom: 4px; color: #ccc; }
+
+  /* Tokens */
+  .token-row { display: flex; gap: 8px; align-items: center; padding: 6px 8px; margin-bottom: 4px; background: #111; border: 1px solid #222; border-radius: 4px; }
+  .token-name { flex: 1; font-weight: 500; }
+  .token-balance { font-weight: bold; color: #ffd700; min-width: 24px; text-align: center; font-size: 1.1em; }
+  .token-spent { font-size: 0.8em; color: #888; min-width: 40px; }
+  .btn-token { padding: 3px 8px; border-radius: 3px; cursor: pointer; font-size: 0.8em; border: 1px solid #333; }
+  .btn-token.earn { background: #1a3a1a; border-color: #2a6a2a; color: #88cc88; }
+  .btn-token.spend { background: #2a1a1a; border-color: #6a3a2a; color: #cc9988; }
+  .btn-token.spend2 { background: #2a1a2a; border-color: #6a2a6a; color: #cc88cc; }
+  .token-legend { margin-top: 12px; padding: 8px; background: #0a0a1a; border: 1px solid #222; border-radius: 4px; }
+  .token-legend p { margin: 2px 0; font-size: 0.85em; color: #aaa; }
+  .empty-hint { color: #666; font-style: italic; }
+
+  /* Discoveries */
+  .discovery-group { margin-bottom: 16px; }
+  .discovery-group h4 { margin: 0 0 6px 0; color: #c0c0ff; font-size: 0.95em; }
+  .discovery-check { display: block; padding: 3px 0; cursor: pointer; color: #ccc; }
+  .discovery-check input { margin-right: 8px; }
+  .mark-effect { font-size: 0.9em; color: #cca; padding: 6px 8px; background: #111; border-radius: 4px; border: 1px solid #333; }
+  textarea { width: 100%; padding: 8px; background: #111; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; resize: vertical; font-family: inherit; font-size: 0.9em; }
 </style>

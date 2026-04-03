@@ -8,6 +8,8 @@ import type {
 } from '../types';
 import { MODULE_ID, DAY_START, MAX_CYCLES } from '../constants';
 import { EVENTS } from '../data/events';
+import { getCycleStartChatHTML } from '../chat/flood-messages';
+import { resetCycleSpending } from './insight-engine';
 import { getGlitchForCycle } from '../data/glitch-tables';
 import { determineRotation } from './rotation-engine';
 
@@ -78,14 +80,21 @@ export async function startNewCycle(endReason: CycleHistoryEntry['endReason'] = 
   const newState = createCycleState(nextCycle, updatedHistory, rotationMode);
   await game.settings.set(MODULE_ID, 'cycleState', newState);
 
-  // Notify
+  // Reset insight token spending
+  await resetCycleSpending();
+
+  // Post cycle start message
+  await ChatMessage.create({ content: getCycleStartChatHTML(nextCycle) });
+
+  // Glitch notification (GM only)
   const glitch = getGlitchForCycle(nextCycle);
   if (glitch) {
-    const content = `<div class="ink-flood-chat glitch-notice">
-      <h3>Цикл ${nextCycle} — Глитчи активны</h3>
-      <p><strong>DC ${glitch.dcModifier >= 0 ? '+' : ''}${glitch.dcModifier}</strong> ко всем проверкам</p>
-      <ul>${glitch.descriptions.map(d => `<li>${d}</li>`).join('')}</ul>
-    </div>`;
+    const content = `
+<div style="border-left: 4px solid #ff8c00; padding: 8px 12px; background: linear-gradient(135deg, #1a0a0a, #2a1a0a); border-radius: 4px; color: #e0e0e0;">
+  <strong style="color: #ffaa44;">⚠ Глитчи — Цикл ${nextCycle}</strong>
+  <p style="margin: 4px 0; color: #ffcc88;">DC +${glitch.dcModifier} ко всем проверкам</p>
+  <ul style="margin: 4px 0; padding-left: 16px;">${glitch.descriptions.map(d => `<li style="color: #cca; margin: 2px 0;">${d}</li>`).join('')}</ul>
+</div>`;
     ChatMessage.create({ content, whisper: [game.user!.id] });
   }
 
