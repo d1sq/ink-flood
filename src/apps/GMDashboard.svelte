@@ -64,6 +64,12 @@
     syncFromSettings();
   }
 
+  function handleShowClockToAll() {
+    (game as any).socket!.emit(`module.${MODULE_ID}`, { action: 'showClock' });
+    // Also open locally
+    (globalThis as any).InkFlood?.openClock();
+  }
+
   async function handleCompleteEvent(eventId: EventId) {
     await completeEvent(eventId);
     syncFromSettings();
@@ -150,6 +156,9 @@
         <div class="cycle-controls">
           <button class="btn-new-cycle" on:click={handleNewCycle}>
             {$cycleState.cycle === 0 ? 'Начать цикл 1' : 'Новый цикл'}
+          </button>
+          <button class="btn-show-clock" on:click={handleShowClockToAll}>
+            Часы всем
           </button>
         </div>
 
@@ -283,74 +292,100 @@
 </div>
 
 <style>
-  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; font-size: 15px; font-weight: 500; }
-  .dashboard-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #1a1a2e; border-bottom: 1px solid #333; }
+  /* Base */
+  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; font-size: 15px; font-weight: 600; }
+
+  /* Header */
+  .dashboard-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #1a1a2e; border-bottom: 1px solid #333; }
   .cycle-info { display: flex; gap: 16px; align-items: center; }
-  .cycle-number { font-weight: bold; font-size: 1.1em; }
-  .time-display { font-size: 1.3em; font-weight: bold; color: #c0c0ff; }
-  .flood-countdown { font-size: 0.9em; color: #aaa; }
-  .flood-countdown.urgent { color: #ff6b6b; font-weight: bold; }
-  .keys-summary { font-weight: bold; color: #ffd700; }
+  .cycle-number { font-weight: 700; font-size: 1.15em; }
+  .time-display { font-size: 1.35em; font-weight: 800; color: #c0c0ff; }
+  .flood-countdown { font-size: 0.95em; color: #aaa; font-weight: 600; }
+  .flood-countdown.urgent { color: #ff6b6b; font-weight: 700; }
+  .keys-summary { font-weight: 700; color: #ffd700; font-size: 1.05em; }
+
+  /* Tabs */
   .dashboard-tabs { display: flex; background: #16213e; border-bottom: 1px solid #333; }
-  .tab-btn { flex: 1; padding: 8px; border: none; background: transparent; color: #888; cursor: pointer; }
+  .tab-btn { flex: 1; padding: 9px 6px; border: none; background: transparent; color: #888; cursor: pointer; font-weight: 700; font-size: 0.95em; }
   .tab-btn:hover { color: #ccc; background: #1a1a3e; }
   .tab-btn.active { color: #e0e0ff; background: #0f3460; border-bottom: 2px solid #5c7cfa; }
-  .dashboard-content { flex: 1; overflow-y: auto; padding: 12px; background: #0a0a1a; }
-  h3 { margin: 0 0 12px 0; color: #c0c0ff; font-size: 1em; }
-  .time-controls { margin-bottom: 16px; }
-  .time-buttons { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .time-buttons button { padding: 6px 12px; background: #16213e; border: 1px solid #333; color: #c0c0ff; border-radius: 4px; cursor: pointer; }
+
+  /* Content */
+  .dashboard-content { flex: 1; overflow-y: auto; padding: 14px; background: #0a0a1a; }
+  h3 { margin: 0 0 14px 0; color: #c0c0ff; font-size: 1.1em; font-weight: 700; }
+
+  /* Time controls */
+  .time-controls { margin-bottom: 18px; }
+  .time-buttons { display: flex; gap: 8px; align-items: center; }
+  .time-buttons button { flex: 1; padding: 8px 0; background: #16213e; border: 1px solid #333; color: #c0c0ff; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.95em; }
   .time-buttons button:hover { background: #1a1a4e; border-color: #5c7cfa; }
-  .custom-time { display: flex; gap: 4px; align-items: center; }
-  .custom-time input { width: 50px; padding: 4px; background: #111; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; text-align: center; }
-  .btn-new-cycle { padding: 8px 20px; background: #0f3460; border: 1px solid #5c7cfa; color: #e0e0ff; border-radius: 4px; cursor: pointer; font-size: 1em; }
+  .custom-time { display: flex; gap: 4px; align-items: center; flex: 1; }
+  .custom-time input { width: 44px; padding: 6px 4px; background: #111; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; text-align: center; font-weight: 600; }
+  .custom-time button { flex: 1; }
+
+  /* Cycle controls */
+  .cycle-controls { display: flex; gap: 8px; margin-bottom: 18px; }
+  .btn-new-cycle { flex: 1; padding: 10px 20px; background: #0f3460; border: 1px solid #5c7cfa; color: #e0e0ff; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 700; }
   .btn-new-cycle:hover { background: #1a3a6e; }
-  .flood-indicator { padding: 8px; margin-bottom: 12px; border-radius: 4px; text-align: center; font-weight: bold; }
+  .btn-show-clock { flex: 1; padding: 10px 20px; background: #1a2a3e; border: 1px solid #4a6a8a; color: #aaccee; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 700; }
+  .btn-show-clock:hover { background: #2a3a5e; }
+
+  /* Flood & glitch indicators */
+  .flood-indicator { padding: 10px; margin-bottom: 14px; border-radius: 4px; text-align: center; font-weight: 700; font-size: 1.05em; }
   .flood-indicator.phase-1 { background: #1a1a2e; color: #7c7caa; }
   .flood-indicator.phase-2 { background: #1a1a3e; color: #8888cc; }
   .flood-indicator.phase-3 { background: #2a1a3e; color: #aa77cc; }
   .flood-indicator.phase-4 { background: #3a1a2e; color: #cc5555; }
   .flood-indicator.phase-5 { background: #4a0a0a; color: #ff3333; }
-  .glitch-notice { padding: 6px 12px; margin-bottom: 12px; background: #2a1a0a; border: 1px solid #ff8c00; border-radius: 4px; color: #ffaa44; font-weight: bold; }
-  .key-slots-overview { display: flex; gap: 8px; }
-  .key-slot { flex: 1; padding: 8px; background: #111; border: 1px solid #333; border-radius: 4px; text-align: center; }
+  .glitch-notice { padding: 8px 14px; margin-bottom: 14px; background: #2a1a0a; border: 1px solid #ff8c00; border-radius: 4px; color: #ffaa44; font-weight: 700; font-size: 1.05em; }
+
+  /* Key slots (overview) */
+  .key-slots-overview { display: flex; gap: 10px; }
+  .key-slot { flex: 1; padding: 12px 8px; background: #111; border: 1px solid #333; border-radius: 4px; text-align: center; }
   .key-slot.filled { border-color: #ffd700; background: #1a1a0a; }
-  .slot-label { display: block; font-size: 0.8em; color: #888; margin-bottom: 4px; }
-  .slot-value { font-size: 0.9em; }
-  .event-row { display: flex; gap: 8px; align-items: center; padding: 6px 8px; margin-bottom: 4px; border-radius: 4px; background: #111; border: 1px solid #222; }
+  .slot-label { display: block; font-size: 0.9em; color: #999; margin-bottom: 6px; font-weight: 600; }
+  .slot-value { font-size: 1em; font-weight: 600; }
+
+  /* Events */
+  .event-row { display: flex; gap: 8px; align-items: center; padding: 8px 10px; margin-bottom: 6px; border-radius: 4px; background: #111; border: 1px solid #222; }
   .event-row.status-completed { border-color: #2a6a2a; background: #0a1a0a; }
   .event-row.status-missed { border-color: #6a2a2a; background: #1a0a0a; opacity: 0.6; }
-  .event-time { font-weight: bold; color: #c0c0ff; min-width: 40px; }
-  .event-name { flex: 1; font-size: 0.9em; }
-  .event-slot { font-size: 0.8em; color: #888; min-width: 60px; }
-  .event-status { font-size: 0.8em; color: #aaa; min-width: 70px; }
-  .btn-complete { padding: 3px 8px; background: #1a3a1a; border: 1px solid #2a6a2a; color: #88cc88; border-radius: 3px; cursor: pointer; font-size: 0.8em; }
-  .key-detail { padding: 12px; margin-bottom: 8px; background: #111; border: 1px solid #333; border-radius: 4px; }
+  .event-time { font-weight: 700; color: #c0c0ff; min-width: 44px; font-size: 1em; }
+  .event-name { flex: 1; font-size: 1em; font-weight: 600; }
+  .event-slot { font-size: 0.9em; color: #999; min-width: 65px; font-weight: 600; }
+  .event-status { font-size: 0.9em; color: #aaa; min-width: 75px; font-weight: 600; }
+  .btn-complete { padding: 5px 10px; background: #1a3a1a; border: 1px solid #2a6a2a; color: #88cc88; border-radius: 3px; cursor: pointer; font-size: 0.9em; font-weight: 600; }
+
+  /* Keys detail */
+  .key-detail { padding: 14px; margin-bottom: 10px; background: #111; border: 1px solid #333; border-radius: 4px; }
   .key-detail.filled { border-color: #ffd700; }
-  .key-detail h4 { margin: 0 0 4px 0; color: #c0c0ff; }
-  .key-name { color: #ffd700; font-weight: bold; }
+  .key-detail h4 { margin: 0 0 6px 0; color: #c0c0ff; font-size: 1.05em; font-weight: 700; }
+  .key-name { color: #ffd700; font-weight: 700; font-size: 1.05em; }
   .key-empty { color: #666; font-style: italic; }
+
+  /* Glitches */
   .tab-glitches ul { padding-left: 20px; }
-  .tab-glitches li { margin-bottom: 4px; color: #ccc; }
+  .tab-glitches li { margin-bottom: 6px; color: #ccc; font-size: 1em; }
+  .tab-glitches p { font-size: 1em; }
 
   /* Tokens */
-  .token-row { display: flex; gap: 8px; align-items: center; padding: 6px 8px; margin-bottom: 4px; background: #111; border: 1px solid #222; border-radius: 4px; }
-  .token-name { flex: 1; font-weight: 500; }
-  .token-balance { font-weight: bold; color: #ffd700; min-width: 24px; text-align: center; font-size: 1.1em; }
-  .token-spent { font-size: 0.8em; color: #888; min-width: 40px; }
-  .btn-token { padding: 3px 8px; border-radius: 3px; cursor: pointer; font-size: 0.8em; border: 1px solid #333; }
+  .token-row { display: flex; gap: 8px; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #111; border: 1px solid #222; border-radius: 4px; }
+  .token-name { flex: 1; font-weight: 600; font-size: 1em; }
+  .token-balance { font-weight: 700; color: #ffd700; min-width: 28px; text-align: center; font-size: 1.15em; }
+  .token-spent { font-size: 0.9em; color: #888; min-width: 44px; font-weight: 600; }
+  .btn-token { padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.9em; border: 1px solid #333; font-weight: 600; }
   .btn-token.earn { background: #1a3a1a; border-color: #2a6a2a; color: #88cc88; }
   .btn-token.spend { background: #2a1a1a; border-color: #6a3a2a; color: #cc9988; }
   .btn-token.spend2 { background: #2a1a2a; border-color: #6a2a6a; color: #cc88cc; }
-  .token-legend { margin-top: 12px; padding: 8px; background: #0a0a1a; border: 1px solid #222; border-radius: 4px; }
-  .token-legend p { margin: 2px 0; font-size: 0.85em; color: #aaa; }
+  .token-legend { margin-top: 14px; padding: 10px; background: #0a0a1a; border: 1px solid #222; border-radius: 4px; }
+  .token-legend p { margin: 3px 0; font-size: 0.95em; color: #aaa; }
   .empty-hint { color: #666; font-style: italic; }
 
   /* Discoveries */
-  .discovery-group { margin-bottom: 16px; }
-  .discovery-group h4 { margin: 0 0 6px 0; color: #c0c0ff; font-size: 0.95em; }
-  .discovery-check { display: block; padding: 3px 0; cursor: pointer; color: #ccc; }
+  .discovery-group { margin-bottom: 18px; }
+  .discovery-group h4 { margin: 0 0 8px 0; color: #c0c0ff; font-size: 1.05em; font-weight: 700; }
+  .discovery-check { display: block; padding: 4px 0; cursor: pointer; color: #ccc; font-size: 1em; }
   .discovery-check input { margin-right: 8px; }
-  .mark-effect { font-size: 0.9em; color: #cca; padding: 6px 8px; background: #111; border-radius: 4px; border: 1px solid #333; }
-  textarea { width: 100%; padding: 8px; background: #111; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; resize: vertical; font-family: inherit; font-size: 0.9em; }
+  .mark-effect { font-size: 1em; color: #cca; padding: 8px 10px; background: #111; border-radius: 4px; border: 1px solid #333; }
+  textarea { width: 100%; padding: 10px; background: #111; border: 1px solid #333; color: #e0e0e0; border-radius: 4px; resize: vertical; font-family: inherit; font-size: 1em; }
 </style>

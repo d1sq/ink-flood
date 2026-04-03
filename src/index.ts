@@ -51,8 +51,11 @@ Hooks.once('ready', () => {
   registerChatCommands();
 
   // Socket listener
-  game.socket!.on(`module.${MODULE_ID}`, () => {
+  game.socket!.on(`module.${MODULE_ID}`, (data: { action: string }) => {
     syncFromSettings();
+    if (data.action === 'showClock') {
+      toggleClock();
+    }
   });
 });
 
