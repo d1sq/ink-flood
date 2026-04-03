@@ -21,6 +21,15 @@ jobs:
 
       - run: npm ci
 
+      # Patch module.json version & download URL from tag
+      - name: Set version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          TAG="${GITHUB_REF_NAME}"
+          sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" module.json
+          sed -i "s|download.*\.zip\"|download\": \"https://github.com/${{ github.repository }}/releases/download/${TAG}/ink-flood-${TAG}.zip\"|" module.json
+          cat module.json
+
       - run: npm run build
 
       - name: Prepare release archive
