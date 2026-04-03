@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "ES2022",
     "target": "ES2022",
     "moduleResolution": "Bundler",
     "strict": true,
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "dist",
-    "paths": {
-      "#runtime/*": ["./node_modules/@typhonjs-fvtt/runtime/*"],
-      "#standard/*": ["./node_modules/@typhonjs-fvtt/standard/*"]
-    }
+    "types": ["svelte"]
   },
   "include": ["src/**/*", "src/**/*.svelte"],
   "exclude": ["node_modules", "dist"]

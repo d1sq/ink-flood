@@ -1,11 +1,11 @@
-import { writable, derived, type Writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import type { CycleState, CycleHistoryEntry, DiscoveryState } from '../types';
 import { MODULE_ID, DAY_START } from '../constants';
-import { getGlitchForCycle, getInkTraceTier, getWatcherMarkTier } from '../engine/glitch-engine';
+import { getGlitchForCycle } from '../engine/glitch-engine';
 import { getFloodTimes, formatTime } from '../engine/clock-engine';
 
 /** Reactive cycle state store */
-export const cycleState: Writable<CycleState> = writable({
+export const cycleState = writable<CycleState>({
   cycle: 0,
   currentTime: DAY_START,
   events: [],
@@ -16,10 +16,10 @@ export const cycleState: Writable<CycleState> = writable({
 });
 
 /** Reactive cycle history store */
-export const cycleHistory: Writable<CycleHistoryEntry[]> = writable([]);
+export const cycleHistory = writable<CycleHistoryEntry[]>([]);
 
 /** Reactive discovery state store */
-export const discoveryState: Writable<DiscoveryState> = writable({
+export const discoveryState = writable<DiscoveryState>({
   towerSlots: { matter: false, word: false, vision: false },
   knownKeys: [],
   npcTrust: {},
@@ -38,20 +38,16 @@ export const minutesUntilFlood = derived(cycleState, $s => {
 /** Derived: active glitch */
 export const activeGlitch = derived(cycleState, $s => getGlitchForCycle($s.cycle));
 
-/** Derived: character mark tiers */
-export const inkTraceTier = derived(cycleState, $s => getInkTraceTier($s.cycle));
-export const watcherMarkTier = derived(cycleState, $s => getWatcherMarkTier($s.cycle));
-
-/** Sync stores from Foundry settings (call on ready and on socket events) */
+/** Sync stores from Foundry settings */
 export function syncFromSettings(): void {
   try {
-    const state = game.settings.get(MODULE_ID, 'cycleState') as CycleState;
+    const state = (game as any).settings.get(MODULE_ID, 'cycleState') as CycleState;
     cycleState.set(state);
 
-    const history = game.settings.get(MODULE_ID, 'cycleHistory') as CycleHistoryEntry[];
+    const history = (game as any).settings.get(MODULE_ID, 'cycleHistory') as CycleHistoryEntry[];
     cycleHistory.set(history);
 
-    const discovery = game.settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
+    const discovery = (game as any).settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
     discoveryState.set(discovery);
   } catch (e) {
     console.warn(`${MODULE_ID} | Failed to sync from settings:`, e);

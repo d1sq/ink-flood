@@ -1,22 +1,16 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import sveltePreprocess from 'svelte-preprocess';
 import path from 'path';
 
 const MODULE_ID = 'ink-flood';
 
 export default defineConfig({
   root: 'src',
-  base: `/modules/${MODULE_ID}/dist/`,
+  base: `/modules/${MODULE_ID}/`,
   publicDir: path.resolve(__dirname, 'public'),
 
   plugins: [
-    svelte({
-      preprocess: sveltePreprocess({ typescript: true }),
-      compilerOptions: {
-        cssHash: ({ hash, css }) => `trl-${hash(css)}`,
-      },
-    }),
+    svelte({ configFile: '../svelte.config.js' }),
   ],
 
   build: {
