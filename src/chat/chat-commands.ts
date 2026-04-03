@@ -1,6 +1,6 @@
 import { MODULE_ID } from '../constants';
 import { advanceTime, formatTime } from '../engine/clock-engine';
-import { startNewCycle } from '../engine/cycle-engine';
+import { startNewCycle, fullReset } from '../engine/cycle-engine';
 import { syncFromSettings } from '../stores';
 import type { CycleState } from '../types';
 
@@ -47,6 +47,12 @@ export function registerChatCommands(): void {
   <p style="margin: 4px 0;">Время: <strong>${formatTime(state.currentTime)}</strong> | Ключи: <strong>${keys}/3</strong> | Потоп: фаза ${state.floodPhase}/5</p>
 </div>`;
       ChatMessage.create({ content, whisper: [game.user!.id] });
+      return false;
+    }
+
+    // /ink-reset
+    if (cmd === '/ink-reset') {
+      fullReset().then(() => syncFromSettings());
       return false;
     }
 

@@ -1,6 +1,6 @@
 import { MODULE_ID } from './constants';
 import { registerSettings } from './settings';
-import { startNewCycle, initializeFirstCycle } from './engine/cycle-engine';
+import { startNewCycle, initializeFirstCycle, fullReset } from './engine/cycle-engine';
 import { advanceTime, completeEvent, formatTime } from './engine/clock-engine';
 import { earnToken, spendTokens, getTokens, getSpentThisCycle, resetCycleSpending } from './engine/insight-engine';
 import { getGlitchForCycle, getInkTraceTier, getWatcherMarkTier } from './engine/glitch-engine';
@@ -39,6 +39,7 @@ Hooks.once('ready', () => {
     formatTime,
     getState: () => game.settings.get(MODULE_ID, 'cycleState') as CycleState,
     getHistory: () => game.settings.get(MODULE_ID, 'cycleHistory'),
+    fullReset,
     openDashboard: () => toggleDashboard(),
     openClock: () => toggleClock(),
   };

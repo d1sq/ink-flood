@@ -116,3 +116,31 @@ export async function initializeFirstCycle(): Promise<CycleState> {
   await game.settings.set(MODULE_ID, 'cycleState', zeroState);
   return (await startNewCycle('manual'))!;
 }
+
+/** Full reset: wipe all state back to zero (as if module just installed) */
+export async function fullReset(): Promise<void> {
+  await game.settings.set(MODULE_ID, 'cycleHistory', []);
+  await game.settings.set(MODULE_ID, 'cycleState', {
+    cycle: 0,
+    currentTime: DAY_START,
+    events: [],
+    unavailableEvents: [],
+    keys: { matter: null, word: null, vision: null },
+    floodPhase: 0,
+    insightEarned: 0,
+  });
+  await game.settings.set(MODULE_ID, 'discoveryState', {
+    towerSlots: { matter: false, word: false, vision: false },
+    knownKeys: [],
+    npcTrust: {},
+    notes: '',
+  });
+  // Reset all actor flags
+  const actors = game.actors?.filter((a: any) => a.hasPlayerOwner) ?? [];
+  for (const actor of actors) {
+    await actor.unsetFlag(MODULE_ID, 'insightTokens');
+    await actor.unsetFlag(MODULE_ID, 'insightSpentThisCycle');
+  }
+  game.socket!.emit(`module.${MODULE_ID}`, { action: 'reset' });
+  ui.notifications?.info('Чернильный потоп — полный сброс выполнен');
+}
