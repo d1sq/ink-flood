@@ -370,7 +370,7 @@
 
 <style>
   /* Base */
-  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; font-size: 15px; font-weight: 600; }
+  .ink-flood-dashboard { display: flex; flex-direction: column; height: 100%; color: #e0e0e0; font-size: 17px; font-weight: 600; }
 
   /* Header */
   .dashboard-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #1a1a2e; border-bottom: 1px solid #333; }

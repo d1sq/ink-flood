@@ -80,6 +80,16 @@ export async function startNewCycle(endReason: CycleHistoryEntry['endReason'] = 
   const newState = createCycleState(nextCycle, updatedHistory, rotationMode);
   await game.settings.set(MODULE_ID, 'cycleState', newState);
 
+  // Sync SmallTime: reset world time to 08:00
+  try {
+    const targetSeconds = DAY_START * 60; // 480 * 60 = 28800 (08:00)
+    const currentDaySeconds = game.time.worldTime % 86400;
+    let delta = targetSeconds - currentDaySeconds;
+    if (delta > 0) delta -= 86400; // Always go "back" to 08:00 (next day's 08:00 if needed)
+    delta += 86400; // Advance to next day's 08:00
+    await game.time.advance(delta);
+  } catch (_) { /* SmallTime not installed */ }
+
   // Reset insight token spending
   await resetCycleSpending();
 
@@ -90,7 +100,7 @@ export async function startNewCycle(endReason: CycleHistoryEntry['endReason'] = 
   const glitch = getGlitchForCycle(nextCycle);
   if (glitch) {
     const content = `
-<div style="border-left: 4px solid #ff8c00; padding: 8px 12px; background: linear-gradient(135deg, #1a0a0a, #2a1a0a); border-radius: 4px; color: #e0e0e0;">
+<div style="border-left: 4px solid #ff8c00; padding: 8px 12px; background: linear-gradient(135deg, #1a0a0a, #2a1a0a); border-radius: 4px; color: #e0e0e0; font-size: 17px;">
   <strong style="color: #ffaa44;">⚠ Глитчи — Цикл ${nextCycle}</strong>
   <p style="margin: 4px 0; color: #ffcc88;">DC +${glitch.dcModifier} ко всем проверкам</p>
   <ul style="margin: 4px 0; padding-left: 16px;">${glitch.descriptions.map(d => `<li style="color: #cca; margin: 2px 0;">${d}</li>`).join('')}</ul>

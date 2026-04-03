@@ -18,7 +18,7 @@ export function getFloodChatHTML(phase: FloodPhaseNumber): string {
   const borderColor = phaseColors[phase] ?? '#333';
 
   return `
-<div style="border-left: 4px solid ${borderColor}; padding: 8px 12px; margin: 4px 0; background: linear-gradient(135deg, #0a0a1a, #1a1a2e); border-radius: 4px; color: #e0e0e0; font-family: serif;">
+<div style="border-left: 4px solid ${borderColor}; padding: 8px 12px; margin: 4px 0; background: linear-gradient(135deg, #0a0a1a, #1a1a2e); border-radius: 4px; color: #e0e0e0; font-family: serif; font-size: 17px;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
     <strong style="color: ${borderColor}; font-size: 1.1em;">Чернильный Потоп — Фаза ${phase}/5</strong>
     <span style="font-size: 0.8em; color: #888;">${fp.phase === 1 ? '17:30' : fp.phase === 2 ? '18:00' : fp.phase === 3 ? '18:30' : fp.phase === 4 ? '19:00' : '19:30'}</span>
@@ -34,7 +34,7 @@ export function getFloodChatHTML(phase: FloodPhaseNumber): string {
 /** Chat message for cycle start */
 export function getCycleStartChatHTML(cycle: number): string {
   return `
-<div style="border-left: 4px solid #5c7cfa; padding: 8px 12px; background: linear-gradient(135deg, #0a0a1a, #16213e); border-radius: 4px; color: #e0e0e0; font-family: serif;">
+<div style="border-left: 4px solid #5c7cfa; padding: 8px 12px; background: linear-gradient(135deg, #0a0a1a, #16213e); border-radius: 4px; color: #e0e0e0; font-family: serif; font-size: 17px;">
   <strong style="color: #c0c0ff; font-size: 1.1em;">Цикл ${cycle}</strong>
   <p style="margin: 4px 0; font-style: italic; color: #aab;">Свет в щели ставен. Жёсткие койки, скрип половиц, запах рыбы и соли с набережной. Колокола отбивают восемь.</p>
   <p style="margin: 4px 0; color: #c0c0e0;"><strong>Тот же день. Вы помните всё.</strong></p>
