@@ -38,6 +38,8 @@ export interface EventDefinition {
   description: string;
   /** Short description for quick reference */
   shortDescription: string;
+  /** GM hints: DCs, timeline, options */
+  gmHints: string;
 }
 
 /** Flood phase definition */
