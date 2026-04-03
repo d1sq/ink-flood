@@ -51,29 +51,19 @@ Hooks.once('ready', () => {
   });
 });
 
-// Scene control button (v13 format)
-Hooks.on('getSceneControlButtons', (controls: any[]) => {
+// Scene control button (v13: controls is an object, not array)
+Hooks.on('getSceneControlButtons', (controls: any) => {
   if (!(game as any).user?.isGM) return;
-  controls.push({
-    name: 'ink-flood',
+  const tokens = controls.tokens;
+  if (!tokens) return;
+  tokens.tools['ink-flood-dashboard'] = {
+    name: 'ink-flood-dashboard',
     title: 'Чернильный потоп',
-    icon: 'fas fa-water',
-    tools: [
-      {
-        name: 'open-dashboard',
-        title: 'Открыть панель ГМ',
-        icon: 'fas fa-water',
-        onClick: () => toggleDashboard(),
-      },
-      {
-        name: 'open-clock',
-        title: 'Открыть часы',
-        icon: 'fas fa-clock',
-        onClick: () => toggleClock(),
-      },
-    ],
-    activeTool: 'open-dashboard',
-  });
+    icon: 'fa-solid fa-water',
+    button: true,
+    onChange: () => toggleDashboard(),
+    order: 100,
+  };
 });
 
 function toggleDashboard(): void {
