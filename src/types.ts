@@ -38,8 +38,10 @@ export interface EventDefinition {
   description: string;
   /** Short description for quick reference */
   shortDescription: string;
-  /** GM hints: DCs, timeline, options */
+  /** GM hints: DCs, timeline, options (default / cycles 1-7) */
   gmHints: string;
+  /** Cycle-specific overrides for description and hints */
+  cycleOverrides?: Record<number, { description?: string; gmHints?: string }>;
 }
 
 /** Flood phase definition */

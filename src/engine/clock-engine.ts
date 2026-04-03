@@ -67,6 +67,11 @@ export async function advanceTime(minutes: number): Promise<{
 
   await game.settings.set(MODULE_ID, 'cycleState', updatedState);
 
+  // Sync with Foundry world time (SmallTime and other modules pick this up)
+  try {
+    await game.time.advance(minutes * 60);
+  } catch (_) { /* SmallTime not installed or time system unavailable */ }
+
   // Broadcast
   game.socket!.emit(`module.${MODULE_ID}`, { action: 'timeUpdate' });
 

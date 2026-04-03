@@ -4,7 +4,7 @@
   import { startNewCycle, initializeFirstCycle } from '../engine/cycle-engine';
   import { earnToken, spendTokens, getTokens, getSpentThisCycle } from '../engine/insight-engine';
   import { getInkTraceTier, getWatcherMarkTier, INK_TRACE_EFFECTS, WATCHER_MARK_EFFECTS } from '../engine/glitch-engine';
-  import { getEvent, formatTime, LOCATION_NAMES } from '../data/events';
+  import { getEvent, getEventForCycle, formatTime, LOCATION_NAMES } from '../data/events';
   import { MODULE_ID, MAX_CYCLES, MAX_INSIGHT_PER_CYCLE, TRAVEL_MATRIX } from '../constants';
   import type { EventId, DiscoveryState } from '../types';
 
@@ -110,8 +110,7 @@
     { id: 'time', label: 'Время' },
     { id: 'events', label: 'События' },
     { id: 'tokens', label: 'Токены' },
-    { id: 'discoveries', label: 'Открытия' },
-    { id: 'glitches', label: 'Глитчи' },
+    { id: 'notes', label: 'Заметки' },
   ];
 
   async function handleAdvance(mins: number) {
@@ -299,7 +298,7 @@
 
         <h3>События цикла {$cycleState.cycle}</h3>
         {#each availableEvents as ev}
-          {@const def = getEvent(ev.id)}
+          {@const def = getEventForCycle(ev.id, $cycleState.cycle)}
           <div class="event-card status-{ev.status}">
             <div class="event-row" on:click={() => toggleEventExpand(ev.id)}>
               <span class="event-expand">{expandedEvent === ev.id ? '▼' : '▶'}</span>
@@ -345,51 +344,25 @@
       </section>
 
     <!-- ======= ОТКРЫТИЯ ======= -->
-    {:else if activeTab === 'discoveries'}
-      <section class="tab-discoveries">
-        <h3>Открытия (кросс-цикл)</h3>
-        <div class="discovery-group">
-          <h4>Слоты башни</h4>
-          {#each ['matter', 'word', 'vision'] as slot}
-            <label class="discovery-check">
-              <input type="checkbox" checked={$discoveryState.towerSlots[slot]}
-                on:change={() => handleToggleDiscovery(slot, 'towerSlots')} />
-              {SLOT_LABELS[slot]}
-            </label>
-          {/each}
-        </div>
-        <div class="discovery-group">
-          <h4>Чернильный след (Оззи) — ур. {inkTier}</h4>
-          <p class="mark-effect">{INK_TRACE_EFFECTS[inkTier]}</p>
-        </div>
-        <div class="discovery-group">
-          <h4>Метка Наблюдателя (Игрит) — ур. {watcherTier}</h4>
-          <p class="mark-effect">{WATCHER_MARK_EFFECTS[watcherTier]}</p>
-        </div>
-        <div class="discovery-group">
-          <h4>Заметки ГМ</h4>
-          <textarea bind:value={discoveryNotes} on:blur={handleSaveNotes}
-            placeholder="Что партия узнала, кому доверяют, планы..." rows="5"></textarea>
-        </div>
-      </section>
-
-    <!-- ======= ГЛИТЧИ ======= -->
-    {:else if activeTab === 'glitches'}
-      <section class="tab-glitches">
-        <h3>Глитчи</h3>
+    {:else if activeTab === 'notes'}
+      <section class="tab-notes">
         {#if $activeGlitch}
-          <p><strong>DC:</strong> +{$activeGlitch.dcModifier}</p>
-          {#if $activeGlitch.floodTimeShift !== 0}
-            <p><strong>Потоп:</strong> {$activeGlitch.floodTimeShift} мин сдвиг</p>
-          {/if}
-          <ul>
-            {#each $activeGlitch.descriptions as desc}
-              <li>{desc}</li>
-            {/each}
-          </ul>
-        {:else}
-          <p>Нет глитчей (циклы 1–6).</p>
+          <div class="glitch-block">
+            <h3>Глитчи — Цикл {$cycleState.cycle}</h3>
+            <p><strong>DC:</strong> +{$activeGlitch.dcModifier}</p>
+            {#if $activeGlitch.floodTimeShift !== 0}
+              <p><strong>Потоп:</strong> {$activeGlitch.floodTimeShift} мин сдвиг</p>
+            {/if}
+            <ul>
+              {#each $activeGlitch.descriptions as desc}
+                <li>{desc}</li>
+              {/each}
+            </ul>
+          </div>
         {/if}
+        <h3>Заметки</h3>
+        <textarea bind:value={discoveryNotes} on:blur={handleSaveNotes}
+          placeholder="Что партия узнала, кому доверяют, планы на следующий цикл..." rows="10"></textarea>
       </section>
     {/if}
   </main>

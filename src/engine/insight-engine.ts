@@ -25,7 +25,6 @@ export async function spendTokens(actor: Actor, cost: number): Promise<boolean> 
   const spent = getSpentThisCycle(actor);
 
   if (balance < cost) return false;
-  if (spent + cost > MAX_INSIGHT_PER_CYCLE) return false;
 
   await actor.setFlag(MODULE_ID, FLAG_TOKENS, balance - cost);
   await actor.setFlag(MODULE_ID, FLAG_SPENT, spent + cost);
