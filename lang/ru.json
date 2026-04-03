@@ -1,0 +1,60 @@
+{
+  "INK_FLOOD.title": "Чернильный потоп",
+  "INK_FLOOD.dashboard.title": "Панель ГМ",
+  "INK_FLOOD.dashboard.overview": "Обзор",
+  "INK_FLOOD.dashboard.events": "События",
+  "INK_FLOOD.dashboard.keys": "Ключи",
+  "INK_FLOOD.dashboard.discoveries": "Открытия",
+  "INK_FLOOD.dashboard.characters": "Персонажи",
+  "INK_FLOOD.dashboard.history": "История",
+
+  "INK_FLOOD.cycle.label": "Цикл",
+  "INK_FLOOD.cycle.new": "Новый цикл",
+  "INK_FLOOD.cycle.of": "из",
+
+  "INK_FLOOD.clock.label": "Время",
+  "INK_FLOOD.clock.advance": "Продвинуть",
+  "INK_FLOOD.clock.untilFlood": "До потопа",
+  "INK_FLOOD.clock.min": "мин",
+
+  "INK_FLOOD.keys.matter": "Материя",
+  "INK_FLOOD.keys.word": "Слово",
+  "INK_FLOOD.keys.vision": "Зрение",
+  "INK_FLOOD.keys.empty": "Пусто",
+
+  "INK_FLOOD.events.available": "Доступно",
+  "INK_FLOOD.events.completed": "Выполнено",
+  "INK_FLOOD.events.missed": "Пропущено",
+  "INK_FLOOD.events.unavailable": "Недоступно",
+
+  "INK_FLOOD.events.dawn": "Заря на Набережной",
+  "INK_FLOOD.events.execution": "Казнь на Площади",
+  "INK_FLOOD.events.governor": "Завтрак Губернатора",
+  "INK_FLOOD.events.temple": "Служба в Храме",
+  "INK_FLOOD.events.market": "Находка на Рынке",
+  "INK_FLOOD.events.alley": "Встреча в Переулке",
+  "INK_FLOOD.events.shop": "Погром в Лавке",
+  "INK_FLOOD.events.chapel": "Исповедь в Часовне",
+  "INK_FLOOD.events.lighthouse": "Ремонт Маяка",
+
+  "INK_FLOOD.insight.label": "Инсайт-токены",
+  "INK_FLOOD.insight.earn": "Начислить",
+  "INK_FLOOD.insight.spend": "Потратить",
+  "INK_FLOOD.insight.advantage": "Преимущество",
+  "INK_FLOOD.insight.dcReduction": "DC −2",
+  "INK_FLOOD.insight.perCycle": "за цикл",
+
+  "INK_FLOOD.flood.phase1": "Чернила сочатся из трещин",
+  "INK_FLOOD.flood.phase2": "По щиколотку",
+  "INK_FLOOD.flood.phase3": "По пояс",
+  "INK_FLOOD.flood.phase4": "По грудь",
+  "INK_FLOOD.flood.phase5": "Полное погружение",
+
+  "INK_FLOOD.glitch.label": "Глитчи",
+  "INK_FLOOD.glitch.dcMod": "Модификатор DC",
+  "INK_FLOOD.glitch.timeShift": "Сдвиг времени",
+
+  "INK_FLOOD.rotation.fixed": "Фиксированная",
+  "INK_FLOOD.rotation.random": "Случайная",
+  "INK_FLOOD.rotation.dramatic": "Драматическая"
+}

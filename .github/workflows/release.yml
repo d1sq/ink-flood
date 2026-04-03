@@ -1,0 +1,40 @@
+name: Release Module
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Prepare release archive
+        run: |
+          mkdir -p .release/ink-flood/dist
+          cp dist/* .release/ink-flood/dist/
+          cp -r lang .release/ink-flood/lang
+          cp module.json .release/ink-flood/module.json
+          cd .release && zip -r ../ink-flood-${{ github.ref_name }}.zip ink-flood
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ink-flood-${{ github.ref_name }}.zip
+            module.json
+          generate_release_notes: true
