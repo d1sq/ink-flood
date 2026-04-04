@@ -1,6 +1,6 @@
 {
   "name": "ink-flood",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,6 @@
     "release:patch": "node scripts/release.mjs patch",
     "release:minor": "node scripts/release.mjs minor",
     "release:major": "node scripts/release.mjs major"
-
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
