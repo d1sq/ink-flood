@@ -1,5 +1,5 @@
-const { execSync } = require('child_process');
-const fs = require('fs');
+import { execSync } from 'child_process';
+import fs from 'fs';
 
 function exec(cmd, options = {}) {
   return execSync(cmd, {
@@ -29,29 +29,25 @@ if (!allowedBumps.has(bump)) {
   fail(`Invalid version bump: "${bump}". Use patch, minor, or major.`);
 }
 
-let version = null;
-let tag = null;
 let committed = false;
 
 try {
   const status = git('status --porcelain');
-  if (status) {
-    fail('Working directory is not clean.');
-  }
+  if (status) fail('Working directory is not clean.');
 
   const branch = git('rev-parse --abbrev-ref HEAD');
   if (!branch || branch === 'HEAD') {
     fail('Unable to determine current branch.');
   }
 
-  console.log(`📌 Branch: ${branch}`);
-  console.log(`📦 Release type: ${bump}`);
+  console.log(`Branch: ${branch}`);
+  console.log(`Release type: ${bump}`);
 
   run(`npm version ${bump} --no-git-tag-version`);
 
   const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-  version = pkg.version;
-  tag = `v${version}`;
+  const version = pkg.version;
+  const tag = `v${version}`;
 
   if (git(`tag -l ${tag}`) === tag) {
     fail(`Tag ${tag} already exists.`);
@@ -62,55 +58,37 @@ try {
 
   moduleJson.version = version;
 
-  if (typeof moduleJson.download === 'string') {
-    moduleJson.download = moduleJson.download
-        .replace(
-            /releases\/download\/v\d+\.\d+\.\d+\//,
-            `releases/download/${tag}/`
-        )
-        .replace(
-            /ink-flood-v\d+\.\d+\.\d+\.zip$/,
-            `ink-flood-${tag}.zip`
-        );
-  }
+  fs.writeFileSync(modulePath, JSON.stringify(moduleJson, null, 2) + '\n');
 
-  if (typeof moduleJson.manifest === 'string') {
-    moduleJson.manifest = moduleJson.manifest.replace(
-        /\/v\d+\.\d+\.\d+\//,
-        `/${tag}/`
-    );
-  }
+  console.log(`Updated module.json → ${version}`);
 
-  fs.writeFileSync(modulePath, `${JSON.stringify(moduleJson, null, 2)}\n`);
-  console.log(`✔ module.json updated: ${version}`);
-
-  const filesToAdd = ['package.json', 'module.json'];
+  const files = ['package.json', 'module.json'];
   if (fs.existsSync('package-lock.json')) {
-    filesToAdd.push('package-lock.json');
+    files.push('package-lock.json');
   }
 
-  run(`git add ${filesToAdd.join(' ')}`);
+  run(`git add ${files.join(' ')}`);
   run(`git commit -m "chore: release ${tag}"`);
   committed = true;
 
   run(`git tag ${tag}`);
   run(`git push origin ${branch} ${tag}`);
 
-  console.log(`\n🚀 Release ${tag} created`);
+  console.log(`\nRelease ${tag} created`);
 } catch (error) {
-  console.error('\n⚠️ Release failed');
+  console.error('\nRelease failed');
 
   if (!committed) {
     try {
-      const restoreFiles = ['package.json', 'module.json'];
+      const files = ['package.json', 'module.json'];
       if (fs.existsSync('package-lock.json')) {
-        restoreFiles.push('package-lock.json');
+        files.push('package-lock.json');
       }
 
-      run(`git restore ${restoreFiles.join(' ')}`);
-      console.log('↩️ Changes reverted');
+      run(`git restore ${files.join(' ')}`);
+      console.log('Changes reverted');
     } catch {
-      console.error('⚠️ Failed to restore files');
+      console.error('Failed to restore files');
     }
   }
 
