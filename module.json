@@ -32,10 +32,11 @@
   "socket": true,
   "packs": [
     {
-      "name": "npcs",
+      "name": "actors",
       "label": "Чернильный потоп — НИП",
-      "path": "packs/npcs.db",
-      "type": "JournalEntry"
+      "type": "Actor",
+      "system": "dnd5e",
+      "path": "packs/actors"
     }
   ]
 }
