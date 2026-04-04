@@ -56,5 +56,35 @@
 
   "INK_FLOOD.rotation.fixed": "Фиксированная",
   "INK_FLOOD.rotation.random": "Случайная",
-  "INK_FLOOD.rotation.dramatic": "Драматическая"
+  "INK_FLOOD.rotation.dramatic": "Драматическая",
+
+  "INK_FLOOD.tabs.time": "Время",
+  "INK_FLOOD.tabs.events": "События",
+  "INK_FLOOD.tabs.tokens": "Токены",
+  "INK_FLOOD.tabs.npc": "НИП",
+  "INK_FLOOD.tabs.notes": "Заметки",
+
+  "INK_FLOOD.ui.startCycle1": "Начать цикл 1",
+  "INK_FLOOD.ui.showClock": "Часы всем",
+  "INK_FLOOD.ui.quickAdvance": "Быстрое продвижение",
+  "INK_FLOOD.ui.floodPhase": "Потоп: фаза",
+  "INK_FLOOD.ui.groups": "Группы",
+  "INK_FLOOD.ui.group": "Группа",
+  "INK_FLOOD.ui.max": "макс",
+  "INK_FLOOD.ui.perCycle": "цикл",
+  "INK_FLOOD.ui.noPlayers": "Нет персонажей игроков в мире",
+  "INK_FLOOD.ui.notesPlaceholder": "Что партия узнала, кому доверяют, планы на следующий цикл...",
+
+  "INK_FLOOD.keyItems.dawnLens": "Заря (линза)",
+  "INK_FLOOD.keyItems.glassKey": "Стеклянный Ключ",
+  "INK_FLOOD.keyItems.seal": "Печать",
+  "INK_FLOOD.keyItems.prayer": "Молитва Отмены",
+  "INK_FLOOD.keyItems.coin": "Монета Сиверна",
+  "INK_FLOOD.keyItems.confession": "Признание Убийцы",
+  "INK_FLOOD.keyItems.truthLens": "Линза Истины",
+  "INK_FLOOD.keyItems.oath": "Клятва Хранителя",
+  "INK_FLOOD.keyItems.towerEye": "Око Башни",
+
+  "INK_FLOOD.npc.hintsTitle": "Подсказки на этот цикл",
+  "INK_FLOOD.npc.interactions": "Взаимодействия"
 }

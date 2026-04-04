@@ -9,6 +9,12 @@
   import type { EventId, DiscoveryState, NpcInteractionId } from '../types';
   import { getInteractionsByNpc, getActiveHints } from '../data/npc-memory';
 
+  /** Localization helper */
+  function loc(key: string, fallback?: string): string {
+    try { return (game as any).i18n.localize(key) ?? fallback ?? key; }
+    catch { return fallback ?? key; }
+  }
+
   let activeTab = 'time';
   let customMinutes = 30;
 
@@ -100,19 +106,30 @@
   let discoveryNotes = '';
   discoveryState.subscribe(d => { discoveryNotes = d.notes; });
 
-  const SLOT_LABELS: Record<string, string> = { matter: 'Материя', word: 'Слово', vision: 'Зрение' };
-  const KEY_NAMES: Record<string, string> = {
-    'dawn-lens': 'Заря (линза)', 'glass-key': 'Стеклянный Ключ', 'seal': 'Печать',
-    'prayer': 'Молитва Отмены', 'coin': 'Монета Сиверна', 'confession': 'Признание Убийцы',
-    'truth-lens': 'Линза Истины', 'oath': 'Клятва Хранителя', 'lighthouse-eye': 'Око Башни',
-  };
+  $: SLOT_LABELS = {
+    matter: loc('INK_FLOOD.keys.matter'),
+    word: loc('INK_FLOOD.keys.word'),
+    vision: loc('INK_FLOOD.keys.vision'),
+  } as Record<string, string>;
 
-  const tabs = [
-    { id: 'time', label: 'Время' },
-    { id: 'events', label: 'События' },
-    { id: 'tokens', label: 'Токены' },
-    { id: 'npc', label: 'НИП' },
-    { id: 'notes', label: 'Заметки' },
+  $: KEY_NAMES = {
+    'dawn-lens': loc('INK_FLOOD.keyItems.dawnLens', 'Заря (линза)'),
+    'glass-key': loc('INK_FLOOD.keyItems.glassKey', 'Стеклянный Ключ'),
+    'seal': loc('INK_FLOOD.keyItems.seal', 'Печать'),
+    'prayer': loc('INK_FLOOD.keyItems.prayer', 'Молитва Отмены'),
+    'coin': loc('INK_FLOOD.keyItems.coin', 'Монета Сиверна'),
+    'confession': loc('INK_FLOOD.keyItems.confession', 'Признание Убийцы'),
+    'truth-lens': loc('INK_FLOOD.keyItems.truthLens', 'Линза Истины'),
+    'oath': loc('INK_FLOOD.keyItems.oath', 'Клятва Хранителя'),
+    'lighthouse-eye': loc('INK_FLOOD.keyItems.towerEye', 'Око Башни'),
+  } as Record<string, string>;
+
+  $: tabs = [
+    { id: 'time', label: loc('INK_FLOOD.tabs.time', 'Время') },
+    { id: 'events', label: loc('INK_FLOOD.tabs.events', 'События') },
+    { id: 'tokens', label: loc('INK_FLOOD.tabs.tokens', 'Токены') },
+    { id: 'npc', label: loc('INK_FLOOD.tabs.npc', 'НИП') },
+    { id: 'notes', label: loc('INK_FLOOD.tabs.notes', 'Заметки') },
   ];
 
   // === NPC MEMORY ===
@@ -197,10 +214,10 @@
 <div class="ink-flood-dashboard">
   <header class="dashboard-header">
     <div class="cycle-info">
-      <span class="cycle-number">Цикл {$cycleState.cycle}/{MAX_CYCLES}</span>
+      <span class="cycle-number">{loc('INK_FLOOD.cycle.label')} {$cycleState.cycle}/{MAX_CYCLES}</span>
       <span class="time-display">{$formattedTime}</span>
       <span class="flood-countdown" class:urgent={$minutesUntilFlood <= 60}>
-        До потопа: {$minutesUntilFlood} мин
+        {loc('INK_FLOOD.clock.untilFlood')}: {$minutesUntilFlood} {loc('INK_FLOOD.clock.min')}
       </span>
     </div>
     <div class="header-right">
@@ -227,14 +244,14 @@
         <!-- Cycle & Clock controls -->
         <div class="section-row">
           <button class="btn-primary" on:click={handleNewCycle}>
-            {$cycleState.cycle === 0 ? 'Начать цикл 1' : 'Новый цикл'}
+            {$cycleState.cycle === 0 ? loc('INK_FLOOD.ui.startCycle1', 'Начать цикл 1') : loc('INK_FLOOD.cycle.new')}
           </button>
-          <button class="btn-secondary" on:click={handleShowClockToAll}>Часы всем</button>
+          <button class="btn-secondary" on:click={handleShowClockToAll}>{loc('INK_FLOOD.ui.showClock', 'Часы всем')}</button>
         </div>
 
         <!-- Quick advance -->
         <div class="section-block">
-          <h3>Быстрое продвижение</h3>
+          <h3>{loc('INK_FLOOD.ui.quickAdvance', 'Быстрое продвижение')}</h3>
           <div class="time-buttons">
             <button on:click={() => handleAdvance(10)}>+10</button>
             <button on:click={() => handleAdvance(15)}>+15</button>
@@ -249,15 +266,15 @@
         <!-- Flood -->
         {#if $cycleState.floodPhase > 0}
           <div class="flood-indicator phase-{$cycleState.floodPhase}">
-            Потоп: фаза {$cycleState.floodPhase}/5
+            {loc('INK_FLOOD.ui.floodPhase', 'Потоп: фаза')} {$cycleState.floodPhase}/5
           </div>
         {/if}
 
         <!-- Party Groups -->
         <div class="section-block">
           <div class="section-header">
-            <h3>Группы</h3>
-            <button class="btn-small" on:click={addGroup}>+ Группа</button>
+            <h3>{loc('INK_FLOOD.ui.groups', 'Группы')}</h3>
+            <button class="btn-small" on:click={addGroup}>+ {loc('INK_FLOOD.ui.group', 'Группа')}</button>
           </div>
 
           {#each groups as group, i}
@@ -320,7 +337,7 @@
           {/each}
         </div>
 
-        <h3>События цикла {$cycleState.cycle}</h3>
+        <h3>{loc('INK_FLOOD.tabs.events')} — {loc('INK_FLOOD.cycle.label')} {$cycleState.cycle}</h3>
         {#each availableEvents as ev}
           {@const def = getEventForCycle(ev.id, $cycleState.cycle)}
           <div class="event-card status-{ev.status}">
@@ -347,7 +364,7 @@
     <!-- ======= ТОКЕНЫ ======= -->
     {:else if activeTab === 'tokens'}
       <section class="tab-tokens">
-        <h3>Инсайт-токены (макс {MAX_INSIGHT_PER_CYCLE}/цикл)</h3>
+        <h3>{loc('INK_FLOOD.insight.label')} ({loc('INK_FLOOD.ui.max', 'макс')} {MAX_INSIGHT_PER_CYCLE}/{loc('INK_FLOOD.ui.perCycle', 'цикл')})</h3>
         {#each playerTokens as p}
           <div class="token-row">
             <span class="token-name">{p.name}</span>
@@ -359,7 +376,7 @@
           </div>
         {/each}
         {#if playerTokens.length === 0}
-          <p class="empty-hint">Нет персонажей игроков в мире</p>
+          <p class="empty-hint">{loc('INK_FLOOD.ui.noPlayers', 'Нет персонажей игроков в мире')}</p>
         {/if}
         <div class="token-legend">
           <p><strong>1:</strong> преимущество на проверку / DC −2</p>
@@ -372,7 +389,7 @@
       <section class="tab-npc">
         {#if activeNpcHints.length > 0}
           <div class="npc-hints-block">
-            <h3>Подсказки на этот цикл</h3>
+            <h3>{loc('INK_FLOOD.npc.hintsTitle', 'Подсказки на этот цикл')}</h3>
             {#each activeNpcHints as hint}
               <div class="npc-hint">
                 <span class="npc-hint-name">{hint.npc}:</span>
@@ -382,7 +399,7 @@
           </div>
         {/if}
 
-        <h3>Взаимодействия</h3>
+        <h3>{loc('INK_FLOOD.npc.interactions', 'Взаимодействия')}</h3>
         {#each [...npcGroups] as [npcName, interactions]}
           <div class="npc-group">
             <h4>{npcName}</h4>
@@ -403,7 +420,7 @@
       <section class="tab-notes">
         {#if $activeGlitch}
           <div class="glitch-block">
-            <h3>Глитчи — Цикл {$cycleState.cycle}</h3>
+            <h3>{loc('INK_FLOOD.glitch.label')} — {loc('INK_FLOOD.cycle.label')} {$cycleState.cycle}</h3>
             <p><strong>DC:</strong> +{$activeGlitch.dcModifier}</p>
             {#if $activeGlitch.floodTimeShift !== 0}
               <p><strong>Потоп:</strong> {$activeGlitch.floodTimeShift} мин сдвиг</p>
@@ -415,9 +432,9 @@
             </ul>
           </div>
         {/if}
-        <h3>Заметки</h3>
+        <h3>{loc('INK_FLOOD.tabs.notes')}</h3>
         <textarea bind:value={discoveryNotes} on:blur={handleSaveNotes}
-          placeholder="Что партия узнала, кому доверяют, планы на следующий цикл..." rows="10"></textarea>
+          placeholder={loc('INK_FLOOD.ui.notesPlaceholder', 'Что партия узнала, кому доверяют, планы на следующий цикл...')} rows="10"></textarea>
       </section>
     {/if}
   </main>
