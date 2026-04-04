@@ -27,7 +27,7 @@
   "INK_FLOOD.events.missed": "Пропущено",
   "INK_FLOOD.events.unavailable": "Недоступно",
 
-  "INK_FLOOD.events.dawn": "Заря на Набережной",
+  "INK_FLOOD.events.dawn": "Заря у Стены",
   "INK_FLOOD.events.execution": "Казнь на Площади",
   "INK_FLOOD.events.governor": "Завтрак Губернатора",
   "INK_FLOOD.events.temple": "Служба в Храме",
@@ -35,7 +35,7 @@
   "INK_FLOOD.events.alley": "Встреча в Переулке",
   "INK_FLOOD.events.shop": "Погром в Лавке",
   "INK_FLOOD.events.chapel": "Исповедь в Часовне",
-  "INK_FLOOD.events.lighthouse": "Ремонт Маяка",
+  "INK_FLOOD.events.lighthouse": "Ремонт Башни",
 
   "INK_FLOOD.insight.label": "Инсайт-токены",
   "INK_FLOOD.insight.earn": "Начислить",

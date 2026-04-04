@@ -103,7 +103,7 @@
   const KEY_NAMES: Record<string, string> = {
     'dawn-lens': 'Заря (линза)', 'glass-key': 'Стеклянный Ключ', 'seal': 'Печать',
     'prayer': 'Молитва Отмены', 'coin': 'Монета Сиверна', 'confession': 'Признание Убийцы',
-    'truth-lens': 'Линза Истины', 'oath': 'Клятва Хранителя', 'lighthouse-eye': 'Око Маяка',
+    'truth-lens': 'Линза Истины', 'oath': 'Клятва Хранителя', 'lighthouse-eye': 'Око Башни',
   };
 
   const tabs = [
