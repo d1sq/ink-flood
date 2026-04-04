@@ -33,10 +33,20 @@ export function getFloodChatHTML(phase: FloodPhaseNumber): string {
 
 /** Chat message for cycle start */
 export function getCycleStartChatHTML(cycle: number): string {
+  const flavorText = cycle === 1
+    ? 'Свет в щели ставен. Жёсткие койки, скрип половиц, запах дыма и сырого камня из-за ставен. Колокола отбивают восемь. Незнакомый город за окном — вы приехали вчера вечером, едва успев бросить вещи. Новый день.'
+    : 'Свет в щели ставен. Жёсткие койки, скрип половиц, запах дыма и сырого камня из-за ставен. Колокола отбивают восемь.';
+
+  const tagline = cycle === 1
+    ? '<strong>Новый день.</strong>'
+    : cycle === 2
+    ? '<strong>Кажется, это уже было.</strong>'
+    : '<strong>Тот же день. Вы помните всё.</strong>';
+
   return `
 <div style="border-left: 4px solid #5c7cfa; padding: 8px 12px; background: linear-gradient(135deg, #0a0a1a, #16213e); border-radius: 4px; color: #e0e0e0; font-family: serif; font-size: 18px; font-weight: 500;">
   <strong style="color: #c0c0ff; font-size: 1.1em;">Цикл ${cycle}</strong>
-  <p style="margin: 4px 0; font-style: italic; color: #aab;">Свет в щели ставен. Жёсткие койки, скрип половиц, запах дыма и сырого камня из-за ставен. Колокола отбивают восемь.</p>
-  <p style="margin: 4px 0; color: #c0c0e0;"><strong>Тот же день. Вы помните всё.</strong></p>
+  <p style="margin: 4px 0; font-style: italic; color: #aab;">${flavorText}</p>
+  <p style="margin: 4px 0; color: #c0c0e0;">${tagline}</p>
 </div>`.trim();
 }

@@ -111,6 +111,16 @@ export interface CycleHistoryEntry {
   endReason: 'flood' | 'death' | 'tower' | 'manual';
 }
 
+/** NPC interaction IDs */
+export type NpcInteractionId =
+  | 'kel-saved' | 'kel-ignored'
+  | 'governor-flattered' | 'governor-robbed' | 'governor-honest'
+  | 'elza-saved' | 'elza-died' | 'elza-prayer-learned'
+  | 'nagel-fought' | 'nagel-spared' | 'nagel-killed'
+  | 'olbrecht-defended' | 'olbrecht-lens-broken'
+  | 'konrad-persuaded' | 'konrad-lens-fell' | 'konrad-respected'
+  | 'fritz-saved' | 'fritz-died';
+
 /** Cross-cycle discovery state */
 export interface DiscoveryState {
   /** Tower slot awareness */
@@ -123,6 +133,8 @@ export interface DiscoveryState {
   knownKeys: EventId[];
   /** NPC trust levels */
   npcTrust: Record<string, boolean>;
+  /** NPC interaction counts (persists across cycles) */
+  npcMemory: Record<string, number>;
   /** Custom GM notes */
   notes: string;
 }

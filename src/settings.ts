@@ -15,6 +15,7 @@ const DEFAULT_DISCOVERY_STATE: DiscoveryState = {
   towerSlots: { matter: false, word: false, vision: false },
   knownKeys: [],
   npcTrust: {},
+  npcMemory: {},
   notes: '',
 };
 

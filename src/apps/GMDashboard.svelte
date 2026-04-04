@@ -6,7 +6,8 @@
   import { getInkTraceTier, getWatcherMarkTier, INK_TRACE_EFFECTS, WATCHER_MARK_EFFECTS } from '../engine/glitch-engine';
   import { getEvent, getEventForCycle, formatTime, LOCATION_NAMES } from '../data/events';
   import { MODULE_ID, MAX_CYCLES, MAX_INSIGHT_PER_CYCLE, TRAVEL_MATRIX } from '../constants';
-  import type { EventId, DiscoveryState } from '../types';
+  import type { EventId, DiscoveryState, NpcInteractionId } from '../types';
+  import { getInteractionsByNpc, getActiveHints } from '../data/npc-memory';
 
   let activeTab = 'time';
   let customMinutes = 30;
@@ -110,8 +111,31 @@
     { id: 'time', label: 'Время' },
     { id: 'events', label: 'События' },
     { id: 'tokens', label: 'Токены' },
+    { id: 'npc', label: 'НИП' },
     { id: 'notes', label: 'Заметки' },
   ];
+
+  // === NPC MEMORY ===
+  const npcGroups = getInteractionsByNpc();
+
+  async function handleNpcIncrement(id: NpcInteractionId) {
+    const state = (game as any).settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
+    if (!state.npcMemory) state.npcMemory = {};
+    state.npcMemory[id] = (state.npcMemory[id] ?? 0) + 1;
+    await (game as any).settings.set(MODULE_ID, 'discoveryState', state);
+    syncFromSettings();
+  }
+
+  async function handleNpcDecrement(id: NpcInteractionId) {
+    const state = (game as any).settings.get(MODULE_ID, 'discoveryState') as DiscoveryState;
+    if (!state.npcMemory) state.npcMemory = {};
+    state.npcMemory[id] = Math.max(0, (state.npcMemory[id] ?? 0) - 1);
+    await (game as any).settings.set(MODULE_ID, 'discoveryState', state);
+    syncFromSettings();
+  }
+
+  $: npcMemory = $discoveryState.npcMemory ?? {};
+  $: activeNpcHints = getActiveHints(npcMemory);
 
   async function handleAdvance(mins: number) {
     await advanceTime(mins);
@@ -343,6 +367,37 @@
         </div>
       </section>
 
+    <!-- ======= НИП ПАМЯТЬ ======= -->
+    {:else if activeTab === 'npc'}
+      <section class="tab-npc">
+        {#if activeNpcHints.length > 0}
+          <div class="npc-hints-block">
+            <h3>Подсказки на этот цикл</h3>
+            {#each activeNpcHints as hint}
+              <div class="npc-hint">
+                <span class="npc-hint-name">{hint.npc}:</span>
+                <span class="npc-hint-text">{hint.text}</span>
+              </div>
+            {/each}
+          </div>
+        {/if}
+
+        <h3>Взаимодействия</h3>
+        {#each [...npcGroups] as [npcName, interactions]}
+          <div class="npc-group">
+            <h4>{npcName}</h4>
+            {#each interactions as def}
+              <div class="npc-interaction-row">
+                <span class="npc-int-label">{def.label}</span>
+                <span class="npc-int-count">{npcMemory[def.id] ?? 0}</span>
+                <button class="btn-npc" on:click={() => handleNpcIncrement(def.id)}>+</button>
+                <button class="btn-npc dim" on:click={() => handleNpcDecrement(def.id)}>−</button>
+              </div>
+            {/each}
+          </div>
+        {/each}
+      </section>
+
     <!-- ======= ОТКРЫТИЯ ======= -->
     {:else if activeTab === 'notes'}
       <section class="tab-notes">
@@ -484,4 +539,19 @@
   .tab-glitches ul { padding-left: 20px; }
   .tab-glitches li { margin-bottom: 6px; color: #ccc; }
   .tab-glitches p { font-size: 1em; }
+
+  /* NPC Memory */
+  .npc-hints-block { margin-bottom: 18px; padding: 10px; background: #111a11; border: 1px solid #2a4a2a; border-radius: 4px; }
+  .npc-hint { margin-bottom: 8px; font-size: 0.95em; line-height: 1.5; }
+  .npc-hint-name { font-weight: 700; color: #c0c0ff; margin-right: 4px; }
+  .npc-hint-text { color: #ccddcc; font-style: italic; }
+  .npc-group { margin-bottom: 14px; }
+  .npc-group h4 { margin: 0 0 6px 0; color: #c0c0ff; font-size: 1em; font-weight: 700; border-bottom: 1px solid #222; padding-bottom: 4px; }
+  .npc-interaction-row { display: flex; gap: 6px; align-items: center; padding: 4px 0; }
+  .npc-int-label { flex: 1; font-size: 0.95em; color: #ccc; }
+  .npc-int-count { min-width: 24px; text-align: center; font-weight: 700; color: #ffd700; font-size: 1.05em; }
+  .btn-npc { padding: 3px 10px; background: #16213e; border: 1px solid #333; color: #c0c0ff; border-radius: 3px; cursor: pointer; font-weight: 700; font-size: 0.9em; }
+  .btn-npc:hover { background: #1a1a4e; border-color: #5c7cfa; }
+  .btn-npc.dim { color: #888; }
+  .btn-npc.dim:hover { color: #cc8888; border-color: #6a3a3a; }
 </style>

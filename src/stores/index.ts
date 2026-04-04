@@ -23,6 +23,7 @@ export const discoveryState = writable<DiscoveryState>({
   towerSlots: { matter: false, word: false, vision: false },
   knownKeys: [],
   npcTrust: {},
+  npcMemory: {},
   notes: '',
 });
 
