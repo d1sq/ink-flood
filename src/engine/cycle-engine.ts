@@ -12,6 +12,7 @@ import { getCycleStartChatHTML } from '../chat/flood-messages';
 import { resetCycleSpending } from './insight-engine';
 import { getGlitchForCycle } from '../data/glitch-tables';
 import { determineRotation } from './rotation-engine';
+import { restoreAllPlayers, hasSnapshots } from './snapshot-engine';
 
 /** Create a fresh cycle state */
 export function createCycleState(
@@ -71,6 +72,11 @@ export async function startNewCycle(endReason: CycleHistoryEntry['endReason'] = 
     await game.settings.set(MODULE_ID, 'cycleHistory', newHistory);
   }
 
+  // Restore player characters from snapshot (cycle 2+)
+  if (currentState.cycle >= 1 && hasSnapshots()) {
+    await restoreAllPlayers();
+  }
+
   const nextCycle = currentState.cycle + 1;
   if (nextCycle > MAX_CYCLES) {
     return null; // Game over
@@ -99,10 +105,13 @@ export async function startNewCycle(endReason: CycleHistoryEntry['endReason'] = 
   // Glitch notification (GM only)
   const glitch = getGlitchForCycle(nextCycle);
   if (glitch) {
+    const dcLine = glitch.dcModifier > 0
+      ? `<p style="margin: 4px 0; color: #ffcc88;">DC +${glitch.dcModifier} ко всем проверкам</p>`
+      : '';
     const content = `
 <div style="border-left: 4px solid #ff8c00; padding: 8px 12px; background: linear-gradient(135deg, #1a0a0a, #2a1a0a); border-radius: 4px; color: #e0e0e0; font-size: 17px;">
-  <strong style="color: #ffaa44;">⚠ Глитчи — Цикл ${nextCycle}</strong>
-  <p style="margin: 4px 0; color: #ffcc88;">DC +${glitch.dcModifier} ко всем проверкам</p>
+  <strong style="color: #ffaa44;">⚠ ${nextCycle >= 10 ? 'Последний цикл' : 'Глитчи'} — Цикл ${nextCycle}</strong>
+  ${dcLine}
   <ul style="margin: 4px 0; padding-left: 16px;">${glitch.descriptions.map(d => `<li style="color: #cca; margin: 2px 0;">${d}</li>`).join('')}</ul>
 </div>`;
     ChatMessage.create({ content, whisper: [game.user!.id] });
@@ -143,8 +152,11 @@ export async function fullReset(): Promise<void> {
     towerSlots: { matter: false, word: false, vision: false },
     knownKeys: [],
     npcTrust: {},
+    npcMemory: {},
+    keyAttempts: {},
     notes: '',
   });
+  await game.settings.set(MODULE_ID, 'playerSnapshots', []);
   // Reset all actor flags
   const actors = game.actors?.filter((a: any) => a.hasPlayerOwner) ?? [];
   for (const actor of actors) {

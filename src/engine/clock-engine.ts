@@ -53,7 +53,7 @@ export async function advanceTime(minutes: number): Promise<{
 
   // Post flood message if needed
   if (newFloodPhase !== null) {
-    const content = getFloodChatHTML(newFloodPhase);
+    const content = getFloodChatHTML(newFloodPhase, state.cycle);
     await ChatMessage.create({ content });
   }
 
@@ -101,7 +101,30 @@ export async function completeEvent(eventId: EventId): Promise<void> {
   };
 
   await game.settings.set(MODULE_ID, 'cycleState', updatedState);
+
+  // Track key attempt for Loop Memory (Память петли)
+  await incrementKeyAttempt(eventId);
+
   game.socket!.emit(`module.${MODULE_ID}`, { action: 'eventUpdate' });
+}
+
+/** Increment key attempt counter (for Loop Memory mechanic) */
+export async function incrementKeyAttempt(eventId: EventId): Promise<void> {
+  const discovery = game.settings.get(MODULE_ID, 'discoveryState') as any;
+  if (!discovery.keyAttempts) discovery.keyAttempts = {};
+  discovery.keyAttempts[eventId] = (discovery.keyAttempts[eventId] ?? 0) + 1;
+  await game.settings.set(MODULE_ID, 'discoveryState', discovery);
+}
+
+/** Get key attempt count for Loop Memory */
+export function getKeyAttempts(eventId: EventId): number {
+  const discovery = game.settings.get(MODULE_ID, 'discoveryState') as any;
+  return discovery.keyAttempts?.[eventId] ?? 0;
+}
+
+/** Check if Loop Memory is active for an event (3+ attempts = DC -2) */
+export function hasLoopMemory(eventId: EventId): boolean {
+  return getKeyAttempts(eventId) >= 3;
 }
 
 /** Get minutes remaining until flood starts */

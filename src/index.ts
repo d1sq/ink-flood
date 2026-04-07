@@ -1,17 +1,20 @@
 import { MODULE_ID } from './constants';
 import { registerSettings } from './settings';
 import { startNewCycle, initializeFirstCycle, fullReset } from './engine/cycle-engine';
+import { snapshotAllPlayers, restoreAllPlayers, hasSnapshots } from './engine/snapshot-engine';
 import { advanceTime, completeEvent, formatTime } from './engine/clock-engine';
 import { earnToken, spendTokens, getTokens, getSpentThisCycle, resetCycleSpending } from './engine/insight-engine';
 import { getGlitchForCycle, getInkTraceTier, getWatcherMarkTier } from './engine/glitch-engine';
 import { syncFromSettings } from './stores';
 import { DashboardShell } from './apps/shells/DashboardShell.svelte';
 import { ClockShell } from './apps/shells/ClockShell.svelte';
+import { FinaleShell } from './apps/shells/FinaleShell.svelte';
 import { registerChatCommands } from './chat/chat-commands';
 import type { CycleState } from './types';
 
 let dashboardApp: InstanceType<typeof DashboardShell> | null = null;
 let clockApp: InstanceType<typeof ClockShell> | null = null;
+let finaleApp: InstanceType<typeof FinaleShell> | null = null;
 
 Hooks.once('init', () => {
   console.log(`${MODULE_ID} | Initializing`);
@@ -42,6 +45,10 @@ Hooks.once('ready', () => {
     fullReset,
     openDashboard: () => toggleDashboard(),
     openClock: () => toggleClock(),
+    openFinale: () => toggleFinale(),
+    snapshotPlayers: snapshotAllPlayers,
+    restorePlayers: restoreAllPlayers,
+    hasSnapshots,
   };
 
   (game as any).modules.get(MODULE_ID).api = api;
@@ -95,5 +102,17 @@ function toggleClock(): void {
     clockApp = null;
   } else {
     (clockApp as any).render(true);
+  }
+}
+
+function toggleFinale(): void {
+  if (!finaleApp) {
+    finaleApp = new FinaleShell();
+  }
+  if ((finaleApp as any).rendered) {
+    (finaleApp as any).close();
+    finaleApp = null;
+  } else {
+    (finaleApp as any).render(true, { focus: true });
   }
 }

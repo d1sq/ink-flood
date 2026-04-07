@@ -1,13 +1,36 @@
 <script lang="ts">
   import { cycleState, formattedTime, minutesUntilFlood, activeGlitch, discoveryState, syncFromSettings } from '../stores';
-  import { advanceTime, completeEvent } from '../engine/clock-engine';
+  import { advanceTime, completeEvent, getKeyAttempts, hasLoopMemory, incrementKeyAttempt } from '../engine/clock-engine';
   import { startNewCycle, initializeFirstCycle } from '../engine/cycle-engine';
   import { earnToken, spendTokens, getTokens, getSpentThisCycle } from '../engine/insight-engine';
   import { getInkTraceTier, getWatcherMarkTier, INK_TRACE_EFFECTS, WATCHER_MARK_EFFECTS } from '../engine/glitch-engine';
   import { getEvent, getEventForCycle, formatTime, LOCATION_NAMES } from '../data/events';
+  import { ECHO_TABLE } from '../data/glitch-tables';
   import { MODULE_ID, MAX_CYCLES, MAX_INSIGHT_PER_CYCLE, TRAVEL_MATRIX } from '../constants';
   import type { EventId, DiscoveryState, NpcInteractionId } from '../types';
   import { getInteractionsByNpc, getActiveHints } from '../data/npc-memory';
+  import { getEventReadAloudHTML, getBriefingChatHTML, BRIEFING_HINTS } from '../chat/flood-messages';
+  import { cycleHistory } from '../stores';
+  import { snapshotAllPlayers, hasSnapshots } from '../engine/snapshot-engine';
+  import Timeline from './Timeline.svelte';
+  import NpcPopup from './NpcPopup.svelte';
+  import { NPC_CARDS, getNpcCardByName } from '../data/npc-cards';
+  import type { NpcCard } from '../data/npc-cards';
+
+  // === NPC POPUP ===
+  let npcPopupCard: NpcCard | null = null;
+  let npcPopupX = 0;
+  let npcPopupY = 0;
+
+  function openNpcPopup(name: string, event: MouseEvent) {
+    const card = getNpcCardByName(name);
+    if (!card) return;
+    npcPopupCard = card;
+    npcPopupX = Math.min(event.clientX, window.innerWidth - 340);
+    npcPopupY = Math.min(event.clientY, window.innerHeight - 420);
+  }
+
+  function closeNpcPopup() { npcPopupCard = null; }
 
   /** Localization helper */
   function loc(key: string, fallback?: string): string {
@@ -159,6 +182,48 @@
     syncFromSettings();
   }
 
+  // === READ-ALOUD ===
+  function wasEventVisitedBefore(eventId: EventId): boolean {
+    const history = (game as any).settings.get(MODULE_ID, 'cycleHistory') as any[];
+    return history.some((h: any) => h.completedEvents?.includes(eventId));
+  }
+
+  async function handleReadAloud(eventId: EventId) {
+    const def = getEventForCycle(eventId, $cycleState.cycle);
+    const isRepeat = $cycleState.cycle >= 3 && wasEventVisitedBefore(eventId);
+    const content = getEventReadAloudHTML(def, isRepeat);
+    await ChatMessage.create({ content });
+  }
+
+  // === SNAPSHOT ===
+  let snapshotsExist = false;
+  $: if ($cycleState.cycle) snapshotsExist = hasSnapshots();
+
+  async function handleSnapshot() {
+    await snapshotAllPlayers();
+    snapshotsExist = true;
+  }
+
+  // === MORNING BRIEFING ===
+  async function handleBriefing() {
+    const available = $cycleState.events
+      .filter(e => e.status !== 'unavailable')
+      .map(e => e.id);
+
+    // Ozzi's ink trail direction (cycle 5+): points to first available uncompleted event location
+    let ozziDirection: string | undefined;
+    if ($cycleState.cycle >= 5) {
+      const firstUncompleted = $cycleState.events.find(e => e.status === 'available');
+      if (firstUncompleted) {
+        const def = getEvent(firstUncompleted.id);
+        ozziDirection = `к ${LOCATION_NAMES[def.location] ?? def.location}`;
+      }
+    }
+
+    const content = getBriefingChatHTML($cycleState.cycle, available, ozziDirection);
+    await ChatMessage.create({ content, whisper: [(game as any).user!.id] });
+  }
+
   async function handleNewCycle() {
     if ($cycleState.cycle === 0) {
       await initializeFirstCycle();
@@ -247,7 +312,26 @@
             {$cycleState.cycle === 0 ? loc('INK_FLOOD.ui.startCycle1', 'Начать цикл 1') : loc('INK_FLOOD.cycle.new')}
           </button>
           <button class="btn-secondary" on:click={handleShowClockToAll}>{loc('INK_FLOOD.ui.showClock', 'Часы всем')}</button>
+          {#if $cycleState.cycle >= 1}
+            <button class="btn-secondary" on:click={handleBriefing}>Сводка</button>
+          {/if}
+          {#if $cycleState.cycle >= 1}
+            <button class="btn-snapshot" class:active={snapshotsExist} on:click={handleSnapshot} title={snapshotsExist ? 'Перезаписать снапшот' : 'Сохранить состояние персонажей'}>
+              {snapshotsExist ? '📸 ✓' : '📸'}
+            </button>
+          {/if}
         </div>
+
+        <!-- Snapshot status -->
+        {#if $cycleState.cycle === 1 && !snapshotsExist}
+          <div class="snapshot-warning">
+            ⚠ Снапшот не сохранён! Нажмите 📸 чтобы зафиксировать состояние персонажей. При смене цикла они будут восстановлены к этому состоянию.
+          </div>
+        {:else if snapshotsExist}
+          <div class="snapshot-ok">
+            📸 Снапшот сохранён. При смене цикла персонажи будут восстановлены.
+          </div>
+        {/if}
 
         <!-- Quick advance -->
         <div class="section-block">
@@ -267,6 +351,30 @@
         {#if $cycleState.floodPhase > 0}
           <div class="flood-indicator phase-{$cycleState.floodPhase}">
             {loc('INK_FLOOD.ui.floodPhase', 'Потоп: фаза')} {$cycleState.floodPhase}/5
+          </div>
+        {/if}
+
+        <!-- Echo City (cycles 4-6) -->
+        {#if $cycleState.cycle >= 4 && $cycleState.cycle <= 6}
+          <div class="section-block echo-block">
+            <h3>Эхо города (d6)</h3>
+            <div class="echo-table">
+              {#each ECHO_TABLE as echo}
+                <div class="echo-row">
+                  <span class="echo-d6">{echo.d6}</span>
+                  <span class="echo-text">{echo.text}</span>
+                  <span class="echo-where">{echo.where}</span>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
+
+        <!-- Jess spotlight (cycles 7-10) -->
+        {#if $cycleState.cycle >= 7}
+          <div class="section-block spotlight-block">
+            <h3>⭐ Спотлайт Джесс</h3>
+            <p class="spotlight-text">Один раз за кампанию: голос замедляет потоп на 10 мин. Выступление DC 14. Чернила замирают.</p>
           </div>
         {/if}
 
@@ -335,26 +443,57 @@
               </span>
             </div>
           {/each}
+          {#if collectedCount === 3}
+            <button class="btn-finale" on:click={() => (globalThis as any).InkFlood?.openFinale()}>
+              Открыть финал (3/3 ключа)
+            </button>
+          {/if}
         </div>
+
+        <!-- Timeline -->
+        {#if $cycleState.cycle >= 1}
+          <Timeline
+            events={$cycleState.events}
+            currentTime={$cycleState.currentTime}
+            cycle={$cycleState.cycle}
+            onEventClick={(id) => { expandedEvent = expandedEvent === id ? null : id; }}
+          />
+        {/if}
 
         <h3>{loc('INK_FLOOD.tabs.events')} — {loc('INK_FLOOD.cycle.label')} {$cycleState.cycle}</h3>
         {#each availableEvents as ev}
           {@const def = getEventForCycle(ev.id, $cycleState.cycle)}
+          {@const attempts = getKeyAttempts(ev.id)}
+          {@const loopMemActive = hasLoopMemory(ev.id)}
           <div class="event-card status-{ev.status}">
             <div class="event-row" on:click={() => toggleEventExpand(ev.id)}>
               <span class="event-expand">{expandedEvent === ev.id ? '▼' : '▶'}</span>
               <span class="event-time">{formatTime(ev.actualTime)}</span>
               <span class="event-name">{def.shortDescription}</span>
+              {#if loopMemActive}
+                <span class="loop-memory-badge" title="Память петли: DC −2 (3+ попыток)">DC−2</span>
+              {:else if attempts > 0}
+                <span class="attempt-count" title="Попыток: {attempts}/3">{attempts}/3</span>
+              {/if}
               <span class="event-slot-badge">{SLOT_LABELS[def.slot]}</span>
               <span class="event-status">{getStatusLabel(ev.status)}</span>
+              <button class="btn-readaloud" on:click|stopPropagation={() => handleReadAloud(ev.id)} title="Зачитать в чат">📖</button>
               {#if ev.status === 'available'}
                 <button class="btn-complete" on:click|stopPropagation={() => handleCompleteEvent(ev.id)}>✓</button>
               {/if}
             </div>
             {#if expandedEvent === ev.id}
               <div class="event-details">
+                {#if loopMemActive}
+                  <p class="loop-memory-note">🧠 Память петли: DC −2 ко всем проверкам этого ключа ({attempts} попыток)</p>
+                {/if}
                 <p class="event-description">{def.description}</p>
                 <pre class="event-hints">{def.gmHints}</pre>
+                {#if ev.status === 'available'}
+                  <button class="btn-small" on:click|stopPropagation={() => { incrementKeyAttempt(ev.id); syncFromSettings(); }}>
+                    + Попытка (без ключа)
+                  </button>
+                {/if}
               </div>
             {/if}
           </div>
@@ -402,7 +541,8 @@
         <h3>{loc('INK_FLOOD.npc.interactions', 'Взаимодействия')}</h3>
         {#each [...npcGroups] as [npcName, interactions]}
           <div class="npc-group">
-            <h4>{npcName}</h4>
+            <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+            <h4><span class="npc-link" on:click={(e) => openNpcPopup(npcName, e)}>{npcName}</span></h4>
             {#each interactions as def}
               <div class="npc-interaction-row">
                 <span class="npc-int-label">{def.label}</span>
@@ -438,6 +578,8 @@
       </section>
     {/if}
   </main>
+
+  <NpcPopup card={npcPopupCard} x={npcPopupX} y={npcPopupY} onClose={closeNpcPopup} />
 </div>
 
 <style>
@@ -526,6 +668,8 @@
   .event-name { flex: 1; font-weight: 600; }
   .event-slot-badge { font-size: 0.8em; color: #888; padding: 1px 6px; border: 1px solid #333; border-radius: 2px; }
   .event-status { font-size: 0.9em; color: #aaa; min-width: 30px; text-align: center; font-weight: 600; }
+  .btn-readaloud { padding: 4px 8px; background: #1a1a3a; border: 1px solid #3a3a6a; color: #aaaaee; border-radius: 3px; cursor: pointer; font-size: 0.85em; }
+  .btn-readaloud:hover { background: #2a2a5a; border-color: #5c7cfa; }
   .btn-complete { padding: 4px 10px; background: #1a3a1a; border: 1px solid #2a6a2a; color: #88cc88; border-radius: 3px; cursor: pointer; font-weight: 700; }
   .event-details { padding: 10px 12px; border-top: 1px solid #222; background: #0a0a14; }
   .event-description { margin: 0 0 8px 0; font-style: italic; color: #aab; font-size: 0.95em; }
@@ -571,4 +715,36 @@
   .btn-npc:hover { background: #1a1a4e; border-color: #5c7cfa; }
   .btn-npc.dim { color: #888; }
   .btn-npc.dim:hover { color: #cc8888; border-color: #6a3a3a; }
+
+  /* Echo City block */
+  .echo-block { padding: 10px; background: #111118; border: 1px solid #2a2a4a; border-radius: 4px; }
+  .echo-table { display: flex; flex-direction: column; gap: 6px; }
+  .echo-row { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid #1a1a2a; }
+  .echo-d6 { min-width: 22px; font-weight: 700; color: #c0c0ff; }
+  .echo-text { flex: 1; font-size: 0.9em; color: #ccc; line-height: 1.4; }
+  .echo-where { min-width: 100px; font-size: 0.8em; color: #888; text-align: right; }
+
+  /* Spotlight block */
+  .spotlight-block { padding: 10px; background: #1a1a0a; border: 1px solid #4a4a2a; border-radius: 4px; }
+  .spotlight-text { margin: 4px 0 0; font-size: 0.95em; color: #cccc88; }
+
+  /* Loop Memory */
+  .loop-memory-badge { padding: 1px 6px; background: #1a2a1a; border: 1px solid #4a8a4a; border-radius: 2px; color: #88cc88; font-weight: 700; font-size: 0.8em; }
+  .attempt-count { font-size: 0.8em; color: #888; font-weight: 600; }
+  .loop-memory-note { margin: 0 0 8px 0; padding: 6px 10px; background: #0a1a0a; border: 1px solid #2a4a2a; border-radius: 3px; color: #88cc88; font-size: 0.9em; font-weight: 600; }
+
+  /* NPC link */
+  .npc-link { color: #c0c0ff; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 2px; }
+  .npc-link:hover { color: #e0e0ff; text-decoration-style: solid; }
+
+  /* Snapshot */
+  .btn-snapshot { padding: 8px 12px; background: #1a2a1a; border: 1px solid #2a4a2a; color: #88cc88; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 700; }
+  .btn-snapshot:hover { background: #2a3a2a; border-color: #4a8a4a; }
+  .btn-snapshot.active { border-color: #4a8a4a; }
+  .snapshot-warning { padding: 8px 12px; margin-bottom: 10px; background: #2a1a0a; border: 1px solid #6a4a1a; border-radius: 4px; color: #ffcc88; font-size: 0.9em; font-weight: 600; }
+  .snapshot-ok { padding: 6px 12px; margin-bottom: 10px; background: #0a1a0a; border: 1px solid #2a4a2a; border-radius: 4px; color: #88cc88; font-size: 0.85em; }
+
+  /* Finale button */
+  .btn-finale { width: 100%; padding: 10px; margin-top: 8px; background: linear-gradient(135deg, #1a0a2a, #2a1a3a); border: 1px solid #ffd700; color: #ffd700; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1em; }
+  .btn-finale:hover { background: linear-gradient(135deg, #2a1a3a, #3a2a4a); }
 </style>

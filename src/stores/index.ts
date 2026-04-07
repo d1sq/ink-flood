@@ -24,6 +24,7 @@ export const discoveryState = writable<DiscoveryState>({
   knownKeys: [],
   npcTrust: {},
   npcMemory: {},
+  keyAttempts: {},
   notes: '',
 });
 

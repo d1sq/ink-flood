@@ -40,8 +40,36 @@ export const FLOOD_PHASES: FloodPhase[] = [
 ];
 
 /**
- * Flood closing read-aloud text (posted at phase 5).
+ * Flood closing read-aloud text by cycle range (posted at phase 5).
  * From "01 Правила цикла.md"
  */
+export const FLOOD_CLOSING_TEXTS: { maxCycle: number; text: string }[] = [
+  {
+    maxCycle: 3,
+    text: 'Чернила поднимаются. Не вода — гуще, холоднее. Цвет уходит из вывесок, потом из лиц. Буквы расплываются. Последнее — Тёмная башня посреди чёрного озера.\nТемнота. Восемь ударов.',
+  },
+  {
+    maxCycle: 6,
+    text: 'Чернила. Опять. Город тонет. Вы это уже знаете.\nТемнота. Восемь ударов.',
+  },
+  {
+    maxCycle: 9,
+    text: 'Чернила поднимаются — но не снизу. Они проступают из стен, из вывесок, из лиц горожан. Горожане не бегут. Стоят неподвижно, по пояс в чернилах, и смотрят на башню. Все одновременно. Тишина.\nТемнота. Восемь ударов. Тише, чем обычно.',
+  },
+  {
+    maxCycle: 10,
+    text: 'Темнота. Восемь ударов.',
+  },
+];
+
+/** Get flood closing text appropriate for the current cycle */
+export function getFloodClosingText(cycle: number): string {
+  for (const entry of FLOOD_CLOSING_TEXTS) {
+    if (cycle <= entry.maxCycle) return entry.text;
+  }
+  return FLOOD_CLOSING_TEXTS[FLOOD_CLOSING_TEXTS.length - 1].text;
+}
+
+/** @deprecated Use getFloodClosingText(cycle) instead */
 export const FLOOD_CLOSING_TEXT =
   'Чернила поднимаются. Не вода — гуще, холоднее. Цвет уходит из вывесок, потом из лиц. Буквы расплываются. Последнее — Тёмная башня посреди чёрного озера.\nТемнота. Восемь ударов.';

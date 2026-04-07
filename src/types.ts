@@ -135,6 +135,9 @@ export interface DiscoveryState {
   npcTrust: Record<string, boolean>;
   /** NPC interaction counts (persists across cycles) */
   npcMemory: Record<string, number>;
+  /** Key attempt counts across cycles ("Loop Memory" / Память петли).
+   *  3+ attempts on one key = DC -2 permanently for that event. */
+  keyAttempts: Partial<Record<EventId, number>>;
   /** Custom GM notes */
   notes: string;
 }

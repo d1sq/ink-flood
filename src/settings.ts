@@ -16,6 +16,7 @@ const DEFAULT_DISCOVERY_STATE: DiscoveryState = {
   knownKeys: [],
   npcTrust: {},
   npcMemory: {},
+  keyAttempts: {},
   notes: '',
 };
 
@@ -56,6 +57,14 @@ export function registerSettings(): void {
       dramatic: 'Драматическая',
     },
     default: 'dramatic' as RotationMode,
+  });
+
+  game.settings.register(MODULE_ID, 'playerSnapshots', {
+    name: 'Player Character Snapshots',
+    scope: 'world',
+    config: false,
+    type: Array,
+    default: [],
   });
 
   game.settings.register(MODULE_ID, 'clockIncrement', {
