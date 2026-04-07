@@ -150,8 +150,8 @@
   $: tabs = [
     { id: 'time', label: loc('INK_FLOOD.tabs.time', 'Время') },
     { id: 'events', label: loc('INK_FLOOD.tabs.events', 'События') },
-    { id: 'tokens', label: loc('INK_FLOOD.tabs.tokens', 'Токены') },
     { id: 'npc', label: loc('INK_FLOOD.tabs.npc', 'НИП') },
+    { id: 'tokens', label: loc('INK_FLOOD.tabs.tokens', 'Токены') },
     { id: 'notes', label: loc('INK_FLOOD.tabs.notes', 'Заметки') },
   ];
 
@@ -235,10 +235,6 @@
     syncFromSettings();
   }
 
-  function handleShowClockToAll() {
-    (game as any).socket!.emit(`module.${MODULE_ID}`, { action: 'showClock' });
-    (globalThis as any).InkFlood?.openClock();
-  }
 
   async function handleCompleteEvent(eventId: EventId) {
     await completeEvent(eventId);
@@ -311,7 +307,6 @@
           <button class="btn-primary" on:click={handleNewCycle}>
             {$cycleState.cycle === 0 ? loc('INK_FLOOD.ui.startCycle1', 'Начать цикл 1') : loc('INK_FLOOD.cycle.new')}
           </button>
-          <button class="btn-secondary" on:click={handleShowClockToAll}>{loc('INK_FLOOD.ui.showClock', 'Часы всем')}</button>
           {#if $cycleState.cycle >= 1}
             <button class="btn-secondary" on:click={handleBriefing}>Сводка</button>
           {/if}

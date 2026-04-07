@@ -9,12 +9,14 @@ import { syncFromSettings } from './stores';
 import { DashboardShell } from './apps/shells/DashboardShell.svelte';
 import { ClockShell } from './apps/shells/ClockShell.svelte';
 import { FinaleShell } from './apps/shells/FinaleShell.svelte';
+import { PlayerTokensShell } from './apps/shells/PlayerTokensShell.svelte';
 import { registerChatCommands } from './chat/chat-commands';
 import type { CycleState } from './types';
 
 let dashboardApp: InstanceType<typeof DashboardShell> | null = null;
 let clockApp: InstanceType<typeof ClockShell> | null = null;
 let finaleApp: InstanceType<typeof FinaleShell> | null = null;
+let playerTokensApp: InstanceType<typeof PlayerTokensShell> | null = null;
 
 Hooks.once('init', () => {
   console.log(`${MODULE_ID} | Initializing`);
@@ -49,6 +51,7 @@ Hooks.once('ready', () => {
     snapshotPlayers: snapshotAllPlayers,
     restorePlayers: restoreAllPlayers,
     hasSnapshots,
+    openPlayerTokens: () => togglePlayerTokens(),
   };
 
   (game as any).modules.get(MODULE_ID).api = api;
@@ -66,19 +69,35 @@ Hooks.once('ready', () => {
   });
 });
 
-// Scene control button (v13: controls is an object, not array)
+// Scene control buttons (v13: controls is an object, not array)
 Hooks.on('getSceneControlButtons', (controls: any) => {
-  if (!(game as any).user?.isGM) return;
   const tokens = controls.tokens;
   if (!tokens) return;
-  tokens.tools['ink-flood-dashboard'] = {
-    name: 'ink-flood-dashboard',
-    title: 'Чернильный потоп',
-    icon: 'fa-solid fa-water',
-    button: true,
-    onChange: () => toggleDashboard(),
-    order: 100,
-  };
+
+  // GM: dashboard button
+  if ((game as any).user?.isGM) {
+    tokens.tools['ink-flood-dashboard'] = {
+      name: 'ink-flood-dashboard',
+      title: 'Чернильный потоп',
+      icon: 'fa-solid fa-water',
+      button: true,
+      onChange: () => toggleDashboard(),
+      order: 100,
+    };
+  }
+
+  // All users: insight tokens button (only after cycle 1 ends = cycle >= 2)
+  const cycleState = (game as any).settings?.get(MODULE_ID, 'cycleState') as CycleState | undefined;
+  if (cycleState && cycleState.cycle >= 2) {
+    tokens.tools['ink-flood-tokens'] = {
+      name: 'ink-flood-tokens',
+      title: 'Токены Прозрения',
+      icon: 'fa-solid fa-eye',
+      button: true,
+      onChange: () => togglePlayerTokens(),
+      order: 101,
+    };
+  }
 });
 
 function toggleDashboard(): void {
@@ -114,5 +133,17 @@ function toggleFinale(): void {
     finaleApp = null;
   } else {
     (finaleApp as any).render(true, { focus: true });
+  }
+}
+
+function togglePlayerTokens(): void {
+  if (!playerTokensApp) {
+    playerTokensApp = new PlayerTokensShell();
+  }
+  if ((playerTokensApp as any).rendered) {
+    (playerTokensApp as any).close();
+    playerTokensApp = null;
+  } else {
+    (playerTokensApp as any).render(true, { focus: true });
   }
 }
