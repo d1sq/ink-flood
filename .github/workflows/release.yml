@@ -3,7 +3,7 @@ name: Release Module
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: write
@@ -11,36 +11,75 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      # Patch module.json version & download URL from tag
-      - name: Set version from tag
+      - name: Ensure module.json matches release tag
+        env:
+          REPOSITORY: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          TAG="${GITHUB_REF_NAME}"
-          sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" module.json
-          sed -i "s|download.*\.zip\"|download\": \"https://github.com/${{ github.repository }}/releases/download/${TAG}/ink-flood-${TAG}.zip\"|" module.json
+          node -e '
+            const fs = require("fs");
+
+            const repo = process.env.REPOSITORY;
+            const tag = process.env.TAG;
+            const version = tag.replace(/^v/, "");
+            const download = `https://github.com/${repo}/releases/download/${tag}/ink-flood-${tag}.zip`;
+
+            const path = "module.json";
+            const data = JSON.parse(fs.readFileSync(path, "utf8"));
+
+            let changed = false;
+
+            if (data.version !== version) {
+              data.version = version;
+              changed = true;
+            }
+
+            if (data.download !== download) {
+              data.download = download;
+              changed = true;
+            }
+
+            if (changed) {
+              fs.writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
+              console.log("module.json was corrected for release");
+            } else {
+              console.log("module.json already matches release tag");
+            }
+          '
+
           cat module.json
 
-      - run: npm run build
+      - name: Build
+        run: npm run build
 
       - name: Prepare release archive
+        shell: bash
         run: |
-          mkdir -p .release/ink-flood/dist
-          cp dist/* .release/ink-flood/dist/
-          cp -r lang .release/ink-flood/lang
-          cp -r packs .release/ink-flood/packs
+          TAG="${GITHUB_REF_NAME}"
+
+          mkdir -p .release/ink-flood
+          [ -d dist ] && cp -r dist .release/ink-flood/dist
+          [ -d lang ] && cp -r lang .release/ink-flood/lang
+          [ -d packs ] && cp -r packs .release/ink-flood/packs
           [ -d assets ] && cp -r assets .release/ink-flood/assets
           cp module.json .release/ink-flood/module.json
-          cd .release && zip -r ../ink-flood-${{ github.ref_name }}.zip ink-flood
+
+          cd .release
+          zip -r "../ink-flood-${TAG}.zip" ink-flood
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
