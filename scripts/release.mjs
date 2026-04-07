@@ -22,6 +22,18 @@ function git(cmd) {
   return exec(`git ${cmd}`).trim();
 }
 
+function getGitHubRepoSlug() {
+  const remote = git('remote get-url origin');
+
+  let match = remote.match(/^git@github\.com:(.+?)(?:\.git)?$/);
+  if (match) return match[1];
+
+  match = remote.match(/^https:\/\/github\.com\/(.+?)(?:\.git)?$/);
+  if (match) return match[1];
+
+  fail(`Unable to determine GitHub repository from origin: ${remote}`);
+}
+
 const bump = process.argv[2] || 'patch';
 const allowedBumps = new Set(['patch', 'minor', 'major']);
 
@@ -53,14 +65,31 @@ try {
     fail(`Tag ${tag} already exists.`);
   }
 
+  const repo = getGitHubRepoSlug();
+  const downloadUrl = `https://github.com/${repo}/releases/download/${tag}/ink-flood-${tag}.zip`;
+
   const modulePath = 'module.json';
   const moduleJson = JSON.parse(fs.readFileSync(modulePath, 'utf8'));
 
-  moduleJson.version = version;
+  let changed = false;
 
-  fs.writeFileSync(modulePath, JSON.stringify(moduleJson, null, 2) + '\n');
+  if (moduleJson.version !== version) {
+    moduleJson.version = version;
+    changed = true;
+  }
 
-  console.log(`Updated module.json → ${version}`);
+  if (moduleJson.download !== downloadUrl) {
+    moduleJson.download = downloadUrl;
+    changed = true;
+  }
+
+  if (changed) {
+    fs.writeFileSync(modulePath, JSON.stringify(moduleJson, null, 2) + '\n');
+    console.log(`Updated module.json → ${version}`);
+    console.log(`Updated download → ${downloadUrl}`);
+  } else {
+    console.log('module.json already up to date');
+  }
 
   const files = ['package.json', 'module.json'];
   if (fs.existsSync('package-lock.json')) {
@@ -72,7 +101,8 @@ try {
   committed = true;
 
   run(`git tag ${tag}`);
-  run(`git push origin ${branch} ${tag}`);
+  run(`git push origin ${branch}`);
+  run(`git push origin ${tag}`);
 
   console.log(`\nRelease ${tag} created`);
 } catch (error) {

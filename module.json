@@ -1,7 +1,7 @@
 {
   "id": "ink-flood",
-  "title": "Чернильный потоп — Time Loop Tracker",
-  "description": "GM tools for the Ink Flood time-loop adventure: cycle tracker, in-game clock, event schedule, key tracker, insight tokens, flood automation, and glitch system.",
+  "title": "Ink Flood — Time Loop Tracker",
+  "description": "GM tools for the Ink Flood time-loop adventure: cycle tracker, in-game clock, event schedule, key tracker, insight tokens, flood automation, and glitch system and many other things",
   "version": "0.7.2",
   "authors": [
     {
