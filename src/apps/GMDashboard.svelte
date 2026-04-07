@@ -8,7 +8,7 @@
   import { ECHO_TABLE } from '../data/glitch-tables';
   import { MODULE_ID, MAX_CYCLES, MAX_INSIGHT_PER_CYCLE, TRAVEL_MATRIX } from '../constants';
   import type { EventId, DiscoveryState, NpcInteractionId } from '../types';
-  import { getInteractionsByNpc, getActiveHints } from '../data/npc-memory';
+  import { getInteractionsByNpc, getActiveHints, getHintsForEvent } from '../data/npc-memory';
   import { getEventReadAloudHTML, getBriefingChatHTML, BRIEFING_HINTS } from '../chat/flood-messages';
   import { cycleHistory } from '../stores';
   import { snapshotAllPlayers, hasSnapshots } from '../engine/snapshot-engine';
@@ -478,9 +478,17 @@
               {/if}
             </div>
             {#if expandedEvent === ev.id}
+              {@const eventNpcHints = getHintsForEvent(ev.id, npcMemory)}
               <div class="event-details">
                 {#if loopMemActive}
                   <p class="loop-memory-note">🧠 Память петли: DC −2 ко всем проверкам этого ключа ({attempts} попыток)</p>
+                {/if}
+                {#if eventNpcHints.length > 0}
+                  <div class="event-npc-hints">
+                    {#each eventNpcHints as hint}
+                      <p class="event-npc-hint"><strong>{hint.npc}:</strong> {hint.text}</p>
+                    {/each}
+                  </div>
                 {/if}
                 <p class="event-description">{def.description}</p>
                 <pre class="event-hints">{def.gmHints}</pre>
@@ -727,6 +735,11 @@
   .loop-memory-badge { padding: 1px 6px; background: #1a2a1a; border: 1px solid #4a8a4a; border-radius: 2px; color: #88cc88; font-weight: 700; font-size: 0.8em; }
   .attempt-count { font-size: 0.8em; color: #888; font-weight: 600; }
   .loop-memory-note { margin: 0 0 8px 0; padding: 6px 10px; background: #0a1a0a; border: 1px solid #2a4a2a; border-radius: 3px; color: #88cc88; font-size: 0.9em; font-weight: 600; }
+
+  /* NPC hints on event cards */
+  .event-npc-hints { margin: 0 0 10px; padding: 8px 10px; background: #111a11; border: 1px solid #2a4a2a; border-radius: 3px; }
+  .event-npc-hint { margin: 3px 0; font-size: 0.9em; color: #ccddcc; font-style: italic; line-height: 1.4; }
+  .event-npc-hint strong { color: #c0c0ff; font-style: normal; }
 
   /* NPC link */
   .npc-link { color: #c0c0ff; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 2px; }

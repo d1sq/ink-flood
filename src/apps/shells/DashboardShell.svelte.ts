@@ -12,8 +12,8 @@ export class DashboardShell extends SvelteApplicationMixin(ApplicationV2) {
       resizable: true,
     },
     position: {
-      width: 540,
-      height: 660,
+      width: 620,
+      height: 780,
     },
   };
 

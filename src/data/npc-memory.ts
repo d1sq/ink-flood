@@ -169,6 +169,41 @@ export const NPC_INTERACTIONS: NpcInteractionDef[] = [
   },
 ];
 
+/** Which NPC interactions are relevant to which event */
+export const EVENT_NPC_MAP: Record<string, NpcInteractionId[]> = {
+  execution: ['kel-saved', 'kel-ignored'],
+  governor: ['governor-flattered', 'governor-robbed', 'governor-honest'],
+  temple: ['elza-saved', 'elza-died', 'elza-prayer-learned'],
+  alley: ['nagel-fought', 'nagel-spared', 'nagel-killed', 'fritz-saved', 'fritz-died'],
+  shop: ['olbrecht-defended', 'olbrecht-lens-broken'],
+  lighthouse: ['konrad-persuaded', 'konrad-lens-fell', 'konrad-respected'],
+  chapel: [],
+  dawn: [],
+  market: [],
+};
+
+/** Get active hints relevant to a specific event */
+export function getHintsForEvent(eventId: string, memory: Record<string, number>): { npc: string; text: string }[] {
+  const relevantIds = EVENT_NPC_MAP[eventId] ?? [];
+  if (relevantIds.length === 0) return [];
+
+  const hints: { npc: string; text: string }[] = [];
+  for (const id of relevantIds) {
+    const def = NPC_INTERACTIONS.find(d => d.id === id);
+    if (!def) continue;
+    const count = memory[id] ?? 0;
+    if (count === 0) continue;
+    let best: { minCount: number; text: string } | undefined;
+    for (const h of def.hints) {
+      if (count >= h.minCount && (!best || h.minCount > best.minCount)) {
+        best = h;
+      }
+    }
+    if (best) hints.push({ npc: def.npc, text: best.text });
+  }
+  return hints;
+}
+
 /** Group interactions by NPC name */
 export function getInteractionsByNpc(): Map<string, NpcInteractionDef[]> {
   const map = new Map<string, NpcInteractionDef[]>();

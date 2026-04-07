@@ -3,7 +3,7 @@ import { getGlitchForCycle } from '../data/glitch-tables';
 
 export { getGlitchForCycle };
 
-/** Get the Ink Trace tier for Ozzi based on cycle number */
+/** Get the Ink Trace tier for Ozzie based on cycle number */
 export function getInkTraceTier(cycle: number): MarkTier {
   if (cycle <= 3) return 0;
   if (cycle <= 6) return 1;
@@ -11,7 +11,7 @@ export function getInkTraceTier(cycle: number): MarkTier {
   return 3;
 }
 
-/** Get the Watcher Mark tier for Igrit based on cycle number */
+/** Get the Watcher Mark tier for I grit based on cycle number */
 export function getWatcherMarkTier(cycle: number): MarkTier {
   if (cycle <= 3) return 0;
   if (cycle <= 6) return 1;
