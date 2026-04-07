@@ -204,6 +204,19 @@
     snapshotsExist = true;
   }
 
+  // === ATTEMPT (failed key attempt — still earns insight token) ===
+  async function handleAttempt(eventId: EventId) {
+    await incrementKeyAttempt(eventId);
+    // Earn 1 insight token for each player character (attempted = earned)
+    const actors = (game as any).actors?.filter((a: any) => a.hasPlayerOwner) ?? [];
+    for (const actor of actors) {
+      await earnToken(actor);
+    }
+    refreshPlayerTokens();
+    syncFromSettings();
+    ui.notifications?.info('Попытка засчитана — токен начислен');
+  }
+
   // === MORNING BRIEFING ===
   async function handleBriefing() {
     const available = $cycleState.events
@@ -353,6 +366,7 @@
         {#if $cycleState.cycle >= 4 && $cycleState.cycle <= 6}
           <div class="section-block echo-block">
             <h3>Эхо города (d6)</h3>
+            <p class="echo-hint">Одно эхо за цикл, в любой момент. Бросьте d6 или выберите.</p>
             <div class="echo-table">
               {#each ECHO_TABLE as echo}
                 <div class="echo-row">
@@ -493,7 +507,7 @@
                 <p class="event-description">{def.description}</p>
                 <pre class="event-hints">{def.gmHints}</pre>
                 {#if ev.status === 'available'}
-                  <button class="btn-small" on:click|stopPropagation={() => { incrementKeyAttempt(ev.id); syncFromSettings(); }}>
+                  <button class="btn-small" on:click|stopPropagation={() => handleAttempt(ev.id)}>
                     + Попытка (без ключа)
                   </button>
                 {/if}
@@ -721,6 +735,7 @@
 
   /* Echo City block */
   .echo-block { padding: 10px; background: #111118; border: 1px solid #2a2a4a; border-radius: 4px; }
+  .echo-hint { margin: 0 0 8px; font-size: 0.85em; color: #888; font-style: italic; }
   .echo-table { display: flex; flex-direction: column; gap: 6px; }
   .echo-row { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-bottom: 1px solid #1a1a2a; }
   .echo-d6 { min-width: 22px; font-weight: 700; color: #c0c0ff; }
