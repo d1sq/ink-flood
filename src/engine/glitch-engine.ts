@@ -1,4 +1,4 @@
-import type { GlitchEffect, MarkTier } from '../types';
+import type { MarkTier } from '../types';
 import { getGlitchForCycle } from '../data/glitch-tables';
 
 export { getGlitchForCycle };

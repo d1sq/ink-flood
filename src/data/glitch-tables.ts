@@ -1,4 +1,4 @@
-import type { GlitchEffect, EventId } from '../types';
+import type { GlitchEffect } from '../types';
 
 /**
  * Echo events for cycles 4-6.
