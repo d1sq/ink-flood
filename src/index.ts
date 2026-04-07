@@ -13,6 +13,38 @@ import { PlayerTokensShell } from './apps/shells/PlayerTokensShell.svelte';
 import { registerChatCommands } from './chat/chat-commands';
 import type { CycleState } from './types';
 
+function injectCampaignEndStyles(): void {
+  if (document.getElementById('ink-campaign-end-css')) return;
+  const style = document.createElement('style');
+  style.id = 'ink-campaign-end-css';
+  style.textContent = `
+    .ink-campaign-end-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; }
+    .ink-campaign-end-modal { position: relative; max-width: 90vw; max-height: 90vh; }
+    .ink-campaign-end-gif { display: block; max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 0 40px rgba(255,215,0,0.3); }
+    .ink-campaign-end-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; background: #1a1a2e; border: 1px solid #555; color: #e0e0e0; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+    .ink-campaign-end-close:hover { border-color: #ffd700; color: #ffd700; }
+  `;
+  document.head.appendChild(style);
+}
+
+function showCampaignEndOverlay(): void {
+  if (document.querySelector('.ink-campaign-end-overlay')) return;
+  injectCampaignEndStyles();
+  const overlay = document.createElement('div');
+  overlay.className = 'ink-campaign-end-overlay';
+  overlay.innerHTML = `
+    <div class="ink-campaign-end-modal">
+      <img src="modules/ink-flood/assets/images/glorpy.gif" alt="Campaign Complete" class="ink-campaign-end-gif" />
+      <button class="ink-campaign-end-close">✕</button>
+    </div>
+  `;
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+  overlay.querySelector('.ink-campaign-end-close')!.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
+}
+
 let dashboardApp: InstanceType<typeof DashboardShell> | null = null;
 let clockApp: InstanceType<typeof ClockShell> | null = null;
 let finaleApp: InstanceType<typeof FinaleShell> | null = null;
@@ -52,6 +84,10 @@ Hooks.once('ready', () => {
     restorePlayers: restoreAllPlayers,
     hasSnapshots,
     openPlayerTokens: () => togglePlayerTokens(),
+    showCampaignEnd: () => {
+      showCampaignEndOverlay();
+      game.socket!.emit(`module.${MODULE_ID}`, { action: 'campaignEnd' });
+    },
   };
 
   (game as any).modules.get(MODULE_ID).api = api;
@@ -65,6 +101,9 @@ Hooks.once('ready', () => {
     syncFromSettings();
     if (data.action === 'showClock') {
       toggleClock();
+    }
+    if (data.action === 'campaignEnd') {
+      showCampaignEndOverlay();
     }
   });
 });

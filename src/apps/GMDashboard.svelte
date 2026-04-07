@@ -40,7 +40,6 @@
 
   let activeTab = 'time';
   let customMinutes = 30;
-  let showCampaignEnd = false;
 
   // === PARTY GROUPS ===
   interface PartyGroup {
@@ -300,7 +299,7 @@
       {#if $activeGlitch}
         <span class="glitch-badge">DC+{$activeGlitch.dcModifier}</span>
       {/if}
-      <button class="btn-campaign-end" on:click={() => showCampaignEnd = true}>☀</button>
+      <button class="btn-campaign-end" on:click={() => (globalThis as any).InkFlood?.showCampaignEnd()}>☀</button>
     </div>
   </header>
 
@@ -601,15 +600,6 @@
   <NpcPopup card={npcPopupCard} x={npcPopupX} y={npcPopupY} onClose={closeNpcPopup} />
 </div>
 
-{#if showCampaignEnd}
-  <div class="campaign-end-overlay" on:click={() => showCampaignEnd = false} role="presentation">
-    <!-- svelte-ignore a11y_click_events_have_key_events a11y_interactive_supports_focus -->
-    <div class="campaign-end-modal" on:click|stopPropagation role="dialog">
-      <img src="modules/ink-flood/assets/images/glorpy.gif" alt="Campaign Complete" class="campaign-end-gif" />
-      <button class="campaign-end-close" on:click={() => showCampaignEnd = false}>✕</button>
-    </div>
-  </div>
-{/if}
 
 <style>
   /* Base */
@@ -787,10 +777,4 @@
   .btn-campaign-end { padding: 4px 8px; background: none; border: 1px solid #555; color: #aaa; border-radius: 4px; cursor: pointer; font-size: 1em; line-height: 1; }
   .btn-campaign-end:hover { border-color: #ffd700; color: #ffd700; }
 
-  /* Campaign end overlay */
-  .campaign-end-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; }
-  .campaign-end-modal { position: relative; max-width: 90vw; max-height: 90vh; }
-  .campaign-end-gif { display: block; max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 0 40px rgba(255,215,0,0.3); }
-  .campaign-end-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; background: #1a1a2e; border: 1px solid #555; color: #e0e0e0; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-  .campaign-end-close:hover { border-color: #ffd700; color: #ffd700; }
 </style>
