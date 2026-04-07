@@ -1,47 +1,90 @@
-{
-  "id": "ink-flood",
-  "title": "Чернильный потоп — Time Loop Tracker",
-  "description": "GM tools for the Ink Flood time-loop adventure: cycle tracker, in-game clock, event schedule, key tracker, insight tokens, flood automation, and glitch system.",
-  "version": "0.7.2",
-  "authors": [
-    {
-      "name": "d1sq",
-      "url": "https://github.com/d1sq"
-    }
-  ],
-  "url": "https://github.com/d1sq/ink-flood",
-  "manifest": "https://github.com/d1sq/ink-flood/releases/latest/download/module.json",
-  "download": "https://github.com/d1sq/ink-flood/releases/download/v0.6.3/ink-flood-v0.6.3.zip",
-  "compatibility": {
-    "minimum": "13",
-    "verified": "13"
-  },
-  "esmodules": [
-    "dist/ink-flood.js"
-  ],
-  "styles": [
-    "dist/ink-flood.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    },
-    {
-      "lang": "ru",
-      "name": "Russian",
-      "path": "lang/ru.json"
-    }
-  ],
-  "socket": true,
-  "packs": [
-    {
-      "name": "actors",
-      "label": "Чернильный потоп — НИП",
-      "type": "Actor",
-      "system": "dnd5e",
-      "path": "packs/actors"
-    }
-  ]
-}
+name: Release Module
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure module.json matches release tag
+        env:
+          REPOSITORY: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          node -e '
+            const fs = require("fs");
+
+            const repo = process.env.REPOSITORY;
+            const tag = process.env.TAG;
+            const version = tag.replace(/^v/, "");
+            const download = `https://github.com/${repo}/releases/download/${tag}/ink-flood-${tag}.zip`;
+
+            const path = "module.json";
+            const data = JSON.parse(fs.readFileSync(path, "utf8"));
+
+            let changed = false;
+
+            if (data.version !== version) {
+              data.version = version;
+              changed = true;
+            }
+
+            if (data.download !== download) {
+              data.download = download;
+              changed = true;
+            }
+
+            if (changed) {
+              fs.writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
+              console.log("module.json was corrected for release");
+            } else {
+              console.log("module.json already matches release tag");
+            }
+          '
+
+          cat module.json
+
+      - name: Build
+        run: npm run build
+
+      - name: Prepare release archive
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+
+          mkdir -p .release/ink-flood
+          [ -d dist ] && cp -r dist .release/ink-flood/dist
+          [ -d lang ] && cp -r lang .release/ink-flood/lang
+          [ -d packs ] && cp -r packs .release/ink-flood/packs
+          [ -d assets ] && cp -r assets .release/ink-flood/assets
+          cp module.json .release/ink-flood/module.json
+
+          cd .release
+          zip -r "../ink-flood-${TAG}.zip" ink-flood
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ink-flood-${{ github.ref_name }}.zip
+            module.json
+          generate_release_notes: true
