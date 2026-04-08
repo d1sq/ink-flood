@@ -34,7 +34,7 @@ function showCampaignEndOverlay(): void {
   overlay.className = 'ink-campaign-end-overlay';
   overlay.innerHTML = `
     <div class="ink-campaign-end-modal">
-      <img src="modules/ink-flood/assets/images/glorpy.gif" alt="Campaign Complete" class="ink-campaign-end-gif" />
+      <video src="modules/ink-flood/assets/images/glorpy.webm" autoplay loop muted playsinline class="ink-campaign-end-gif"></video>
       <button class="ink-campaign-end-close">✕</button>
     </div>
   `;
