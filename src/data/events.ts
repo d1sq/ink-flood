@@ -300,10 +300,11 @@ export const LOCATION_NAMES: Record<string, string> = {
   temple: 'Храм',
   market: 'Рынок',
   shop: 'Лавка',
-  lighthouse: 'Башня',
-  wall: 'Стена / Ворота',
   alley: 'Переулок',
+  lighthouse: 'Сигнальная Башня',
+  tavern: 'Таверна',
   chapel: 'Часовня',
+  wall: 'Стена / Ворота',
 };
 
 /** Get event definition by ID */
