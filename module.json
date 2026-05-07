@@ -14,7 +14,7 @@
   "download": "https://github.com/d1sq/ink-flood/releases/download/v0.8.3/ink-flood-v0.8.3.zip",
   "compatibility": {
     "minimum": "13",
-    "verified": "13"
+    "verified": "14"
   },
   "esmodules": [
     "dist/ink-flood.js"
