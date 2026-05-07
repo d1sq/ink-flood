@@ -2,7 +2,7 @@
   "_id": "npcBrummel000001",
   "name": "Heinz Brummel",
   "type": "npc",
-  "img": "modules/ink-flood/assets/actors/actor-2.png",
+  "img": "modules/ink-flood/assets/actors/brummel.png",
   "system": {
     "abilities": {
       "str": { "value": 10, "proficient": 0 },
@@ -46,7 +46,7 @@
     "name": "Heinz Brummel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/actor-2.png", "scaleX": 1, "scaleY": 1 },
+    "texture": { "src": "modules/ink-flood/assets/actors/brummel.png", "scaleX": 1, "scaleY": 1 },
     "width": 1,
     "height": 1,
     "disposition": 0,

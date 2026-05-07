@@ -2,7 +2,7 @@
   "_id": "npcOlbrecht00001",
   "name": "Olbrecht",
   "type": "npc",
-  "img": "modules/ink-flood/assets/actors/actor-5.png",
+  "img": "modules/ink-flood/assets/actors/olbrecht.png",
   "system": {
     "abilities": {
       "str": { "value": 8, "proficient": 0 },
@@ -46,7 +46,7 @@
     "name": "Olbrecht",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/actor-5.png", "scaleX": 1, "scaleY": 1 },
+    "texture": { "src": "modules/ink-flood/assets/actors/olbrecht.png", "scaleX": 1, "scaleY": 1 },
     "width": 1,
     "height": 1,
     "disposition": 1,
