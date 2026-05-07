@@ -286,6 +286,70 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "inkSummonOlbreht",
+      "name": "Чернильный Призыв (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echOlbWeakness1",
+      "name": "Каталог Слабостей (1/день)",
+      "type": "feat",
+      "img": "icons/sundries/books/book-eye-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Цель в 60 фт <em>помечается</em> Оттиском. Все источники урона по этой цели наносят дополнительные <strong>+1d6 некротического</strong> урона на 1 минуту. Концентрация. (Ольбрехт «опознал» слабость прообраза.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "day",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 60,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
     }
   ],
   "effects": [],

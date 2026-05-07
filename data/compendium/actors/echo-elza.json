@@ -300,6 +300,70 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "inkSummonElza000",
+      "name": "Чернильный Призыв (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echElzaSmite001",
+      "name": "Тёмная Кара (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/symbols/cross-circle-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Когда Эльза попадает атакой ближнего боя, как часть атаки тратит этот эффект — наносит дополнительные <strong>2d8 некротического урона</strong>. Объявить до броска урона.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "damage": {
+          "parts": [
+            [
+              "2d8",
+              "necrotic"
+            ]
+          ]
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
     }
   ],
   "effects": [],

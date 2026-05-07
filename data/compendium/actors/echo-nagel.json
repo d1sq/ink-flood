@@ -172,7 +172,7 @@
       "img": "icons/skills/melee/blade-tips-triple-steel.webp",
       "system": {
         "description": {
-          "value": "<p>Оттиск делает две атаки ножом за действие.</p>"
+          "value": "<p>Оттиск Нагеля делает <strong>две атаки</strong> за действие — любую комбинацию ножа в ближнем и метательного ножа в дальнем. Не сводит дистанцию; идеален в укрытиях.</p>"
         },
         "activation": {
           "type": "action",
@@ -318,6 +318,88 @@
         },
         "type": {
           "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkSummonNagel00",
+      "name": "Чернильный Призыв (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echNagThrow00001",
+      "name": "Метательный нож",
+      "type": "weapon",
+      "img": "icons/weapons/thrown/dart-feathered.webp",
+      "system": {
+        "description": {
+          "value": "<p>Чернильный нож, брошенный из тени. Если цель не видела Оттиска до броска — <strong>+2d6 скрытной атаки</strong> (1/ход).</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 20,
+          "long": 60,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "actionType": "rwak",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        },
+        "damage": {
+          "parts": [
+            [
+              "1d4 + 4",
+              "piercing"
+            ],
+            [
+              "1d6",
+              "necrotic"
+            ]
+          ]
+        },
+        "weaponType": "simpleR",
+        "proficient": true,
+        "equipped": true,
+        "ability": "dex",
+        "properties": {
+          "fin": true,
+          "lgt": true,
+          "thr": true
         }
       }
     }

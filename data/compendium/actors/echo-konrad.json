@@ -282,6 +282,79 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "inkSummonKonrad0",
+      "name": "Чернильный Призыв (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echKonBeacon001",
+      "name": "Маяковая Вспышка (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/light/beam-explosion-pink-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием Оттиск раскрывает грудь — наружу вырывается чернильный свет. Конус 30 фт. Все существа в зоне делают сейв <strong>Ловкость DC 13</strong>. Провал: <strong>4d6 излучения</strong> + <strong>ослеплены</strong> до конца своего следующего хода. Успех: половина урона, без ослепления.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "dex",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "damage": {
+          "parts": [
+            [
+              "4d6",
+              "radiant"
+            ]
+          ]
+        },
+        "target": {
+          "value": 30,
+          "type": "cone"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
     }
   ],
   "effects": [],

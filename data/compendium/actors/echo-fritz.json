@@ -298,6 +298,69 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "inkSummonFritz00",
+      "name": "Чернильный Призыв (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echFritzPanic01",
+      "name": "Каскад Паники",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Пассивная.</em> Когда Оттиск Фрица получает урон, все враждебные существа в 10 фт делают сейв <strong>Мудрость DC 13</strong>. Провал — <strong>1d6 психического урона</strong> (Фриц паникует громко, и его страх передаётся).</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "damage": {
+          "parts": [
+            [
+              "1d6",
+              "psychic"
+            ]
+          ]
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
     }
   ],
   "effects": [],
