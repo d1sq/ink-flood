@@ -121,49 +121,199 @@
         "description": {
           "value": "<p>Кинжал с ядом. При попадании — сейв Тел DC 13, провал = 2d6 ядовитого урона.</p>"
         },
-        "activation": {
-          "type": "action",
-          "cost": 1
-        },
         "range": {
-          "value": 5,
-          "units": "ft"
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
         },
-        "target": {
-          "value": 1,
-          "type": "creature"
-        },
-        "actionType": "mwak",
         "damage": {
-          "parts": [
-            [
-              "1d4 + 3",
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "bonus": "+3",
+            "types": [
               "piercing"
             ],
-            [
-              "2d6",
-              "poison"
-            ]
-          ]
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
         },
         "save": {
           "ability": "con",
           "dc": 13,
           "scaling": "flat"
         },
-        "weaponType": "simpleM",
-        "proficient": true,
+        "proficient": 1,
         "equipped": true,
         "ability": "dex",
-        "properties": {
-          "fin": true,
-          "lgt": true,
-          "thr": true
+        "properties": [
+          "fin",
+          "lgt",
+          "thr"
+        ],
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
         },
-        "attack": {
-          "bonus": "",
-          "flat": false
-        }
+        "magicalBonus": null,
+        "mastery": "",
+        "identifier": "отравленный-кинжал",
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "5",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "dex",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "poison"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0
+          }
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "attuned": false,
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "crewed": false,
+        "ammunition": {}
       }
     },
     {

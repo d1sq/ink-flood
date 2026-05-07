@@ -126,39 +126,194 @@
         "description": {
           "value": "<p>Тонкий чернильный клинок дрожит в руках. Колющая атака с дополнительным некрот-уроном.</p>"
         },
-        "activation": {
-          "type": "action",
-          "cost": 1
-        },
         "range": {
-          "value": 5,
-          "units": "ft"
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
         },
-        "target": {
-          "value": 1,
-          "type": "creature"
-        },
-        "actionType": "mwak",
         "damage": {
-          "parts": [
-            [
-              "1d4 + 3",
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "bonus": "+3",
+            "types": [
               "piercing"
             ],
-            [
-              "2d6",
-              "necrotic"
-            ]
-          ]
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
         },
-        "weaponType": "simpleM",
-        "proficient": true,
+        "proficient": 1,
         "equipped": true,
         "ability": "dex",
-        "attack": {
-          "bonus": "",
-          "flat": false
-        }
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "magicalBonus": null,
+        "mastery": "",
+        "identifier": "отчаянный-нож",
+        "properties": [
+          "fin",
+          "lgt",
+          "thr"
+        ],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "5",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "dex",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "necrotic"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0
+          }
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "attuned": false,
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "crewed": false,
+        "ammunition": {}
       }
     },
     {
@@ -282,13 +437,13 @@
       }
     },
     {
-      "_id": "inkSummonKel0000",
-      "name": "Чернильный Призыв (1/бой)",
+      "_id": "echKelSelfCopy01",
+      "name": "Двойник Себя (1/бой)",
       "type": "feat",
-      "img": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
       "system": {
         "description": {
-          "value": "<p>Действием. Из ближайшей чернильной лужи / тёмной поверхности в 30 фт поднимается <strong>1 Чернильный Силуэт</strong> с половинной угрозой (HP 13, AC 13, +4 1d8+3 некрот). Действует на инициативе Оттиска. Максимум 2 активных призванных Силуэта одновременно — если попытаться призвать третьего, ближайший рассыпается. (См. Ink Silhouette в компендиуме.)</p>"
+          "value": "<p>Действием Оттиск разделяется надвое. Из чернильной лужи в 5 фт от него поднимается <strong>идентичная копия</strong> с теми же параметрами, кроме HP (33 — половина) и без своих 1/бой-абилок (Туманный шаг, Чернильный Шёпот, Двойник). Действует на инициативе оригинала. Копия рассыпается на 0 HP с тем же лор-эффектом «Распад». Партия не отличает оригинал от копии без проверки <strong>Восприятие DC 14</strong>.</p>"
         },
         "activation": {
           "type": "action",
@@ -305,7 +460,7 @@
           "type": "creature"
         },
         "range": {
-          "value": 30,
+          "value": 5,
           "units": "ft"
         },
         "type": {
