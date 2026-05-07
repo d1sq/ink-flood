@@ -5,41 +5,119 @@
   "img": "modules/ink-flood/assets/actors/echo-nagel.png",
   "system": {
     "abilities": {
-      "str": { "value": 13, "proficient": 0 },
-      "dex": { "value": 17, "proficient": 0 },
-      "con": { "value": 13, "proficient": 0 },
-      "int": { "value": 11, "proficient": 0 },
-      "wis": { "value": 13, "proficient": 0 },
-      "cha": { "value": 14, "proficient": 0 }
+      "str": {
+        "value": 13,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 17,
+        "proficient": 0
+      },
+      "con": {
+        "value": 13,
+        "proficient": 0
+      },
+      "int": {
+        "value": 11,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 15, "calc": "flat" },
-      "hp": { "value": 42, "max": 42, "formula": "7d8 + 7" },
-      "init": { "ability": "dex", "bonus": "+2" },
-      "movement": { "walk": 35, "units": "ft" },
+      "ac": {
+        "flat": 15,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 42,
+        "max": 42,
+        "formula": "7d8 + 7"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": "+2"
+      },
+      "movement": {
+        "walk": 35,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двойник погибшего убийцы. Лицо «размазано» как угольный набросок при стирании — черты ускользают, единственное чёткое — фиксированные чернильно-чёрные глаза. Кожаные перчатки сочатся чернилами, нож блестит чёрной плёнкой.</p>" },
+      "biography": {
+        "value": "<p>Двойник погибшего убийцы. Лицо «размазано» как угольный набросок при стирании — черты ускользают, единственное чёткое — фиксированные чернильно-чёрные глаза. Кожаные перчатки сочатся чернилами, нож блестит чёрной плёнкой.</p>"
+      },
       "cr": 3,
-      "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
+      "type": {
+        "value": "aberration",
+        "subtype": "echo",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "—",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": ["poison"], "custom": "exhaustion, charm" },
-      "dr": { "value": ["necrotic", "bludgeoning", "piercing", "slashing"], "custom": "немагическое физическое" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": ["charmed", "exhaustion", "poisoned"], "custom": "" },
-      "languages": { "value": [], "custom": "редко говорит, но фразы прообраза точны" }
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "exhaustion, charm"
+      },
+      "dr": {
+        "value": [
+          "necrotic",
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "немагическое физическое"
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "exhaustion",
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "редко говорит, но фразы прообраза точны"
+      }
     },
     "skills": {
-      "ste": { "value": 2, "ability": "dex" },
-      "prc": { "value": 1, "ability": "wis" },
-      "dec": { "value": 1, "ability": "cha" },
-      "acr": { "value": 1, "ability": "dex" }
+      "ste": {
+        "value": 2,
+        "ability": "dex"
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis"
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha"
+      },
+      "acr": {
+        "value": 1,
+        "ability": "dex"
+      }
     }
   },
   "items": [
@@ -49,12 +127,34 @@
       "type": "weapon",
       "img": "icons/weapons/daggers/dagger-curved-purple.webp",
       "system": {
-        "description": { "value": "<p>Лезвие сочится чернилами вместо яда. Атака ближнего боя.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
-        "target": { "value": 1, "type": "creature" },
+        "description": {
+          "value": "<p>Лезвие сочится чернилами вместо яда. Атака ближнего боя.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
         "actionType": "mwak",
-        "damage": { "parts": [["1d4 + 3", "piercing"], ["1d6", "necrotic"]] },
+        "damage": {
+          "parts": [
+            [
+              "1d4 + 3",
+              "piercing"
+            ],
+            [
+              "1d6",
+              "necrotic"
+            ]
+          ]
+        },
         "weaponType": "simpleM",
         "proficient": true,
         "equipped": true,
@@ -65,56 +165,95 @@
       "_id": "echNagMulti00001",
       "name": "Мультиатака",
       "type": "feat",
-      "img": "icons/skills/melee/strike-blade-knife-blue.webp",
+      "img": "icons/skills/melee/blade-tips-triple-steel.webp",
       "system": {
-        "description": { "value": "<p>Оттиск делает две атаки ножом за действие.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Оттиск делает две атаки ножом за действие.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echNagBlur000001",
       "name": "Размытое лицо",
       "type": "feat",
-      "img": "icons/magic/control/silhouette-aura-glow-blue.webp",
+      "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
       "system": {
-        "description": { "value": "<p>Все атаки по Оттиску в свет дня делаются с помехой — лицо ускользает, не за что зацепиться. Не работает в ярком магическом свете (Свет, Дневной свет).</p>" },
-        "activation": { "type": "none", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Все атаки по Оттиску в свет дня делаются с помехой — лицо ускользает, не за что зацепиться. Не работает в ярком магическом свете (Свет, Дневной свет).</p>"
+        },
+        "activation": {
+          "type": "none",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echNagDisengage01",
       "name": "Отход (бонусное действие)",
       "type": "feat",
-      "img": "icons/skills/movement/feet-winged-boots-yellow.webp",
+      "img": "icons/skills/movement/figure-running-gray.webp",
       "system": {
-        "description": { "value": "<p>Бонусным действием совершает действие Отход. Жизнь дороже контракта.</p>" },
-        "activation": { "type": "bonus", "cost": 1 },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Бонусным действием совершает действие Отход. Жизнь дороже контракта.</p>"
+        },
+        "activation": {
+          "type": "bonus",
+          "cost": 1
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echRecognition007",
       "name": "Узнавание",
       "type": "feat",
-      "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-teal.webp",
       "system": {
-        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>" },
-        "activation": { "type": "special", "cost": null },
-        "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 12,
+          "scaling": "flat"
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echNagDecay000001",
       "name": "Распад",
       "type": "feat",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую Нагель не успел сказать.</p>" },
-        "activation": { "type": "special", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>При 0 HP рассыпается с фразой, которую Нагель не успел сказать.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     }
   ],
@@ -123,15 +262,26 @@
     "name": "Echo of Nagel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/echo-nagel.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/echo-nagel.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": -1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "encounterId": "echo-nagel", "echoOf": "nagel" }
+    "ink-flood": {
+      "encounterId": "echo-nagel",
+      "echoOf": "nagel"
+    }
   }
 }

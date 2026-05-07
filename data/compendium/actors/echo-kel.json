@@ -5,40 +5,115 @@
   "img": "modules/ink-flood/assets/actors/echo-kel.png",
   "system": {
     "abilities": {
-      "str": { "value": 13, "proficient": 0 },
-      "dex": { "value": 15, "proficient": 0 },
-      "con": { "value": 13, "proficient": 0 },
-      "int": { "value": 11, "proficient": 0 },
-      "wis": { "value": 13, "proficient": 0 },
-      "cha": { "value": 14, "proficient": 0 }
+      "str": {
+        "value": 13,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 15,
+        "proficient": 0
+      },
+      "con": {
+        "value": 13,
+        "proficient": 0
+      },
+      "int": {
+        "value": 11,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 14, "calc": "flat" },
-      "hp": { "value": 38, "max": 38, "formula": "7d8 + 7" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 35, "units": "ft" },
+      "ac": {
+        "flat": 14,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 38,
+        "max": 38,
+        "formula": "7d8 + 7"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 35,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двойник погибшего НИП. Внешне — он. Голос — его. Только глаза затянуты чернилами, и кожа на ощупь — как мокрая бумага. Партия видит знакомое лицо. Это часть цены.</p><p>Прообраз: молодой вор, повешенный на эшафоте.</p>" },
+      "biography": {
+        "value": "<p>Двойник погибшего НИП. Внешне — он. Голос — его. Только глаза затянуты чернилами, и кожа на ощупь — как мокрая бумага. Партия видит знакомое лицо. Это часть цены.</p><p>Прообраз: молодой вор, повешенный на эшафоте.</p>"
+      },
       "cr": 2,
-      "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
+      "type": {
+        "value": "aberration",
+        "subtype": "echo",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "—",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": ["poison"], "custom": "exhaustion, charm" },
-      "dr": { "value": ["necrotic", "bludgeoning", "piercing", "slashing"], "custom": "немагическое физическое" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": ["charmed", "exhaustion", "poisoned"], "custom": "" },
-      "languages": { "value": [], "custom": "повторяет фразы прообраза" }
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "exhaustion, charm"
+      },
+      "dr": {
+        "value": [
+          "necrotic",
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "немагическое физическое"
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "exhaustion",
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "повторяет фразы прообраза"
+      }
     },
     "skills": {
-      "ste": { "value": 1, "ability": "dex" },
-      "prc": { "value": 1, "ability": "wis" },
-      "dec": { "value": 1, "ability": "cha" }
+      "ste": {
+        "value": 1,
+        "ability": "dex"
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis"
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha"
+      }
     }
   },
   "items": [
@@ -46,14 +121,36 @@
       "_id": "echKelKnife000001",
       "name": "Отчаянный нож",
       "type": "weapon",
-      "img": "icons/weapons/daggers/dagger-jeweled-purple.webp",
+      "img": "icons/weapons/daggers/dagger-curved-blue.webp",
       "system": {
-        "description": { "value": "<p>Тонкий чернильный клинок дрожит в руках. Колющая атака с дополнительным некрот-уроном.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
-        "target": { "value": 1, "type": "creature" },
+        "description": {
+          "value": "<p>Тонкий чернильный клинок дрожит в руках. Колющая атака с дополнительным некрот-уроном.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
         "actionType": "mwak",
-        "damage": { "parts": [["1d4 + 2", "piercing"], ["1d6", "necrotic"]] },
+        "damage": {
+          "parts": [
+            [
+              "1d4 + 2",
+              "piercing"
+            ],
+            [
+              "1d6",
+              "necrotic"
+            ]
+          ]
+        },
         "weaponType": "simpleM",
         "proficient": true,
         "equipped": true,
@@ -64,34 +161,59 @@
       "_id": "echKelDisengage01",
       "name": "Отход (бонусное действие)",
       "type": "feat",
-      "img": "icons/skills/movement/feet-winged-boots-yellow.webp",
+      "img": "icons/skills/movement/figure-running-gray.webp",
       "system": {
-        "description": { "value": "<p>Бонусным действием совершает действие Отход — пытается уйти, не сражаться. Кель не хочет драки, он хочет убежать.</p>" },
-        "activation": { "type": "bonus", "cost": 1 },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Бонусным действием совершает действие Отход — пытается уйти, не сражаться. Кель не хочет драки, он хочет убежать.</p>"
+        },
+        "activation": {
+          "type": "bonus",
+          "cost": 1
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echRecognition001",
       "name": "Узнавание",
       "type": "feat",
-      "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-teal.webp",
       "system": {
-        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку (рука дрогнула). Только первый раз.</p>" },
-        "activation": { "type": "special", "cost": null },
-        "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку (рука дрогнула). Только первый раз.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 12,
+          "scaling": "flat"
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echKelDecay000001",
       "name": "Распад",
       "type": "feat",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую прообраз никогда не успел сказать. Лорный пинок (см. банк фраз).</p>" },
-        "activation": { "type": "special", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>При 0 HP рассыпается с фразой, которую прообраз никогда не успел сказать. Лорный пинок (см. банк фраз).</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     }
   ],
@@ -100,15 +222,26 @@
     "name": "Echo of Kel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/echo-kel.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/echo-kel.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": -1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "encounterId": "echo-kel", "echoOf": "kel" }
+    "ink-flood": {
+      "encounterId": "echo-kel",
+      "echoOf": "kel"
+    }
   }
 }

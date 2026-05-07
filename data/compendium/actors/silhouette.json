@@ -5,53 +5,153 @@
   "img": "modules/ink-flood/assets/actors/silhouette.png",
   "system": {
     "abilities": {
-      "str": { "value": 10, "proficient": 0 },
-      "dex": { "value": 14, "proficient": 0 },
-      "con": { "value": 12, "proficient": 0 },
-      "int": { "value": 6, "proficient": 0 },
-      "wis": { "value": 10, "proficient": 0 },
-      "cha": { "value": 8, "proficient": 0 }
+      "str": {
+        "value": 10,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0
+      },
+      "con": {
+        "value": 12,
+        "proficient": 0
+      },
+      "int": {
+        "value": 6,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 8,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 12, "calc": "flat" },
-      "hp": { "value": 13, "max": 13, "formula": "3d6 + 3" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 30, "units": "ft" },
+      "ac": {
+        "flat": 12,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 13,
+        "max": 13,
+        "formula": "3d6 + 3"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 30,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Безликая фигура из густой тени. Очертания человека — но без лица, без одежды, без веса. Двигается рывками, как пропущенный кадр. Это персонаж, у которого никогда не было сцены.</p>", "public": "" },
+      "biography": {
+        "value": "<p>Безликая фигура из густой тени. Очертания человека — но без лица, без одежды, без веса. Двигается рывками, как пропущенный кадр. Это персонаж, у которого никогда не было сцены.</p>",
+        "public": ""
+      },
       "cr": 0.5,
-      "type": { "value": "aberration", "subtype": "", "swarm": "", "custom": "" },
+      "type": {
+        "value": "aberration",
+        "subtype": "",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "—",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": ["poison"], "custom": "exhaustion, charm, fear" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": ["radiant"], "custom": "" },
-      "ci": { "value": ["charmed", "frightened", "exhaustion", "poisoned"], "custom": "" },
-      "languages": { "value": [], "custom": "понимает все языки, на которых говорил при жизни тот, чьей историей он стал — но не говорит" }
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "exhaustion, charm, fear"
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [
+          "radiant"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "frightened",
+          "exhaustion",
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "понимает все языки, на которых говорил при жизни тот, чьей историей он стал — но не говорит"
+      }
     },
     "skills": {},
-    "resources": { "legact": { "value": 0, "max": 0 }, "legres": { "value": 0, "max": 0 }, "lair": { "value": false, "initiative": null } }
+    "resources": {
+      "legact": {
+        "value": 0,
+        "max": 0
+      },
+      "legres": {
+        "value": 0,
+        "max": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null
+      }
+    }
   },
   "items": [
     {
       "_id": "silAttackTouch01",
       "name": "Чернильное прикосновение",
       "type": "weapon",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/magic/death/hand-withered-gray.webp",
       "system": {
-        "description": { "value": "<p>Густой чернильный мазок касается кожи — холод, потом онемение. Атака ближнего боя.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
-        "target": { "value": 1, "type": "creature" },
+        "description": {
+          "value": "<p>Густой чернильный мазок касается кожи — холод, потом онемение. Атака ближнего боя.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
         "actionType": "mwak",
-        "attack": { "bonus": "", "flat": false },
-        "damage": { "parts": [["1d6 + 2", "necrotic"]], "versatile": "" },
+        "attack": {
+          "bonus": "",
+          "flat": false
+        },
+        "damage": {
+          "parts": [
+            [
+              "1d6 + 2",
+              "necrotic"
+            ]
+          ],
+          "versatile": ""
+        },
         "weaponType": "natural",
         "proficient": true,
         "equipped": true,
@@ -62,22 +162,36 @@
       "_id": "silFeatDecay00001",
       "name": "Распад",
       "type": "feat",
-      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP силуэт рассыпается чернильной лужей. ПС, нанёсший последний удар, слышит обрывок нерассказанной истории — ГМ зачитывает фразу из банка «Шёпот при гибели».</p>" },
-        "activation": { "type": "special", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>При 0 HP силуэт рассыпается чернильной лужей. ПС, нанёсший последний удар, слышит обрывок нерассказанной истории — ГМ зачитывает фразу из банка «Шёпот при гибели».</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "silFeatLightVuln1",
       "name": "Уязвимость к свету",
       "type": "feat",
-      "img": "icons/magic/light/beam-rays-yellow.webp",
+      "img": "icons/svg/light.svg",
       "system": {
-        "description": { "value": "<p>В зоне яркого света (фонарь, факел, заклинание Свет) силуэт теряет реакции и не может атаковать первой целью с преимуществом. Также: Линза Истины при ярком источнике даёт +1d6 излучения по силуэту.</p>" },
-        "activation": { "type": "none", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>В зоне яркого света (фонарь, факел, заклинание Свет) силуэт теряет реакции и не может атаковать первой целью с преимуществом. Также: Линза Истины при ярком источнике даёт +1d6 излучения по силуэту.</p>"
+        },
+        "activation": {
+          "type": "none",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     }
   ],
@@ -86,15 +200,25 @@
     "name": "Ink Silhouette",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/silhouette.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/silhouette.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": -1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "encounterId": "silhouette" }
+    "ink-flood": {
+      "encounterId": "silhouette"
+    }
   }
 }

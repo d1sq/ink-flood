@@ -5,56 +5,184 @@
   "img": "modules/ink-flood/assets/actors/kel.png",
   "system": {
     "abilities": {
-      "str": { "value": 9, "proficient": 0 },
-      "dex": { "value": 16, "proficient": 0 },
-      "con": { "value": 10, "proficient": 0 },
-      "int": { "value": 11, "proficient": 0 },
-      "wis": { "value": 11, "proficient": 0 },
-      "cha": { "value": 12, "proficient": 0 }
+      "str": {
+        "value": 9,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 0
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0
+      },
+      "int": {
+        "value": 11,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 11,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 12,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 12, "calc": "flat" },
-      "hp": { "value": 9, "max": 9, "formula": "2d8" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 30, "units": "ft" },
+      "ac": {
+        "flat": 12,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 9,
+        "max": 9,
+        "formula": "2d8"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 30,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двадцатилетний вор, тощий, перебитый нос, грязные волосы. Попался на краже хлеба третий раз — по реманскому закону вешают. Хочет одного: не умереть. На шее — стеклянная подвеска на кожаном шнурке, «мамкино стекло». Если спасти — отдаст без раздумий.</p>" },
+      "biography": {
+        "value": "<p>Двадцатилетний вор, тощий, перебитый нос, грязные волосы. Попался на краже хлеба третий раз — по реманскому закону вешают. Хочет одного: не умереть. На шее — стеклянная подвеска на кожаном шнурке, «мамкино стекло». Если спасти — отдаст без раздумий.</p>"
+      },
       "cr": 0.125,
-      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "type": {
+        "value": "humanoid",
+        "subtype": "human",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "Хаотично-нейтральный",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": [], "custom": "" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": [], "custom": "" },
-      "languages": { "value": ["common"], "custom": "" }
+      "di": {
+        "value": [],
+        "custom": ""
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": ""
+      }
     },
     "skills": {
-      "ste": { "value": 1, "ability": "dex" },
-      "acr": { "value": 1, "ability": "dex" }
+      "ste": {
+        "value": 1,
+        "ability": "dex"
+      },
+      "acr": {
+        "value": 1,
+        "ability": "dex"
+      }
     }
   },
-  "items": [],
+  "items": [
+    {
+      "_id": "kelDagger00000001",
+      "name": "Кинжал",
+      "type": "weapon",
+      "img": "icons/weapons/daggers/dagger-curved-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Простой кинжал. Подсунул из карманов прохожих.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "long": 20,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "actionType": "mwak",
+        "damage": {
+          "parts": [
+            [
+              "1d4 + 3",
+              "piercing"
+            ]
+          ]
+        },
+        "weaponType": "simpleM",
+        "proficient": true,
+        "equipped": true,
+        "ability": "dex",
+        "properties": {
+          "fin": true,
+          "lgt": true,
+          "thr": true
+        }
+      }
+    },
+    {
+      "_id": "kelGlassPendant01",
+      "name": "Стеклянная подвеска («мамкино стекло»)",
+      "type": "equipment",
+      "img": "icons/magic/symbols/circled-gem-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Семейная безделушка на кожаном шнурке. Главный ключ петли — Стеклянный Ключ. Кель отдаст без раздумий, если спасти.</p>"
+        },
+        "equipped": true
+      }
+    }
+  ],
   "effects": [],
   "prototypeToken": {
     "name": "Kel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/kel.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/kel.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": 0,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "npcId": "kel" }
+    "ink-flood": {
+      "npcId": "kel"
+    }
   }
 }

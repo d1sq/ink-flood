@@ -5,64 +5,170 @@
   "img": "modules/ink-flood/assets/actors/chorus.png",
   "system": {
     "abilities": {
-      "str": { "value": 12, "proficient": 0 },
-      "dex": { "value": 13, "proficient": 0 },
-      "con": { "value": 12, "proficient": 0 },
-      "int": { "value": 8, "proficient": 0 },
-      "wis": { "value": 12, "proficient": 0 },
-      "cha": { "value": 14, "proficient": 0 }
+      "str": {
+        "value": 12,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 13,
+        "proficient": 0
+      },
+      "con": {
+        "value": 12,
+        "proficient": 0
+      },
+      "int": {
+        "value": 8,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 13, "calc": "flat" },
-      "hp": { "value": 27, "max": 27, "formula": "5d8 + 5" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 25, "units": "ft" },
+      "ac": {
+        "flat": 13,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 27,
+        "max": 27,
+        "formula": "5d8 + 5"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 25,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Три-четыре силуэта, сросшиеся в одну сущность. Двигаются синхронно. Шепчут хором — фразы знакомых НИП, обрывки разговоров из прошлых циклов. Голос Эльзы. Голос Келя. Голос самого ПС, сказанный неделю назад.</p>" },
+      "biography": {
+        "value": "<p>Три-четыре силуэта, сросшиеся в одну сущность. Двигаются синхронно. Шепчут хором — фразы знакомых НИП, обрывки разговоров из прошлых циклов. Голос Эльзы. Голос Келя. Голос самого ПС, сказанный неделю назад.</p>"
+      },
       "cr": 2,
-      "type": { "value": "aberration", "subtype": "", "swarm": "med", "custom": "" },
+      "type": {
+        "value": "aberration",
+        "subtype": "",
+        "swarm": "med",
+        "custom": ""
+      },
       "alignment": "—",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "lg",
-      "di": { "value": ["poison"], "custom": "exhaustion, charm, fear" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": ["radiant"], "custom": "" },
-      "ci": { "value": ["charmed", "frightened", "exhaustion", "poisoned"], "custom": "" },
-      "languages": { "value": [], "custom": "говорит голосами тех, кого слышал в петле" }
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "exhaustion, charm, fear"
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [
+          "radiant"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "frightened",
+          "exhaustion",
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "говорит голосами тех, кого слышал в петле"
+      }
     },
     "skills": {},
-    "resources": { "legact": { "value": 0, "max": 0 }, "legres": { "value": 0, "max": 0 }, "lair": { "value": false, "initiative": null } }
+    "resources": {
+      "legact": {
+        "value": 0,
+        "max": 0
+      },
+      "legres": {
+        "value": 0,
+        "max": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null
+      }
+    }
   },
   "items": [
     {
       "_id": "chorMultiAttack01",
       "name": "Мультиатака",
       "type": "feat",
-      "img": "icons/skills/melee/strike-blade-knife-blue.webp",
+      "img": "icons/skills/melee/blade-tips-triple-steel.webp",
       "system": {
-        "description": { "value": "<p>Хор делает две атаки «Прикосновение хора».</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Хор делает две атаки «Прикосновение хора».</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "chorAttackTouch01",
       "name": "Прикосновение хора",
       "type": "weapon",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/magic/death/hand-withered-gray.webp",
       "system": {
-        "description": { "value": "<p>При попадании цель слышит фразу из прошлого цикла своим собственным голосом — помеха на следующую проверку Концентрации.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
-        "target": { "value": 1, "type": "creature" },
+        "description": {
+          "value": "<p>При попадании цель слышит фразу из прошлого цикла своим собственным голосом — помеха на следующую проверку Концентрации.</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
         "actionType": "mwak",
-        "attack": { "bonus": "", "flat": false },
-        "damage": { "parts": [["1d6 + 1", "necrotic"]], "versatile": "" },
+        "attack": {
+          "bonus": "",
+          "flat": false
+        },
+        "damage": {
+          "parts": [
+            [
+              "1d6 + 1",
+              "necrotic"
+            ]
+          ],
+          "versatile": ""
+        },
         "weaponType": "natural",
         "proficient": true,
         "equipped": true,
@@ -75,33 +181,63 @@
       "type": "feat",
       "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
       "system": {
-        "description": { "value": "<p>Реакция (1/раунд). Когда ПС в 30 фт делает проверку или атаку — Хор шепчет фразу, которую этот ПС когда-то услышал в петле. Цель: сейв Мудрость DC 12. Провал = -2 к броску.</p>" },
-        "activation": { "type": "reaction", "cost": 1 },
-        "uses": { "value": 1, "max": "1", "per": "round", "recovery": "" },
-        "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Реакция (1/раунд). Когда ПС в 30 фт делает проверку или атаку — Хор шепчет фразу, которую этот ПС когда-то услышал в петле. Цель: сейв Мудрость DC 12. Провал = -2 к броску.</p>"
+        },
+        "activation": {
+          "type": "reaction",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "round",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 12,
+          "scaling": "flat"
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "chorFeatSplit0001",
       "name": "Расщепление",
       "type": "feat",
-      "img": "icons/magic/control/silhouette-grow-shrink-blue.webp",
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
       "system": {
-        "description": { "value": "<p>Когда HP падает до половины (≤13), Хор распадается на 3 Чернильных Силуэта (с пропорциональным HP, минимум 5 у каждого). Это бонусное действие при получении урона.</p>" },
-        "activation": { "type": "bonus", "cost": 1 },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Когда HP падает до половины (≤13), Хор распадается на 3 Чернильных Силуэта (с пропорциональным HP, минимум 5 у каждого). Это бонусное действие при получении урона.</p>"
+        },
+        "activation": {
+          "type": "bonus",
+          "cost": 1
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "chorFeatSilence01",
       "name": "Тишина ломает",
       "type": "feat",
-      "img": "icons/magic/control/silhouette-aura-glow-blue.webp",
+      "img": "icons/svg/silenced.svg",
       "system": {
-        "description": { "value": "<p>В зоне заклинания Тишина (Silence) или эффекта, гасящего звук — Хор не может использовать Шёпот и атакует с помехой.</p>" },
-        "activation": { "type": "none", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>В зоне заклинания Тишина (Silence) или эффекта, гасящего звук — Хор не может использовать Шёпот и атакует с помехой.</p>"
+        },
+        "activation": {
+          "type": "none",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     }
   ],
@@ -110,15 +246,25 @@
     "name": "Ink Chorus",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/chorus.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/chorus.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 2,
     "height": 2,
     "disposition": -1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "encounterId": "chorus" }
+    "ink-flood": {
+      "encounterId": "chorus"
+    }
   }
 }

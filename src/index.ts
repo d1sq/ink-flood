@@ -14,6 +14,7 @@ import { EncounterTrackerShell } from './apps/shells/EncounterTrackerShell.svelt
 import { registerChatCommands } from './chat/chat-commands';
 import { cycleState as cycleStore, encounterState as encounterStore } from './stores';
 import { deriveNpcStatusFromEvents } from './engine/encounter-engine';
+import { getActiveActorNameMap } from './data/actor-translations';
 import type { CycleState, EncounterState, CycleHistoryEntry } from './types';
 
 function injectCampaignEndStyles(): void {
@@ -59,9 +60,42 @@ Hooks.once('init', () => {
   registerSettings();
 });
 
+async function applyActorLocalization(): Promise<void> {
+  const map = getActiveActorNameMap();
+  if (!map) return;
+
+  // 1. Patch pack index entries so the compendium browser shows localized names.
+  const pack = (game as any).packs.get(`${MODULE_ID}.actors`);
+  if (pack) {
+    try {
+      await pack.getIndex();
+      for (const entry of pack.index) {
+        const localized = map[entry.name];
+        if (localized) entry.name = localized;
+      }
+    } catch (e) {
+      console.warn(`${MODULE_ID} | Failed to patch pack index for localization:`, e);
+    }
+  }
+
+  // 2. Hook preCreateActor so tokens dropped onto a scene get the localized name.
+  //    Guarded by our `flags.ink-flood` so we only touch our own actors.
+  Hooks.on('preCreateActor', (actor: any, data: any) => {
+    if (!data?.flags?.['ink-flood']) return;
+    const localized = map[data.name];
+    if (localized && data.name !== localized) {
+      actor.updateSource({
+        name: localized,
+        'prototypeToken.name': localized,
+      });
+    }
+  });
+}
+
 Hooks.once('ready', () => {
   console.log(`${MODULE_ID} | Ready`);
   syncFromSettings();
+  void applyActorLocalization();
 
   // Expose API
   const api = {

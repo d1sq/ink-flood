@@ -5,56 +5,166 @@
   "img": "modules/ink-flood/assets/actors/elza.png",
   "system": {
     "abilities": {
-      "str": { "value": 9, "proficient": 0 },
-      "dex": { "value": 10, "proficient": 0 },
-      "con": { "value": 11, "proficient": 0 },
-      "int": { "value": 14, "proficient": 0 },
-      "wis": { "value": 18, "proficient": 0 },
-      "cha": { "value": 14, "proficient": 0 }
+      "str": {
+        "value": 9,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0
+      },
+      "con": {
+        "value": 11,
+        "proficient": 0
+      },
+      "int": {
+        "value": 14,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 18,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 10, "calc": "flat" },
-      "hp": { "value": 8, "max": 8, "formula": "1d8 + 1" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 25, "units": "ft" },
+      "ac": {
+        "flat": 10,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 8,
+        "max": 8,
+        "formula": "1d8 + 1"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 25,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": "wis"
     },
     "details": {
-      "biography": { "value": "<p>Настоятельница храма. Высокая сухая старуха, белые волосы под платком. Руки в чернильных пятнах — много пишет. Говорит тихо. Видит ложь (Проницательность +6), не стесняется об этом сказать. Знает о Сиверне. Может научить Молитве Отмены за 10 минут — старая традиция, вплетённая в орсенианскую службу.</p>" },
+      "biography": {
+        "value": "<p>Настоятельница храма. Высокая сухая старуха, белые волосы под платком. Руки в чернильных пятнах — много пишет. Говорит тихо. Видит ложь (Проницательность +6), не стесняется об этом сказать. Знает о Сиверне. Может научить Молитве Отмены за 10 минут — старая традиция, вплетённая в орсенианскую службу.</p>"
+      },
       "cr": 0.125,
-      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "type": {
+        "value": "humanoid",
+        "subtype": "human",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "Законно-добрый",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": [], "custom": "" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": [], "custom": "" },
-      "languages": { "value": ["common"], "custom": "" }
+      "di": {
+        "value": [],
+        "custom": ""
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": ""
+      }
     },
     "skills": {
-      "ins": { "value": 2, "ability": "wis" },
-      "rel": { "value": 1, "ability": "int" }
+      "ins": {
+        "value": 2,
+        "ability": "wis"
+      },
+      "rel": {
+        "value": 1,
+        "ability": "int"
+      }
     }
   },
-  "items": [],
+  "items": [
+    {
+      "_id": "elzPrayerOfUndo01",
+      "name": "Молитва Отмены",
+      "type": "feat",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+      "system": {
+        "description": {
+          "value": "<p>Древние слова, отменяющие ложь. Один из ключей петли (слот Слова). Эльза знает её от своей наставницы — это не церковный канон, а старая традиция, вплетённая в орсенианскую службу. Может научить за 10 минут, если заслужить доверие (спасти от люстры или упомянуть Сиверна).</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "elzInsight000000001",
+      "name": "Видеть ложь",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Проницательность +6. Может объявить, что заметила ложь.</p>"
+        },
+        "activation": {
+          "type": "none",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    }
+  ],
   "effects": [],
   "prototypeToken": {
     "name": "Mother Elza",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/elza.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/elza.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": 1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "npcId": "elza" }
+    "ink-flood": {
+      "npcId": "elza"
+    }
   }
 }

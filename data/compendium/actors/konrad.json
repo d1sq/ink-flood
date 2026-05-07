@@ -5,56 +5,154 @@
   "img": "modules/ink-flood/assets/actors/konrad.png",
   "system": {
     "abilities": {
-      "str": { "value": 14, "proficient": 0 },
-      "dex": { "value": 11, "proficient": 0 },
-      "con": { "value": 13, "proficient": 0 },
-      "int": { "value": 10, "proficient": 0 },
-      "wis": { "value": 12, "proficient": 0 },
-      "cha": { "value": 9, "proficient": 0 }
+      "str": {
+        "value": 14,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 11,
+        "proficient": 0
+      },
+      "con": {
+        "value": 13,
+        "proficient": 0
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 9,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 12, "calc": "flat" },
-      "hp": { "value": 15, "max": 15, "formula": "2d8 + 6" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 30, "units": "ft" },
+      "ac": {
+        "flat": 12,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 15,
+        "max": 15,
+        "formula": "2d8 + 6"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 30,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Смотритель сигнальной башни. Широкоплечий, обветренное лицо, рыжая борода с сединой, потёртая суконная куртка. Молчалив, упрям. Башня — его жизнь. Суеверный: верит, что ветер на вершине несёт голоса мёртвых, не свистит наверху, стучит по дереву. Если обратиться с уважением к его работе — оттает.</p>" },
+      "biography": {
+        "value": "<p>Смотритель сигнальной башни. Широкоплечий, обветренное лицо, рыжая борода с сединой, потёртая суконная куртка. Молчалив, упрям. Башня — его жизнь. Суеверный: верит, что ветер на вершине несёт голоса мёртвых, не свистит наверху, стучит по дереву. Если обратиться с уважением к его работе — оттает.</p>"
+      },
       "cr": 0.125,
-      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "type": {
+        "value": "humanoid",
+        "subtype": "human",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "Нейтральный",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": [], "custom": "" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": [], "custom": "" },
-      "languages": { "value": ["common"], "custom": "" }
+      "di": {
+        "value": [],
+        "custom": ""
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": ""
+      }
     },
     "skills": {
-      "ath": { "value": 1, "ability": "str" },
-      "per": { "value": 1, "ability": "wis" }
+      "ath": {
+        "value": 1,
+        "ability": "str"
+      },
+      "per": {
+        "value": 1,
+        "ability": "wis"
+      }
     }
   },
-  "items": [],
+  "items": [
+    {
+      "_id": "konSignalLens0001",
+      "name": "Сигнальная линза",
+      "type": "equipment",
+      "img": "icons/sundries/lights/lantern-bullseye-signal-copper.webp",
+      "system": {
+        "description": {
+          "value": "<p>Большой стеклянный диск, двадцать лет под опекой Конрада. Хрупкий — падение с 60 фт = вдребезги. В 17:25 Конрад снимает её для чистки и в 17:30 роняет, если не вмешаться.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "konCleanRag000001",
+      "name": "Тряпка для чистки",
+      "type": "equipment",
+      "img": "icons/svg/item-bag.svg",
+      "system": {
+        "description": {
+          "value": "<p>Грубая мокрая тряпка. Конрад протирает линзу ею каждый день в 17:00.</p>"
+        },
+        "equipped": true
+      }
+    }
+  ],
   "effects": [],
   "prototypeToken": {
     "name": "Konrad Weiss",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/konrad.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/konrad.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": 0,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "npcId": "konrad" }
+    "ink-flood": {
+      "npcId": "konrad"
+    }
   }
 }

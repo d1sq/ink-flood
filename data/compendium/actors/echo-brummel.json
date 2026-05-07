@@ -5,40 +5,115 @@
   "img": "modules/ink-flood/assets/actors/echo-brummel.png",
   "system": {
     "abilities": {
-      "str": { "value": 11, "proficient": 0 },
-      "dex": { "value": 11, "proficient": 0 },
-      "con": { "value": 13, "proficient": 0 },
-      "int": { "value": 13, "proficient": 0 },
-      "wis": { "value": 13, "proficient": 0 },
-      "cha": { "value": 16, "proficient": 0 }
+      "str": {
+        "value": 11,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 11,
+        "proficient": 0
+      },
+      "con": {
+        "value": 13,
+        "proficient": 0
+      },
+      "int": {
+        "value": 13,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 12, "calc": "flat" },
-      "hp": { "value": 32, "max": 32, "formula": "5d8 + 10" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 25, "units": "ft" },
+      "ac": {
+        "flat": 12,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 32,
+        "max": 32,
+        "formula": "5d8 + 10"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 25,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двойник погибшего губернатора. Глаза-чернила, чернила сочатся через парик и манжеты камзола, в кольцах вместо самоцветов — чёрные капли. В руках сжимает массивную бронзовую печать должности.</p>" },
+      "biography": {
+        "value": "<p>Двойник погибшего губернатора. Глаза-чернила, чернила сочатся через парик и манжеты камзола, в кольцах вместо самоцветов — чёрные капли. В руках сжимает массивную бронзовую печать должности.</p>"
+      },
       "cr": 2,
-      "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
+      "type": {
+        "value": "aberration",
+        "subtype": "echo",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "—",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": ["poison"], "custom": "exhaustion, charm" },
-      "dr": { "value": ["necrotic", "bludgeoning", "piercing", "slashing"], "custom": "немагическое физическое" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": ["charmed", "exhaustion", "poisoned"], "custom": "" },
-      "languages": { "value": [], "custom": "повторяет фразы прообраза" }
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "exhaustion, charm"
+      },
+      "dr": {
+        "value": [
+          "necrotic",
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "немагическое физическое"
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "exhaustion",
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "повторяет фразы прообраза"
+      }
     },
     "skills": {
-      "ste": { "value": 0, "ability": "dex" },
-      "prc": { "value": 1, "ability": "wis" },
-      "dec": { "value": 1, "ability": "cha" }
+      "ste": {
+        "value": 0,
+        "ability": "dex"
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis"
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha"
+      }
     }
   },
   "items": [
@@ -46,15 +121,41 @@
       "_id": "echBruSeal0000001",
       "name": "Печать Отзыва",
       "type": "weapon",
-      "img": "icons/skills/trades/academics-merchant-scribe.webp",
+      "img": "icons/sundries/documents/document-official-brownl.webp",
       "system": {
-        "description": { "value": "<p>Бруммель шлёпает по цели тяжёлой бронзовой печатью, оставляя на коже чернильный оттиск. Атака ближнего боя. При попадании цель: сейв Харизма DC 13 или 1 раунд не может говорить (печать «отзывает» голос).</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
-        "target": { "value": 1, "type": "creature" },
+        "description": {
+          "value": "<p>Бруммель шлёпает по цели тяжёлой бронзовой печатью, оставляя на коже чернильный оттиск. Атака ближнего боя. При попадании цель: сейв Харизма DC 13 или 1 раунд не может говорить (печать «отзывает» голос).</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 5,
+          "units": "ft"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
         "actionType": "mwak",
-        "damage": { "parts": [["1d6 + 0", "bludgeoning"], ["1d4", "necrotic"]] },
-        "save": { "ability": "cha", "dc": 13, "scaling": "flat" },
+        "damage": {
+          "parts": [
+            [
+              "1d6 + 0",
+              "bludgeoning"
+            ],
+            [
+              "1d4",
+              "necrotic"
+            ]
+          ]
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
         "weaponType": "improvisedM",
         "proficient": true,
         "equipped": true,
@@ -65,35 +166,65 @@
       "_id": "echBruScream00001",
       "name": "СТРАЖА! (1/бой, реакция)",
       "type": "feat",
-      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
       "system": {
-        "description": { "value": "<p>Когда Оттиск получает урон — реакцией кричит фразу-маркер. Из чернильных луж в 30 фт поднимаются 2 Чернильных Силуэта (с ½ HP), действуют в инициативу Бруммеля. 1 раз за бой.</p>" },
-        "activation": { "type": "reaction", "cost": 1 },
-        "uses": { "value": 1, "max": "1", "per": "charges", "recovery": "" },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Когда Оттиск получает урон — реакцией кричит фразу-маркер. Из чернильных луж в 30 фт поднимаются 2 Чернильных Силуэта (с ½ HP), действуют в инициативу Бруммеля. 1 раз за бой.</p>"
+        },
+        "activation": {
+          "type": "reaction",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echRecognition006",
       "name": "Узнавание",
       "type": "feat",
-      "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-teal.webp",
       "system": {
-        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>" },
-        "activation": { "type": "special", "cost": null },
-        "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 12,
+          "scaling": "flat"
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     },
     {
       "_id": "echBruDecay000001",
       "name": "Распад",
       "type": "feat",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую Бруммель не успел сказать.</p>" },
-        "activation": { "type": "special", "cost": null },
-        "type": { "value": "monster" }
+        "description": {
+          "value": "<p>При 0 HP рассыпается с фразой, которую Бруммель не успел сказать.</p>"
+        },
+        "activation": {
+          "type": "special",
+          "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
       }
     }
   ],
@@ -102,15 +233,26 @@
     "name": "Echo of Brummel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/echo-brummel.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/echo-brummel.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": -1,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "encounterId": "echo-brummel", "echoOf": "brummel" }
+    "ink-flood": {
+      "encounterId": "echo-brummel",
+      "echoOf": "brummel"
+    }
   }
 }

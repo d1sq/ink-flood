@@ -5,55 +5,138 @@
   "img": "modules/ink-flood/assets/actors/fritz.png",
   "system": {
     "abilities": {
-      "str": { "value": 9, "proficient": 0 },
-      "dex": { "value": 11, "proficient": 0 },
-      "con": { "value": 10, "proficient": 0 },
-      "int": { "value": 11, "proficient": 0 },
-      "wis": { "value": 10, "proficient": 0 },
-      "cha": { "value": 10, "proficient": 0 }
+      "str": {
+        "value": 9,
+        "proficient": 0
+      },
+      "dex": {
+        "value": 11,
+        "proficient": 0
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0
+      },
+      "int": {
+        "value": 11,
+        "proficient": 0
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0
+      }
     },
     "attributes": {
-      "ac": { "flat": 10, "calc": "flat" },
-      "hp": { "value": 5, "max": 5, "formula": "1d8" },
-      "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 30, "units": "ft" },
+      "ac": {
+        "flat": 10,
+        "calc": "flat"
+      },
+      "hp": {
+        "value": 5,
+        "max": 5,
+        "formula": "1d8"
+      },
+      "init": {
+        "ability": "dex",
+        "bonus": ""
+      },
+      "movement": {
+        "walk": 30,
+        "units": "ft"
+      },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Шантажист. Нервный, потный, тридцать пять. Одежда дорогая, но мятая. Глаза бегают, постоянно оглядывается. В руке — конверт, который то прячет, то достаёт. Нашёл письмо случайно и решил заработать — не знает полного содержания. Трус: если надавить — сдаст мгновенно.</p>" },
+      "biography": {
+        "value": "<p>Шантажист. Нервный, потный, тридцать пять. Одежда дорогая, но мятая. Глаза бегают, постоянно оглядывается. В руке — конверт, который то прячет, то достаёт. Нашёл письмо случайно и решил заработать — не знает полного содержания. Трус: если надавить — сдаст мгновенно.</p>"
+      },
       "cr": 0,
-      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "type": {
+        "value": "humanoid",
+        "subtype": "human",
+        "swarm": "",
+        "custom": ""
+      },
       "alignment": "Хаотично-нейтральный",
-      "source": { "custom": "Чернильный потоп" }
+      "source": {
+        "custom": "Чернильный потоп"
+      }
     },
     "traits": {
       "size": "med",
-      "di": { "value": [], "custom": "" },
-      "dr": { "value": [], "custom": "" },
-      "dv": { "value": [], "custom": "" },
-      "ci": { "value": [], "custom": "" },
-      "languages": { "value": ["common"], "custom": "" }
+      "di": {
+        "value": [],
+        "custom": ""
+      },
+      "dr": {
+        "value": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": ""
+      }
     },
     "skills": {
-      "dec": { "value": 1, "ability": "cha" }
+      "dec": {
+        "value": 1,
+        "ability": "cha"
+      }
     }
   },
-  "items": [],
+  "items": [
+    {
+      "_id": "fritzLetter000001",
+      "name": "Конверт с письмом",
+      "type": "equipment",
+      "img": "icons/sundries/documents/document-letter-formal-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Найденное письмо с компроматом. Один из ключей петли (слот Слова — Признание Убийцы). Фриц не знает полного содержания. Если надавить (Запугивание 12) — отдаёт. Если предложить деньги — продаёт за 5 зм.</p>"
+        },
+        "equipped": true
+      }
+    }
+  ],
   "effects": [],
   "prototypeToken": {
     "name": "Fritz Gamm",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/fritz.png", "scaleX": 1, "scaleY": 1 },
+    "texture": {
+      "src": "modules/ink-flood/assets/actors/fritz.png",
+      "scaleX": 1,
+      "scaleY": 1
+    },
     "width": 1,
     "height": 1,
     "disposition": 0,
     "displayBars": 20,
-    "bar1": { "attribute": "attributes.hp" },
-    "sight": { "enabled": false }
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "sight": {
+      "enabled": false
+    }
   },
   "flags": {
-    "ink-flood": { "npcId": "fritz" }
+    "ink-flood": {
+      "npcId": "fritz"
+    }
   }
 }
