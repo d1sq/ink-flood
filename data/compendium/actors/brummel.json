@@ -133,6 +133,54 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "bruRichCoat00010",
+      "name": "Дорогой безвкусный камзол",
+      "type": "equipment",
+      "img": "icons/equipment/chest/coat-collared-red-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Расшитая ткань, не по росту. На каждой пуговице — герб Реманской канцелярии.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "bruWigPowder0010",
+      "name": "Напудренный парик",
+      "type": "equipment",
+      "img": "icons/equipment/head/hat-belted-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p>Седой парик, белая пудра. Бруммель носит его с гордостью, считает что молодит.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "bruRingGold00010",
+      "name": "Кольца на каждом пальце",
+      "type": "equipment",
+      "img": "icons/equipment/finger/ring-ball-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Дюжина золотых колец с печатками и самоцветами. Стоит около 50 зм.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "bruKeyRing000010",
+      "name": "Связка ключей резиденции",
+      "type": "equipment",
+      "img": "icons/sundries/misc/key-ring-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ключи от сейфа, винного погреба и черного хода. Бруммель с ними не расстаётся.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

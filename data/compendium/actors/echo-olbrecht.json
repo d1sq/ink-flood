@@ -14,11 +14,11 @@
         "proficient": 0
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "int": {
-        "value": 14,
+        "value": 16,
         "proficient": 0
       },
       "wis": {
@@ -36,9 +36,9 @@
         "calc": "flat"
       },
       "hp": {
-        "value": 30,
-        "max": 30,
-        "formula": "5d8 + 5"
+        "value": 50,
+        "max": 50,
+        "formula": "9d8 + 18"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Двойник погибшего антиквара. Стёкла очков затянуты чернилами изнутри — линз не видно, только чёрные диски. В руках лупа и стеклянная подвеска. Создаёт иллюзорные копии себя.</p>"
       },
-      "cr": 2,
+      "cr": 3,
       "type": {
         "value": "aberration",
         "subtype": "echo",
@@ -146,7 +146,7 @@
         "damage": {
           "parts": [
             [
-              "1d4",
+              "1d8 + 1",
               "necrotic"
             ]
           ]
@@ -154,7 +154,11 @@
         "weaponType": "natural",
         "proficient": true,
         "equipped": true,
-        "ability": "dex"
+        "ability": "dex",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        }
       }
     },
     {
@@ -216,6 +220,67 @@
         "activation": {
           "type": "special",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echOlbDisguise01",
+      "name": "Маска Прообраза (1/день)",
+      "type": "feat",
+      "img": "icons/magic/perception/mask-stone-eyes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Оттиск меняет внешность на 1 час, копируя любого знакомого партии человека. Расследование DC 14 раскрывает обман. (Disguise Self.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "day",
+          "recovery": ""
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkWhisperOlb000",
+      "name": "Чернильный Шёпот (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>До 3 целей в 30 фт. Сейв Харизма DC 13. Провал — 1 минута: -1d4 на атаки и сейвы Концентрации. (Аналог Bane.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 3,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
         },
         "type": {
           "value": "monster"

@@ -111,6 +111,30 @@
         },
         "equipped": true
       }
+    },
+    {
+      "_id": "fritzWineCoat010",
+      "name": "Мятый винно-красный камзол",
+      "type": "equipment",
+      "img": "icons/equipment/chest/coat-collared-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Дорогая ткань, дешёвый покрой. Под мышками — пятна пота.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "fritzPouchSilv10",
+      "name": "Кошелёк с серебром",
+      "type": "equipment",
+      "img": "icons/containers/bags/coinpouch-leather-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Около 8 серебряных монет. Фриц копил на сапоги получше — теперь не успеет.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

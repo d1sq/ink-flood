@@ -6,7 +6,7 @@
   "system": {
     "abilities": {
       "str": {
-        "value": 11,
+        "value": 12,
         "proficient": 0
       },
       "dex": {
@@ -14,7 +14,7 @@
         "proficient": 0
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "int": {
@@ -26,19 +26,19 @@
         "proficient": 0
       },
       "cha": {
-        "value": 16,
+        "value": 17,
         "proficient": 0
       }
     },
     "attributes": {
       "ac": {
-        "flat": 12,
+        "flat": 13,
         "calc": "flat"
       },
       "hp": {
-        "value": 32,
-        "max": 32,
-        "formula": "5d8 + 10"
+        "value": 65,
+        "max": 65,
+        "formula": "10d8 + 20"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Двойник погибшего губернатора. Глаза-чернила, чернила сочатся через парик и манжеты камзола, в кольцах вместо самоцветов — чёрные капли. В руках сжимает массивную бронзовую печать должности.</p>"
       },
-      "cr": 2,
+      "cr": 4,
       "type": {
         "value": "aberration",
         "subtype": "echo",
@@ -142,11 +142,11 @@
         "damage": {
           "parts": [
             [
-              "1d6 + 0",
+              "1d8 + 1",
               "bludgeoning"
             ],
             [
-              "1d4",
+              "1d6",
               "necrotic"
             ]
           ]
@@ -159,7 +159,11 @@
         "weaponType": "improvisedM",
         "proficient": true,
         "equipped": true,
-        "ability": "str"
+        "ability": "str",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        }
       }
     },
     {
@@ -221,6 +225,80 @@
         "activation": {
           "type": "special",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echBruCommand001",
+      "name": "Приказ Власти (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/control/control-influence-crown-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Цель в 60 фт слышит чеканный голос Бруммеля. Сейв Мудрость DC 13. Провал: одно простое действие на следующем ходу (упасть, замереть, выронить, броситься, подойти). (Command.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 60,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkWhisperBru000",
+      "name": "Чернильный Шёпот (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>До 3 целей в 30 фт. Сейв Харизма DC 13. Провал — 1 минута: -1d4 на атаки и сейвы Концентрации. (Аналог Bane.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 3,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
         },
         "type": {
           "value": "monster"

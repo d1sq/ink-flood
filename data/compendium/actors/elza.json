@@ -139,6 +139,42 @@
           "value": "monster"
         }
       }
+    },
+    {
+      "_id": "elzGreyRobe00010",
+      "name": "Серое платье до пят",
+      "type": "equipment",
+      "img": "icons/equipment/chest/robe-collared-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Простая суконная ряса, подпоясанная верёвкой.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "elzHeadscarf0010",
+      "name": "Чёрный платок",
+      "type": "equipment",
+      "img": "icons/equipment/head/hat-belted-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p>Покрывает голову и плечи. Эльза снимает его только для молитвы наедине.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "elzPenAndInk0010",
+      "name": "Перо и чернильница",
+      "type": "equipment",
+      "img": "icons/sundries/scrolls/scroll-bound-black-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Видавшее виды гусиное перо. Чернила всегда чёрные. От письма у Эльзы пятна на руках.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

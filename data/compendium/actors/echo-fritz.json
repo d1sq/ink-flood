@@ -14,7 +14,7 @@
         "proficient": 0
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "int": {
@@ -36,9 +36,9 @@
         "calc": "flat"
       },
       "hp": {
-        "value": 38,
-        "max": 38,
-        "formula": "7d8 + 7"
+        "value": 60,
+        "max": 60,
+        "formula": "10d8 + 20"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Двойник погибшего шантажиста. Глаза-чернила, мокрая бумага вместо кожи. Вместо пота на висках — чернильные капли. В руке — размокшее письмо.</p>"
       },
-      "cr": 2,
+      "cr": 4,
       "type": {
         "value": "aberration",
         "subtype": "echo",
@@ -142,15 +142,23 @@
         "damage": {
           "parts": [
             [
-              "1d4 + 2",
+              "1d4 + 3",
               "piercing"
+            ],
+            [
+              "1d6",
+              "necrotic"
             ]
           ]
         },
         "weaponType": "simpleM",
         "proficient": true,
         "equipped": true,
-        "ability": "dex"
+        "ability": "dex",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        }
       }
     },
     {
@@ -211,6 +219,80 @@
         "activation": {
           "type": "special",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echFritzFear0001",
+      "name": "Внушение Страха (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/control/debuff-chains-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>Цель в 30 фт. Сейв Мудрость DC 13. Провал: 1 минута устрашена (помеха на атаки и проверки, пока видит источник). (Cause Fear.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkWhisperFritz0",
+      "name": "Чернильный Шёпот (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>До 3 целей в 30 фт. Сейв Харизма DC 13. Провал — 1 минута: -1d4 на атаки и сейвы Концентрации. (Аналог Bane.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 3,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
         },
         "type": {
           "value": "monster"

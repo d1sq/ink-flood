@@ -10,11 +10,11 @@
         "proficient": 0
       },
       "dex": {
-        "value": 15,
+        "value": 17,
         "proficient": 0
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "int": {
@@ -32,13 +32,13 @@
     },
     "attributes": {
       "ac": {
-        "flat": 14,
+        "flat": 15,
         "calc": "flat"
       },
       "hp": {
-        "value": 38,
-        "max": 38,
-        "formula": "7d8 + 7"
+        "value": 65,
+        "max": 65,
+        "formula": "10d8 + 20"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Двойник погибшего НИП. Внешне — он. Голос — его. Только глаза затянуты чернилами, и кожа на ощупь — как мокрая бумага. Партия видит знакомое лицо. Это часть цены.</p><p>Прообраз: молодой вор, повешенный на эшафоте.</p>"
       },
-      "cr": 2,
+      "cr": 4,
       "type": {
         "value": "aberration",
         "subtype": "echo",
@@ -142,11 +142,11 @@
         "damage": {
           "parts": [
             [
-              "1d4 + 2",
+              "1d4 + 3",
               "piercing"
             ],
             [
-              "1d6",
+              "2d6",
               "necrotic"
             ]
           ]
@@ -154,7 +154,11 @@
         "weaponType": "simpleM",
         "proficient": true,
         "equipped": true,
-        "ability": "dex"
+        "ability": "dex",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        }
       }
     },
     {
@@ -210,6 +214,67 @@
         "activation": {
           "type": "special",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "mistyStepKel0000",
+      "name": "Туманный шаг (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/movement/portal-vortex-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Бонусным действием Оттиск исчезает в чернильной дымке и появляется в 30 фт от исходной точки. Игнорирует препятствия. (Misty Step.)</p>"
+        },
+        "activation": {
+          "type": "bonus",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkWhisperKel000",
+      "name": "Чернильный Шёпот (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>До 3 целей в 30 фт. Сейв Харизма DC 13. Провал — 1 минута: -1d4 на атаки и сейвы Концентрации. (Аналог Bane.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 3,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
         },
         "type": {
           "value": "monster"

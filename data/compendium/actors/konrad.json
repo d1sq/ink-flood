@@ -127,6 +127,42 @@
         },
         "equipped": true
       }
+    },
+    {
+      "_id": "konWoolCoat00010",
+      "name": "Потёртая суконная куртка",
+      "type": "equipment",
+      "img": "icons/equipment/chest/coat-leather-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Тёплая, ветрозащитная. Двадцать лет на верхотуре сделали её незаменимой.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "konLeatherApron0",
+      "name": "Кожаный фартук смотрителя",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Рабочий фартук с карманами для тряпок и щёток. Запачкан чернильной пылью на груди.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "konTowerKeys0010",
+      "name": "Связка ключей башни",
+      "type": "equipment",
+      "img": "icons/sundries/misc/key-ring-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ключи от двери башни, оружейного шкафа наверху и подземного склада. Конрад не доверяет их никому.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

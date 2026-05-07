@@ -159,6 +159,10 @@
           "fin": true,
           "lgt": true,
           "thr": true
+        },
+        "attack": {
+          "bonus": "",
+          "flat": false
         }
       }
     },
@@ -213,6 +217,30 @@
           "dex": null
         },
         "proficient": true,
+        "equipped": true
+      }
+    },
+    {
+      "_id": "nagGreyCloak0010",
+      "name": "Серый дорожный плащ с капюшоном",
+      "type": "equipment",
+      "img": "icons/equipment/back/cape-layered-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Скрывает лицо, силуэт, мысли. Из тех, кого не запоминают.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "nagLeatherGlov10",
+      "name": "Кожаные перчатки",
+      "type": "equipment",
+      "img": "icons/equipment/hand/gauntlet-armored-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Никогда не снимает. Даже когда ест. Даже когда спит.</p>"
+        },
         "equipped": true
       }
     }

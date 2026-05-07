@@ -10,11 +10,11 @@
         "proficient": 0
       },
       "dex": {
-        "value": 15,
+        "value": 14,
         "proficient": 0
       },
       "con": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "int": {
@@ -22,7 +22,7 @@
         "proficient": 0
       },
       "wis": {
-        "value": 13,
+        "value": 16,
         "proficient": 0
       },
       "cha": {
@@ -36,9 +36,9 @@
         "calc": "flat"
       },
       "hp": {
-        "value": 38,
-        "max": 38,
-        "formula": "7d8 + 7"
+        "value": 70,
+        "max": 70,
+        "formula": "11d8 + 22"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Двойник погибшей настоятельницы. Голос Эльзы. Глаза затянуты чернилами, на щеках — чёрные слёзы. На груди — деревянный медальон солнечного диска, истекающий чернильной плёнкой.</p>"
       },
-      "cr": 2,
+      "cr": 4,
       "type": {
         "value": "aberration",
         "subtype": "echo",
@@ -142,7 +142,7 @@
         "damage": {
           "parts": [
             [
-              "1d6",
+              "1d8 + 2",
               "necrotic"
             ]
           ]
@@ -150,7 +150,11 @@
         "weaponType": "natural",
         "proficient": true,
         "equipped": true,
-        "ability": "str"
+        "ability": "str",
+        "attack": {
+          "bonus": "",
+          "flat": false
+        }
       }
     },
     {
@@ -217,6 +221,80 @@
         "activation": {
           "type": "special",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "echElzaCurse0001",
+      "name": "Чернильное Проклятие (1/день)",
+      "type": "feat",
+      "img": "icons/magic/unholy/hand-marked-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Цель в 30 фт. Сейв Мудрость DC 13. Провал — 1 минута: помеха на атаки против Эльзы и сейвы Мудрости. Концентрация. (Bestow Curse.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "day",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "wis",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 1,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "inkWhisperElza00",
+      "name": "Чернильный Шёпот (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>До 3 целей в 30 фт. Сейв Харизма DC 13. Провал — 1 минута: -1d4 на атаки и сейвы Концентрации. (Аналог Bane.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "charges",
+          "recovery": ""
+        },
+        "save": {
+          "ability": "cha",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "target": {
+          "value": 3,
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
         },
         "type": {
           "value": "monster"

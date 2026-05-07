@@ -148,6 +148,30 @@
         },
         "equipped": false
       }
+    },
+    {
+      "_id": "sivOldRobe000010",
+      "name": "Старая мантия арканиста",
+      "type": "equipment",
+      "img": "icons/equipment/chest/robe-layered-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Тёмно-синяя ткань, серебряная вышивка. Семьдесят лет назад Сиверн носил её каждый день. Сейчас — только её отпечаток в чернилах.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "sivPenInk0000010",
+      "name": "Чернильница и перо Сиверна",
+      "type": "equipment",
+      "img": "icons/sundries/scrolls/scroll-bound-black-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>То, чем он пишет в книге, лежащей на столе. Перо двигается само, без руки. Чернил в чернильнице больше, чем должно помещаться.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

@@ -6,15 +6,15 @@
   "system": {
     "abilities": {
       "str": {
-        "value": 12,
+        "value": 14,
         "proficient": 0
       },
       "dex": {
-        "value": 13,
+        "value": 14,
         "proficient": 0
       },
       "con": {
-        "value": 12,
+        "value": 13,
         "proficient": 0
       },
       "int": {
@@ -26,19 +26,19 @@
         "proficient": 0
       },
       "cha": {
-        "value": 14,
+        "value": 16,
         "proficient": 0
       }
     },
     "attributes": {
       "ac": {
-        "flat": 13,
+        "flat": 14,
         "calc": "flat"
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "5d8 + 5"
+        "value": 55,
+        "max": 55,
+        "formula": "10d8 + 10"
       },
       "init": {
         "ability": "dex",
@@ -55,7 +55,7 @@
       "biography": {
         "value": "<p>Три-четыре силуэта, сросшиеся в одну сущность. Двигаются синхронно. Шепчут хором — фразы знакомых НИП, обрывки разговоров из прошлых циклов. Голос Эльзы. Голос Келя. Голос самого ПС, сказанный неделю назад.</p>"
       },
-      "cr": 2,
+      "cr": 4,
       "type": {
         "value": "aberration",
         "subtype": "",
@@ -163,7 +163,7 @@
         "damage": {
           "parts": [
             [
-              "1d6 + 1",
+              "1d8 + 2",
               "necrotic"
             ]
           ],
@@ -234,6 +234,70 @@
         "activation": {
           "type": "none",
           "cost": null
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "chorViciousMock01",
+      "name": "Хор Бессмыслицы",
+      "type": "feat",
+      "img": "icons/magic/sonic/projectile-sound-rings-wave.webp",
+      "system": {
+        "description": {
+          "value": "<p>Все цели в 30 фт от Хора слышат шёпот собственным голосом. Сейв Мудрость DC 13. Провал: 1d6 психического урона + помеха на следующую атаку. (Vicious Mockery, площадной.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "range": {
+          "value": 30,
+          "units": "ft"
+        },
+        "target": {
+          "value": 30,
+          "type": "radius"
+        },
+        "actionType": "save",
+        "save": {
+          "ability": "wis",
+          "dc": 13,
+          "scaling": "flat"
+        },
+        "damage": {
+          "parts": [
+            [
+              "1d6",
+              "psychic"
+            ]
+          ]
+        },
+        "type": {
+          "value": "monster"
+        }
+      }
+    },
+    {
+      "_id": "chorSilenceSphr1",
+      "name": "Сфера Тишины (1/день)",
+      "type": "feat",
+      "img": "icons/svg/silenced.svg",
+      "system": {
+        "description": {
+          "value": "<p>20-фт сфера магической тишины с центром на Хоре. 10 минут. Внутри сферы вербальные компоненты невозможны, громкие звуки не слышны. Хор сам себя не слышит и атакует через сферу. (Silence 2nd lvl.)</p>"
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1
+        },
+        "uses": {
+          "value": 1,
+          "max": "1",
+          "per": "day",
+          "recovery": ""
         },
         "type": {
           "value": "monster"

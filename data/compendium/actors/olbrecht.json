@@ -133,6 +133,42 @@
         },
         "equipped": true
       }
+    },
+    {
+      "_id": "olbBrownCoat0010",
+      "name": "Поношенный коричневый сюртук",
+      "type": "equipment",
+      "img": "icons/equipment/chest/coat-trench-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Старомодный покрой, выцветший локоть. Карманы набиты мелочью лавки.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "olbLedgerBook010",
+      "name": "Учётная книга антиквара",
+      "type": "equipment",
+      "img": "icons/sundries/books/book-embossed-bound-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Записи о каждой проданной вещи за двадцать лет. Без неё Ольбрехт чувствует себя голым.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "olbBigGlasses010",
+      "name": "Огромные круглые очки",
+      "type": "equipment",
+      "img": "icons/magic/perception/orb-eye-scrying.webp",
+      "system": {
+        "description": {
+          "value": "<p>Линзы толщиной с палец. Без них Ольбрехт почти ничего не видит вблизи.</p>"
+        },
+        "equipped": true
+      }
     }
   ],
   "effects": [],

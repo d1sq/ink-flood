@@ -143,6 +143,10 @@
           "fin": true,
           "lgt": true,
           "thr": true
+        },
+        "attack": {
+          "bonus": "",
+          "flat": false
         }
       }
     },
@@ -154,6 +158,30 @@
       "system": {
         "description": {
           "value": "<p>Семейная безделушка на кожаном шнурке. Главный ключ петли — Стеклянный Ключ. Кель отдаст без раздумий, если спасти.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "kelClothesDirty0",
+      "name": "Грязная одежда",
+      "type": "equipment",
+      "img": "icons/equipment/chest/coat-trench-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Заплатанная льняная рубаха и потёртые штаны. Босиком.</p>"
+        },
+        "equipped": true
+      }
+    },
+    {
+      "_id": "kelPouchScraps00",
+      "name": "Кожаный мешочек",
+      "type": "equipment",
+      "img": "icons/containers/bags/coinpouch-leather-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p>Несколько медных монет, корка хлеба, стащенные обрезки.</p>"
         },
         "equipped": true
       }
