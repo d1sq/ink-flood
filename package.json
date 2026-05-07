@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build",
-    "deploy": "vite build && node scripts/deploy.mjs",
+    "build": "vite build && npm run build:packs",
+    "build:packs": "node scripts/build-packs.mjs",
+    "deploy": "npm run build && node scripts/deploy.mjs",
     "release:patch": "node scripts/release.mjs patch",
     "release:minor": "node scripts/release.mjs minor",
     "release:major": "node scripts/release.mjs major"
   },
   "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^3.0.3",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "svelte": "^5.46.4",
     "typescript": "^5.5.0",

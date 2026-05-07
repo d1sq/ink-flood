@@ -149,3 +149,79 @@ export interface CharacterMarkState {
   /** Igrit's Watcher Mark tier (0-3) */
   watcherMarkTier: MarkTier;
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Ink encounters                                                            */
+/* -------------------------------------------------------------------------- */
+
+/** Living NPCs whose deaths unlock corresponding Ink Echoes */
+export type NpcId = 'kel' | 'brummel' | 'elza' | 'nagel' | 'olbrecht' | 'konrad' | 'fritz';
+
+/** Type of ink manifestation */
+export type CreatureType = 'silhouette' | 'chorus' | 'echo';
+
+/** NPC alive/dead/unknown state in the current run */
+export type NpcStatus = 'alive' | 'dead' | 'unknown';
+
+/** Source of an NPC status: derived from events, or set manually by GM */
+export type StatusSource = 'auto' | 'manual';
+
+/** A single recommended spawn window */
+export interface SpawnWindow {
+  /** Earliest cycle this window applies to */
+  cycleMin: number;
+  /** Time range in minutes from midnight, [start, end] */
+  timeRange: [number, number];
+  /** Optional location id (matches TRAVEL_MATRIX keys) */
+  location?: string;
+  /** Short GM-facing note */
+  note: string;
+}
+
+/** Static definition of an ink-creature encounter */
+export interface EncounterDefinition {
+  id: string;
+  type: CreatureType;
+  /** For type='echo' — whose ink-double this is */
+  echoOf?: NpcId;
+  /** Display name (English, matches compendium actor) */
+  name: string;
+  /** Russian display name (for GM UI when ru locale is active) */
+  nameRu: string;
+  /** Min/max cycle in which this creature can ever appear */
+  cycleRange: [number, number];
+  /** Spawn window suggestions (GM picks one based on context) */
+  spawnWindows: SpawnWindow[];
+  /** Default location for echoes — site of the progenitor's death */
+  defaultLocation?: string;
+  /** Compendium actor name (matches `name` in pack JSON) */
+  compendiumActor: string;
+  /** Portrait path (relative to Foundry data root) */
+  portrait: string;
+}
+
+/** Per-NPC status entry */
+export interface NpcStatusEntry {
+  npcId: NpcId;
+  status: NpcStatus;
+  /** Cycle in which this NPC was marked dead (for journal) */
+  diedInCycle?: number;
+  source: StatusSource;
+}
+
+/** Single entry in the encounter journal */
+export interface EncounterLogEntry {
+  cycle: number;
+  /** Minutes from midnight when GM logged this encounter */
+  time: number;
+  encounterId: string;
+  location?: string;
+}
+
+/** Full encounter state (world-scoped, persists across cycles) */
+export interface EncounterState {
+  npcStatus: Record<NpcId, NpcStatusEntry>;
+  log: EncounterLogEntry[];
+  /** Manual GM toggles to force/hide specific encounters by id */
+  manualOverrides: Record<string, boolean>;
+}

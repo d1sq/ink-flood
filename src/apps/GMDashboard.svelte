@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cycleState, formattedTime, minutesUntilFlood, activeGlitch, discoveryState, syncFromSettings } from '../stores';
+  import { cycleState, formattedTime, minutesUntilFlood, activeGlitch, discoveryState, syncFromSettings, recommendedEncounters, availableEchoes } from '../stores';
   import { advanceTime, completeEvent, getKeyAttempts, hasLoopMemory, incrementKeyAttempt } from '../engine/clock-engine';
   import { startNewCycle, initializeFirstCycle } from '../engine/cycle-engine';
   import { earnToken, spendTokens, getTokens, getSpentThisCycle } from '../engine/insight-engine';
@@ -302,6 +302,23 @@
       <button class="btn-campaign-end" on:click={() => (globalThis as any).InkFlood?.showCampaignEnd()}>☀</button>
     </div>
   </header>
+
+  {#if $recommendedEncounters.length > 0 || $availableEchoes.length > 0}
+    <div class="encounter-strip" on:click={() => (globalThis as any).InkFlood?.openEncounterTracker?.()}>
+      {#if $recommendedEncounters.length > 0}
+        <span class="strip-label">Рекомендовано:</span>
+        <span class="strip-list">
+          {#each $recommendedEncounters as enc (enc.id)}
+            <span class="strip-tag type-{enc.type}">{enc.nameRu}</span>
+          {/each}
+        </span>
+      {/if}
+      {#if $availableEchoes.length > 0}
+        <span class="strip-echoes">Оттиски: {$availableEchoes.length}</span>
+      {/if}
+      <span class="strip-open">→</span>
+    </div>
+  {/if}
 
   <nav class="dashboard-tabs">
     {#each tabs as tab}
@@ -615,6 +632,33 @@
   .header-right { display: flex; gap: 10px; align-items: center; }
   .keys-summary { font-weight: 700; color: #ffd700; font-size: 1.1em; }
   .glitch-badge { padding: 2px 8px; background: #2a1a0a; border: 1px solid #ff8c00; border-radius: 3px; color: #ffaa44; font-weight: 700; font-size: 0.85em; }
+
+  /* Encounter strip */
+  .encounter-strip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #14142a;
+    border-bottom: 1px solid #2a2a4a;
+    cursor: pointer;
+    font-size: 0.85em;
+  }
+  .encounter-strip:hover { background: #1a1a3a; }
+  .strip-label { color: #888; font-weight: 600; }
+  .strip-list { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+  .strip-tag {
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: #1a1a3a;
+    color: #c0c0ff;
+    border: 1px solid #2a2a4a;
+    font-size: 0.9em;
+  }
+  .strip-tag.type-chorus { border-color: #4a2a4a; color: #d4a8d4; }
+  .strip-tag.type-echo { border-color: #4a3a2a; color: #d4a888; }
+  .strip-echoes { color: #d4a888; font-weight: 600; }
+  .strip-open { color: #c0c0ff; margin-left: auto; }
 
   /* Tabs */
   .dashboard-tabs { display: flex; background: #16213e; border-bottom: 1px solid #333; }

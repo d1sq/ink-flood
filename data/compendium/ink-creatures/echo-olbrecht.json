@@ -1,0 +1,116 @@
+{
+  "_id": "inkEchoOlbreht01",
+  "name": "Echo of Olbrecht",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/Ольбрехт Чернильный.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 9, "proficient": 0 },
+      "dex": { "value": 13, "proficient": 0 },
+      "con": { "value": 13, "proficient": 0 },
+      "int": { "value": 14, "proficient": 0 },
+      "wis": { "value": 13, "proficient": 0 },
+      "cha": { "value": 14, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 13, "calc": "flat" },
+      "hp": { "value": 30, "max": 30, "formula": "5d8 + 5" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 25, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Двойник погибшего антиквара. Стёкла очков затянуты чернилами изнутри — линз не видно, только чёрные диски. В руках лупа и стеклянная подвеска. Создаёт иллюзорные копии себя.</p>" },
+      "cr": 2,
+      "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
+      "alignment": "—",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "sm",
+      "di": { "value": ["poison"], "custom": "exhaustion, charm" },
+      "dr": { "value": ["necrotic", "bludgeoning", "piercing", "slashing"], "custom": "немагическое физическое" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": ["charmed", "exhaustion", "poisoned"], "custom": "" },
+      "languages": { "value": [], "custom": "повторяет фразы прообраза" }
+    },
+    "skills": {
+      "ste": { "value": 1, "ability": "dex" },
+      "prc": { "value": 1, "ability": "wis" },
+      "dec": { "value": 1, "ability": "cha" },
+      "arc": { "value": 1, "ability": "int" }
+    }
+  },
+  "items": [
+    {
+      "_id": "echOlbTouch000001",
+      "name": "Чернильное прикосновение",
+      "type": "weapon",
+      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "system": {
+        "description": { "value": "<p>Слабая атака. Старичок неохотно дерётся.</p>" },
+        "activation": { "type": "action", "cost": 1 },
+        "range": { "value": 5, "units": "ft" },
+        "target": { "value": 1, "type": "creature" },
+        "actionType": "mwak",
+        "damage": { "parts": [["1d4", "necrotic"]] },
+        "weaponType": "natural",
+        "proficient": true,
+        "equipped": true,
+        "ability": "dex"
+      }
+    },
+    {
+      "_id": "echOlbMirror00001",
+      "name": "Иллюзорная копия себя (1/бой)",
+      "type": "feat",
+      "img": "icons/magic/control/silhouette-aura-glow-blue.webp",
+      "system": {
+        "description": { "value": "<p>Создаёт полупрозрачный двойник себя в той же позе. ПС бросают д50/50 при атаке: на 50% попадают по копии (атака впустую). Копия исчезает после первой по ней атаки или через 3 раунда. Путает фокусирование.</p>" },
+        "activation": { "type": "action", "cost": 1 },
+        "uses": { "value": 1, "max": "1", "per": "charges", "recovery": "" },
+        "type": { "value": "monster" }
+      }
+    },
+    {
+      "_id": "echRecognition005",
+      "name": "Узнавание",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
+      "system": {
+        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>" },
+        "activation": { "type": "special", "cost": null },
+        "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
+        "type": { "value": "monster" }
+      }
+    },
+    {
+      "_id": "echOlbDecay000001",
+      "name": "Распад",
+      "type": "feat",
+      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "system": {
+        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую Ольбрехт не успел сказать.</p>" },
+        "activation": { "type": "special", "cost": null },
+        "type": { "value": "monster" }
+      }
+    }
+  ],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Echo of Olbrecht",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/Ольбрехт Чернильный.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "encounterId": "echo-olbrecht", "echoOf": "olbrecht" }
+  }
+}

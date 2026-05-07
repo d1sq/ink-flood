@@ -10,8 +10,11 @@ import { DashboardShell } from './apps/shells/DashboardShell.svelte';
 import { ClockShell } from './apps/shells/ClockShell.svelte';
 import { FinaleShell } from './apps/shells/FinaleShell.svelte';
 import { PlayerTokensShell } from './apps/shells/PlayerTokensShell.svelte';
+import { EncounterTrackerShell } from './apps/shells/EncounterTrackerShell.svelte';
 import { registerChatCommands } from './chat/chat-commands';
-import type { CycleState } from './types';
+import { cycleState as cycleStore, encounterState as encounterStore } from './stores';
+import { deriveNpcStatusFromEvents } from './engine/encounter-engine';
+import type { CycleState, EncounterState, CycleHistoryEntry } from './types';
 
 function injectCampaignEndStyles(): void {
   if (document.getElementById('ink-campaign-end-css')) return;
@@ -49,6 +52,7 @@ let dashboardApp: InstanceType<typeof DashboardShell> | null = null;
 let clockApp: InstanceType<typeof ClockShell> | null = null;
 let finaleApp: InstanceType<typeof FinaleShell> | null = null;
 let playerTokensApp: InstanceType<typeof PlayerTokensShell> | null = null;
+let encounterTrackerApp: InstanceType<typeof EncounterTrackerShell> | null = null;
 
 Hooks.once('init', () => {
   console.log(`${MODULE_ID} | Initializing`);
@@ -84,6 +88,7 @@ Hooks.once('ready', () => {
     restorePlayers: restoreAllPlayers,
     hasSnapshots,
     openPlayerTokens: () => togglePlayerTokens(),
+    openEncounterTracker: () => toggleEncounterTracker(),
     showCampaignEnd: () => {
       showCampaignEndOverlay();
       game.socket!.emit(`module.${MODULE_ID}`, { action: 'campaignEnd' });
@@ -96,8 +101,32 @@ Hooks.once('ready', () => {
   // Chat commands
   registerChatCommands();
 
+  // Auto-derive NPC death state from event progression when GM is at the table.
+  // Manual toggles are preserved by the engine (source='manual' wins).
+  // Deferred via queueMicrotask so we don't write settings inside a Svelte
+  // subscribe callback (which would re-trigger sync mid-update).
+  if ((game as any).user?.isGM) {
+    cycleStore.subscribe((cs) => {
+      queueMicrotask(() => {
+        try {
+          const enc = (game as any).settings.get(MODULE_ID, 'encounterState') as EncounterState;
+          if (!enc) return;
+          const history = (game as any).settings.get(MODULE_ID, 'cycleHistory') as CycleHistoryEntry[];
+          const next = deriveNpcStatusFromEvents(cs, history ?? [], enc);
+          const changed = JSON.stringify(next.npcStatus) !== JSON.stringify(enc.npcStatus);
+          if (changed) {
+            encounterStore.set(next);
+            void (game as any).settings.set(MODULE_ID, 'encounterState', next);
+          }
+        } catch (e) {
+          console.warn(`${MODULE_ID} | NPC auto-derivation skipped:`, e);
+        }
+      });
+    });
+  }
+
   // Socket listener
-  game.socket!.on(`module.${MODULE_ID}`, (data: { action: string }) => {
+  game.socket!.on(`module.${MODULE_ID}`, (data: { action?: string; type?: string }) => {
     syncFromSettings();
     if (data.action === 'showClock') {
       toggleClock();
@@ -123,6 +152,19 @@ Hooks.on('getSceneControlButtons', (controls: any) => {
       onChange: () => toggleDashboard(),
       order: 100,
     };
+
+    // GM-only: encounter tracker (cycle 4+, when manifestations start)
+    const cycleNow = (game as any).settings?.get(MODULE_ID, 'cycleState') as CycleState | undefined;
+    if (cycleNow && cycleNow.cycle >= 4) {
+      tokens.tools['ink-flood-encounters'] = {
+        name: 'ink-flood-encounters',
+        title: 'Чернильные манифестации',
+        icon: 'fa-solid fa-droplet',
+        button: true,
+        onChange: () => toggleEncounterTracker(),
+        order: 102,
+      };
+    }
   }
 
   // All users: insight tokens button (only after cycle 1 ends = cycle >= 2)
@@ -184,5 +226,17 @@ function togglePlayerTokens(): void {
     playerTokensApp = null;
   } else {
     (playerTokensApp as any).render(true, { focus: true });
+  }
+}
+
+function toggleEncounterTracker(): void {
+  if (!encounterTrackerApp) {
+    encounterTrackerApp = new EncounterTrackerShell();
+  }
+  if ((encounterTrackerApp as any).rendered) {
+    (encounterTrackerApp as any).close();
+    encounterTrackerApp = null;
+  } else {
+    (encounterTrackerApp as any).render(true, { focus: true });
   }
 }

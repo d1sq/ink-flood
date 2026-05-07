@@ -1,5 +1,6 @@
-import type { CycleState, CycleHistoryEntry, DiscoveryState, RotationMode } from './types';
+import type { CycleState, CycleHistoryEntry, DiscoveryState, RotationMode, EncounterState } from './types';
 import { MODULE_ID, DAY_START } from './constants';
+import { defaultEncounterState } from './engine/encounter-engine';
 
 const DEFAULT_CYCLE_STATE: CycleState = {
   cycle: 0,
@@ -74,5 +75,13 @@ export function registerSettings(): void {
     type: Number,
     default: 30,
     range: { min: 5, max: 60, step: 5 },
+  });
+
+  game.settings.register(MODULE_ID, 'encounterState', {
+    name: 'Encounter State',
+    scope: 'world',
+    config: false,
+    type: Object,
+    default: defaultEncounterState() as EncounterState,
   });
 }
