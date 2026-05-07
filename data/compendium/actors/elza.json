@@ -1,0 +1,60 @@
+{
+  "_id": "npcElza000000001",
+  "name": "Mother Elza",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-3.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 9, "proficient": 0 },
+      "dex": { "value": 10, "proficient": 0 },
+      "con": { "value": 11, "proficient": 0 },
+      "int": { "value": 14, "proficient": 0 },
+      "wis": { "value": 18, "proficient": 0 },
+      "cha": { "value": 14, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 10, "calc": "flat" },
+      "hp": { "value": 8, "max": 8, "formula": "1d8 + 1" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 25, "units": "ft" },
+      "prof": 2,
+      "spellcasting": "wis"
+    },
+    "details": {
+      "biography": { "value": "<p>Настоятельница храма. Высокая сухая старуха, белые волосы под платком. Руки в чернильных пятнах — много пишет. Говорит тихо. Видит ложь (Проницательность +6), не стесняется об этом сказать. Знает о Сиверне. Может научить Молитве Отмены за 10 минут — старая традиция, вплетённая в орсенианскую службу.</p>" },
+      "cr": 0.125,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Законно-добрый",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "ins": { "value": 2, "ability": "wis" },
+      "rel": { "value": 1, "ability": "int" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Mother Elza",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-3.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 1,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "elza" }
+  }
+}

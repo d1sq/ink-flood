@@ -1,8 +1,8 @@
 {
-  "_id": "inkEchoKel000001",
-  "name": "Echo of Kel",
+  "_id": "inkEchoKonrad001",
+  "name": "Echo of Konrad",
   "type": "npc",
-  "img": "modules/ink-flood/assets/actors/Кель Чернильный.png",
+  "img": "modules/ink-flood/assets/actors/echo-konrad.png",
   "system": {
     "abilities": {
       "str": { "value": 13, "proficient": 0 },
@@ -16,12 +16,12 @@
       "ac": { "flat": 14, "calc": "flat" },
       "hp": { "value": 38, "max": 38, "formula": "7d8 + 7" },
       "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 35, "units": "ft" },
+      "movement": { "walk": 30, "units": "ft" },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двойник погибшего НИП. Внешне — он. Голос — его. Только глаза затянуты чернилами, и кожа на ощупь — как мокрая бумага. Партия видит знакомое лицо. Это часть цены.</p><p>Прообраз: молодой вор, повешенный на эшафоте.</p>" },
+      "biography": { "value": "<p>Двойник погибшего смотрителя сигнальной башни. Глаза-чернила, длинная диагональная чернильная слеза через всё лицо, въевшаяся пыль на щеках. В руке — острый осколок мутного стекла линзы.</p>" },
       "cr": 2,
       "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
       "alignment": "—",
@@ -43,53 +43,43 @@
   },
   "items": [
     {
-      "_id": "echKelKnife000001",
-      "name": "Отчаянный нож",
+      "_id": "echKonShard000001",
+      "name": "Чернильный осколок",
       "type": "weapon",
-      "img": "icons/weapons/daggers/dagger-jeweled-purple.webp",
+      "img": "icons/weapons/thrown/shard-glass-blue.webp",
       "system": {
-        "description": { "value": "<p>Тонкий чернильный клинок дрожит в руках. Колющая атака с дополнительным некрот-уроном.</p>" },
+        "description": { "value": "<p>Метательная атака. Острый палм-сайз осколок стекла, заполненный чернилами изнутри. Туповато-методичный.</p>" },
         "activation": { "type": "action", "cost": 1 },
-        "range": { "value": 5, "units": "ft" },
+        "range": { "value": 30, "long": 60, "units": "ft" },
         "target": { "value": 1, "type": "creature" },
-        "actionType": "mwak",
-        "damage": { "parts": [["1d4 + 2", "piercing"], ["1d6", "necrotic"]] },
-        "weaponType": "simpleM",
+        "actionType": "rwak",
+        "damage": { "parts": [["1d8 + 2", "piercing"], ["1d6", "necrotic"]] },
+        "weaponType": "simpleR",
         "proficient": true,
         "equipped": true,
-        "ability": "dex"
+        "ability": "str",
+        "properties": { "thr": true }
       }
     },
     {
-      "_id": "echKelDisengage01",
-      "name": "Отход (бонусное действие)",
-      "type": "feat",
-      "img": "icons/skills/movement/feet-winged-boots-yellow.webp",
-      "system": {
-        "description": { "value": "<p>Бонусным действием совершает действие Отход — пытается уйти, не сражаться. Кель не хочет драки, он хочет убежать.</p>" },
-        "activation": { "type": "bonus", "cost": 1 },
-        "type": { "value": "monster" }
-      }
-    },
-    {
-      "_id": "echRecognition001",
+      "_id": "echRecognition004",
       "name": "Узнавание",
       "type": "feat",
       "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
       "system": {
-        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку (рука дрогнула). Только первый раз.</p>" },
+        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>" },
         "activation": { "type": "special", "cost": null },
         "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
         "type": { "value": "monster" }
       }
     },
     {
-      "_id": "echKelDecay000001",
+      "_id": "echKonDecay000001",
       "name": "Распад",
       "type": "feat",
       "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую прообраз никогда не успел сказать. Лорный пинок (см. банк фраз).</p>" },
+        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую Конрад не успел сказать.</p>" },
         "activation": { "type": "special", "cost": null },
         "type": { "value": "monster" }
       }
@@ -97,10 +87,10 @@
   ],
   "effects": [],
   "prototypeToken": {
-    "name": "Echo of Kel",
+    "name": "Echo of Konrad",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/Кель Чернильный.png", "scaleX": 1, "scaleY": 1 },
+    "texture": { "src": "modules/ink-flood/assets/actors/echo-konrad.png", "scaleX": 1, "scaleY": 1 },
     "width": 1,
     "height": 1,
     "disposition": -1,
@@ -109,6 +99,6 @@
     "sight": { "enabled": false }
   },
   "flags": {
-    "ink-flood": { "encounterId": "echo-kel", "echoOf": "kel" }
+    "ink-flood": { "encounterId": "echo-konrad", "echoOf": "konrad" }
   }
 }

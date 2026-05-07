@@ -1,0 +1,60 @@
+{
+  "_id": "npcOlbrecht00001",
+  "name": "Olbrecht",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-5.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 8, "proficient": 0 },
+      "dex": { "value": 10, "proficient": 0 },
+      "con": { "value": 10, "proficient": 0 },
+      "int": { "value": 14, "proficient": 0 },
+      "wis": { "value": 13, "proficient": 0 },
+      "cha": { "value": 12, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 10, "calc": "flat" },
+      "hp": { "value": 4, "max": 4, "formula": "1d6" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 20, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Антиквар. Маленький старичок, огромные очки на кончике носа, борода в крошках. Руки трясутся, но когда берёт предмет — пальцы как у хирурга. Бормочет, обращаясь к вещам по именам: линза — «Клара», чучело совы — «Герр Профессор». Знает цену каждой вещи. Может опознать магический предмет (Аркана +3).</p>" },
+      "cr": 0,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Нейтральный",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "arc": { "value": 1, "ability": "int" },
+      "his": { "value": 1, "ability": "int" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Olbrecht",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-5.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 1,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "olbrecht" }
+  }
+}

@@ -6,6 +6,6 @@ dist/
 *.local
 *.zip
 
-# Built compendium pack (LevelDB) — sources live in data/compendium/, rebuild via npm run build:packs.
-# Existing packs/actors/ is the legacy hand-built pack and IS committed.
+# Built compendium packs (LevelDB) — sources live in data/compendium/, rebuilt via npm run build:packs.
+packs/actors/
 packs/ink-creatures/

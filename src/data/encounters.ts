@@ -32,7 +32,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
       { cycleMin: 10, timeRange: [510, 900], note: 'Стоит как декорация в любой локации. Не атакует первым' },
     ],
     compendiumActor: 'Ink Silhouette',
-    portrait: 'modules/ink-flood/assets/actors/Чернильный Силуэт.png',
+    portrait: 'modules/ink-flood/assets/actors/silhouette.png',
   },
   {
     id: 'chorus',
@@ -47,7 +47,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
       { cycleMin: 9, timeRange: [1050, 1170], note: 'В наводнении вместе с силуэтами' },
     ],
     compendiumActor: 'Ink Chorus',
-    portrait: 'modules/ink-flood/assets/actors/Чернильный Хор.png',
+    portrait: 'modules/ink-flood/assets/actors/chorus.png',
   },
   {
     id: 'echo-kel',
@@ -62,7 +62,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'square',
     compendiumActor: 'Echo of Kel',
-    portrait: 'modules/ink-flood/assets/actors/Кель Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-kel.png',
   },
   {
     id: 'echo-elza',
@@ -77,7 +77,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'temple',
     compendiumActor: 'Echo of Elza',
-    portrait: 'modules/ink-flood/assets/actors/Эльза Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-elza.png',
   },
   {
     id: 'echo-fritz',
@@ -91,7 +91,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'alley',
     compendiumActor: 'Echo of Fritz',
-    portrait: 'modules/ink-flood/assets/actors/Фриц Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-fritz.png',
   },
   {
     id: 'echo-konrad',
@@ -105,7 +105,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'lighthouse',
     compendiumActor: 'Echo of Konrad',
-    portrait: 'modules/ink-flood/assets/actors/Конрад Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-konrad.png',
   },
   {
     id: 'echo-olbrecht',
@@ -119,7 +119,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'shop',
     compendiumActor: 'Echo of Olbrecht',
-    portrait: 'modules/ink-flood/assets/actors/Ольбрехт Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-olbrecht.png',
   },
   {
     id: 'echo-brummel',
@@ -133,7 +133,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'square',
     compendiumActor: 'Echo of Brummel',
-    portrait: 'modules/ink-flood/assets/actors/Бруммель Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-brummel.png',
   },
   {
     id: 'echo-nagel',
@@ -147,7 +147,7 @@ export const ENCOUNTER_DEFINITIONS: EncounterDefinition[] = [
     ],
     defaultLocation: 'alley',
     compendiumActor: 'Echo of Nagel',
-    portrait: 'modules/ink-flood/assets/actors/Нагель Чернильный.png',
+    portrait: 'modules/ink-flood/assets/actors/echo-nagel.png',
   },
 ];
 

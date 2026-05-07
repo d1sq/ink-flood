@@ -1,0 +1,60 @@
+{
+  "_id": "npcKonrad0000001",
+  "name": "Konrad Weiss",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-6.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 14, "proficient": 0 },
+      "dex": { "value": 11, "proficient": 0 },
+      "con": { "value": 13, "proficient": 0 },
+      "int": { "value": 10, "proficient": 0 },
+      "wis": { "value": 12, "proficient": 0 },
+      "cha": { "value": 9, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 12, "calc": "flat" },
+      "hp": { "value": 15, "max": 15, "formula": "2d8 + 6" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 30, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Смотритель сигнальной башни. Широкоплечий, обветренное лицо, рыжая борода с сединой, потёртая суконная куртка. Молчалив, упрям. Башня — его жизнь. Суеверный: верит, что ветер на вершине несёт голоса мёртвых, не свистит наверху, стучит по дереву. Если обратиться с уважением к его работе — оттает.</p>" },
+      "cr": 0.125,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Нейтральный",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "ath": { "value": 1, "ability": "str" },
+      "per": { "value": 1, "ability": "wis" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Konrad Weiss",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-6.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 0,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "konrad" }
+  }
+}

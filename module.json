@@ -38,17 +38,10 @@
   "packs": [
     {
       "name": "actors",
-      "label": "Чернильный потоп — НИП",
+      "label": "Чернильный потоп — Актёры",
       "type": "Actor",
       "system": "dnd5e",
       "path": "packs/actors"
-    },
-    {
-      "name": "ink-creatures",
-      "label": "Чернильный потоп — Чернильные манифестации",
-      "type": "Actor",
-      "system": "dnd5e",
-      "path": "packs/ink-creatures"
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "_id": "npcKel0000000001",
+  "name": "Kel",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-1.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 9, "proficient": 0 },
+      "dex": { "value": 16, "proficient": 0 },
+      "con": { "value": 10, "proficient": 0 },
+      "int": { "value": 11, "proficient": 0 },
+      "wis": { "value": 11, "proficient": 0 },
+      "cha": { "value": 12, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 12, "calc": "flat" },
+      "hp": { "value": 9, "max": 9, "formula": "2d8" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 30, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Двадцатилетний вор, тощий, перебитый нос, грязные волосы. Попался на краже хлеба третий раз — по реманскому закону вешают. Хочет одного: не умереть. На шее — стеклянная подвеска на кожаном шнурке, «мамкино стекло». Если спасти — отдаст без раздумий.</p>" },
+      "cr": 0.125,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Хаотично-нейтральный",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "ste": { "value": 1, "ability": "dex" },
+      "acr": { "value": 1, "ability": "dex" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Kel",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-1.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 0,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "kel" }
+  }
+}

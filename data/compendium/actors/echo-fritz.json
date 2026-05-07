@@ -2,7 +2,7 @@
   "_id": "inkEchoFritz0001",
   "name": "Echo of Fritz",
   "type": "npc",
-  "img": "modules/ink-flood/assets/actors/Фриц Чернильный.png",
+  "img": "modules/ink-flood/assets/actors/echo-fritz.png",
   "system": {
     "abilities": {
       "str": { "value": 13, "proficient": 0 },
@@ -101,7 +101,7 @@
     "name": "Echo of Fritz",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/Фриц Чернильный.png", "scaleX": 1, "scaleY": 1 },
+    "texture": { "src": "modules/ink-flood/assets/actors/echo-fritz.png", "scaleX": 1, "scaleY": 1 },
     "width": 1,
     "height": 1,
     "disposition": -1,

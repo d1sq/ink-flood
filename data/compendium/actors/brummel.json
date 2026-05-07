@@ -1,0 +1,60 @@
+{
+  "_id": "npcBrummel000001",
+  "name": "Heinz Brummel",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-2.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 10, "proficient": 0 },
+      "dex": { "value": 9, "proficient": 0 },
+      "con": { "value": 11, "proficient": 0 },
+      "int": { "value": 13, "proficient": 0 },
+      "wis": { "value": 12, "proficient": 0 },
+      "cha": { "value": 15, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 10, "calc": "flat" },
+      "hp": { "value": 6, "max": 6, "formula": "1d8" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 25, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Губернатор города. Полный, за пятьдесят, в дорогом безвкусном камзоле. Парик, кольца на каждом пальце. Ест медленно, промакивает губы салфеткой. Десять лет на посту, лавировать умеет, но больше всего боится позора. Обожает лесть, теряет на ней бдительность. Параноик.</p><p><em>Крик «СТРАЖА!» поднимает стражу за 2 раунда.</em></p>" },
+      "cr": 0,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Законно-нейтральный",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "per": { "value": 1, "ability": "cha" },
+      "ins": { "value": 1, "ability": "wis" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Heinz Brummel",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-2.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 0,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "brummel" }
+  }
+}

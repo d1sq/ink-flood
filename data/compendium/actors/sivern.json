@@ -1,0 +1,61 @@
+{
+  "_id": "npcSivern0000001",
+  "name": "Erwin Sivern",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-8.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 8, "proficient": 0 },
+      "dex": { "value": 10, "proficient": 0 },
+      "con": { "value": 10, "proficient": 0 },
+      "int": { "value": 18, "proficient": 0 },
+      "wis": { "value": 16, "proficient": 0 },
+      "cha": { "value": 13, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 10, "calc": "flat" },
+      "hp": { "value": 1, "max": 1, "formula": "1" },
+      "init": { "ability": "dex", "bonus": "" },
+      "movement": { "walk": 0, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p><strong>Чернильный оттиск в башне.</strong> Сиверн — реманский арканист, который семьдесят лет назад нашёл трещину в Завесе и построил башню вокруг неё, чтобы запечатать. Печать держится на нарративе: Форма + Звук + Свет. Чтобы удерживать её после смерти своего тела, он стал самой печатью — оттиском в кресле кабинета пятого этажа. Не сражается. С ним говорят.</p><p><em>«Я стал печатью — это единственный способ её удержать. Чернильный оттиск в кресле — то, что осталось от тела. Я внутри книги, между строк.»</em></p>" },
+      "cr": 0,
+      "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
+      "alignment": "Законно-добрый",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": ["poison"], "custom": "exhaustion, charm, fear, sleep" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": ["charmed", "frightened", "exhaustion", "poisoned", "paralyzed", "petrified", "stunned", "unconscious"], "custom": "" },
+      "languages": { "value": ["common"], "custom": "говорит шёпотом, между строк" }
+    },
+    "skills": {
+      "arc": { "value": 2, "ability": "int" },
+      "his": { "value": 2, "ability": "int" },
+      "rel": { "value": 1, "ability": "int" }
+    }
+  },
+  "items": [],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Erwin Sivern",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-8.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": 1,
+    "displayBars": 0,
+    "bar1": { "attribute": "" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "sivern" }
+  }
+}

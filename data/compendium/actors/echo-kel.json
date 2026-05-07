@@ -1,8 +1,8 @@
 {
-  "_id": "inkEchoElza00001",
-  "name": "Echo of Elza",
+  "_id": "inkEchoKel000001",
+  "name": "Echo of Kel",
   "type": "npc",
-  "img": "modules/ink-flood/assets/actors/Эльза Чернильный.png",
+  "img": "modules/ink-flood/assets/actors/echo-kel.png",
   "system": {
     "abilities": {
       "str": { "value": 13, "proficient": 0 },
@@ -16,12 +16,12 @@
       "ac": { "flat": 14, "calc": "flat" },
       "hp": { "value": 38, "max": 38, "formula": "7d8 + 7" },
       "init": { "ability": "dex", "bonus": "" },
-      "movement": { "walk": 30, "units": "ft" },
+      "movement": { "walk": 35, "units": "ft" },
       "prof": 2,
       "spellcasting": ""
     },
     "details": {
-      "biography": { "value": "<p>Двойник погибшей настоятельницы. Голос Эльзы. Глаза затянуты чернилами, на щеках — чёрные слёзы. На груди — деревянный медальон солнечного диска, истекающий чернильной плёнкой.</p>" },
+      "biography": { "value": "<p>Двойник погибшего НИП. Внешне — он. Голос — его. Только глаза затянуты чернилами, и кожа на ощупь — как мокрая бумага. Партия видит знакомое лицо. Это часть цены.</p><p>Прообраз: молодой вор, повешенный на эшафоте.</p>" },
       "cr": 2,
       "type": { "value": "aberration", "subtype": "echo", "swarm": "", "custom": "" },
       "alignment": "—",
@@ -43,55 +43,53 @@
   },
   "items": [
     {
-      "_id": "echElzaTouch00001",
-      "name": "Чернильное прикосновение",
+      "_id": "echKelKnife000001",
+      "name": "Отчаянный нож",
       "type": "weapon",
-      "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
+      "img": "icons/weapons/daggers/dagger-jeweled-purple.webp",
       "system": {
-        "description": { "value": "<p>Базовая атака.</p>" },
+        "description": { "value": "<p>Тонкий чернильный клинок дрожит в руках. Колющая атака с дополнительным некрот-уроном.</p>" },
         "activation": { "type": "action", "cost": 1 },
         "range": { "value": 5, "units": "ft" },
         "target": { "value": 1, "type": "creature" },
         "actionType": "mwak",
-        "damage": { "parts": [["1d6", "necrotic"]] },
-        "weaponType": "natural",
+        "damage": { "parts": [["1d4 + 2", "piercing"], ["1d6", "necrotic"]] },
+        "weaponType": "simpleM",
         "proficient": true,
         "equipped": true,
-        "ability": "str"
+        "ability": "dex"
       }
     },
     {
-      "_id": "echElzaPrayer0001",
-      "name": "Молитва Отрицания (1/бой)",
+      "_id": "echKelDisengage01",
+      "name": "Отход (бонусное действие)",
       "type": "feat",
-      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+      "img": "icons/skills/movement/feet-winged-boots-yellow.webp",
       "system": {
-        "description": { "value": "<p>Все ПС в 20 фт делают сейв Мудрость DC 13. Провал — немой 1 раунд (нет вербальных компонентов). Изо рта Оттиска вырывается клубок чернильного дыма, опадает каплями на пол.</p>" },
-        "activation": { "type": "action", "cost": 1 },
-        "uses": { "value": 1, "max": "1", "per": "charges", "recovery": "" },
-        "save": { "ability": "wis", "dc": 13, "scaling": "flat" },
+        "description": { "value": "<p>Бонусным действием совершает действие Отход — пытается уйти, не сражаться. Кель не хочет драки, он хочет убежать.</p>" },
+        "activation": { "type": "bonus", "cost": 1 },
         "type": { "value": "monster" }
       }
     },
     {
-      "_id": "echRecognition002",
+      "_id": "echRecognition001",
       "name": "Узнавание",
       "type": "feat",
       "img": "icons/magic/perception/eye-ringed-glow-angry-purple.webp",
       "system": {
-        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку. Только первый раз.</p>" },
+        "description": { "value": "<p>Когда ПС впервые атакует Оттиска — сейв Мудрость DC 12. Провал: помеха на эту атаку (рука дрогнула). Только первый раз.</p>" },
         "activation": { "type": "special", "cost": null },
         "save": { "ability": "wis", "dc": 12, "scaling": "flat" },
         "type": { "value": "monster" }
       }
     },
     {
-      "_id": "echElzaDecay00001",
+      "_id": "echKelDecay000001",
       "name": "Распад",
       "type": "feat",
       "img": "icons/magic/death/hand-withered-skeleton-purple.webp",
       "system": {
-        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую Эльза не успела сказать.</p>" },
+        "description": { "value": "<p>При 0 HP рассыпается с фразой, которую прообраз никогда не успел сказать. Лорный пинок (см. банк фраз).</p>" },
         "activation": { "type": "special", "cost": null },
         "type": { "value": "monster" }
       }
@@ -99,10 +97,10 @@
   ],
   "effects": [],
   "prototypeToken": {
-    "name": "Echo of Elza",
+    "name": "Echo of Kel",
     "displayName": 20,
     "actorLink": false,
-    "texture": { "src": "modules/ink-flood/assets/actors/Эльза Чернильный.png", "scaleX": 1, "scaleY": 1 },
+    "texture": { "src": "modules/ink-flood/assets/actors/echo-kel.png", "scaleX": 1, "scaleY": 1 },
     "width": 1,
     "height": 1,
     "disposition": -1,
@@ -111,6 +109,6 @@
     "sight": { "enabled": false }
   },
   "flags": {
-    "ink-flood": { "encounterId": "echo-elza", "echoOf": "elza" }
+    "ink-flood": { "encounterId": "echo-kel", "echoOf": "kel" }
   }
 }

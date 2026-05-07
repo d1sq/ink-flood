@@ -1,0 +1,117 @@
+{
+  "_id": "npcNagel00000001",
+  "name": "Victor Nagel",
+  "type": "npc",
+  "img": "modules/ink-flood/assets/actors/actor-4.png",
+  "system": {
+    "abilities": {
+      "str": { "value": 13, "proficient": 0 },
+      "dex": { "value": 16, "proficient": 0 },
+      "con": { "value": 13, "proficient": 0 },
+      "int": { "value": 12, "proficient": 0 },
+      "wis": { "value": 13, "proficient": 0 },
+      "cha": { "value": 11, "proficient": 0 }
+    },
+    "attributes": {
+      "ac": { "flat": 15, "calc": "flat" },
+      "hp": { "value": 33, "max": 33, "formula": "6d8 + 6" },
+      "init": { "ability": "dex", "bonus": "+3" },
+      "movement": { "walk": 30, "units": "ft" },
+      "prof": 2,
+      "spellcasting": ""
+    },
+    "details": {
+      "biography": { "value": "<p>Профессиональный убийца. Серый плащ, серые глаза, серое лицо — из тех, кого забываешь сразу. Двигается плавно. Перчатки никогда не снимает. Убивает как работу — без угроз, без слов. Если загнан — попытается уйти, жизнь дороже контракта. Скрытная атака +2d6. Убегает при 50% HP.</p>" },
+      "cr": 2,
+      "type": { "value": "humanoid", "subtype": "human", "swarm": "", "custom": "" },
+      "alignment": "Нейтральный",
+      "source": { "custom": "Чернильный потоп" }
+    },
+    "traits": {
+      "size": "med",
+      "di": { "value": [], "custom": "" },
+      "dr": { "value": [], "custom": "" },
+      "dv": { "value": [], "custom": "" },
+      "ci": { "value": [], "custom": "" },
+      "languages": { "value": ["common"], "custom": "" }
+    },
+    "skills": {
+      "ste": { "value": 2, "ability": "dex" },
+      "acr": { "value": 1, "ability": "dex" },
+      "per": { "value": 1, "ability": "wis" },
+      "dec": { "value": 1, "ability": "cha" }
+    }
+  },
+  "items": [
+    {
+      "_id": "nagPoisonDagger01",
+      "name": "Poisoned Dagger",
+      "type": "weapon",
+      "img": "icons/weapons/daggers/dagger-curved-purple.webp",
+      "system": {
+        "description": { "value": "<p>Кинжал с ядом. При попадании — сейв Тел DC 13, провал = 2d6 ядовитого урона.</p>" },
+        "activation": { "type": "action", "cost": 1 },
+        "range": { "value": 5, "units": "ft" },
+        "target": { "value": 1, "type": "creature" },
+        "actionType": "mwak",
+        "damage": { "parts": [["1d4 + 3", "piercing"], ["2d6", "poison"]] },
+        "save": { "ability": "con", "dc": 13, "scaling": "flat" },
+        "weaponType": "simpleM",
+        "proficient": true,
+        "equipped": true,
+        "ability": "dex",
+        "properties": { "fin": true, "lgt": true, "thr": true }
+      }
+    },
+    {
+      "_id": "nagMultiAttack001",
+      "name": "Мультиатака",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-blade-knife-blue.webp",
+      "system": {
+        "description": { "value": "<p>Нагель совершает две атаки кинжалом за действие.</p>" },
+        "activation": { "type": "action", "cost": 1 },
+        "type": { "value": "monster" }
+      }
+    },
+    {
+      "_id": "nagSneakAttack001",
+      "name": "Скрытная атака",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-dagger-stealth-purple.webp",
+      "system": {
+        "description": { "value": "<p>Раз за ход — +2d6 урона при атаке с преимуществом или если союзник в 5 фт от цели.</p>" },
+        "activation": { "type": "special", "cost": null },
+        "type": { "value": "monster" }
+      }
+    },
+    {
+      "_id": "nagStuddedLeather1",
+      "name": "Studded Leather Armor",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-leather-banded-brown.webp",
+      "system": {
+        "description": { "value": "<p>Клёпаный кожаный доспех.</p>" },
+        "armor": { "value": 12, "type": "light", "dex": null },
+        "proficient": true,
+        "equipped": true
+      }
+    }
+  ],
+  "effects": [],
+  "prototypeToken": {
+    "name": "Victor Nagel",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": { "src": "modules/ink-flood/assets/actors/actor-4.png", "scaleX": 1, "scaleY": 1 },
+    "width": 1,
+    "height": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": { "attribute": "attributes.hp" },
+    "sight": { "enabled": false }
+  },
+  "flags": {
+    "ink-flood": { "npcId": "nagel" }
+  }
+}
